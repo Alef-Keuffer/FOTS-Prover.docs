@@ -44,7 +44,6 @@
 <span class="kn">from</span> <span class="nn">pysmt.shortcuts</span> <span class="kn">import</span> <span class="n">Symbol</span><span class="p">,</span> <span class="n">Not</span><span class="p">,</span> <span class="n">And</span><span class="p">,</span> <span class="n">Or</span><span class="p">,</span> <span class="n">EqualsOrIff</span><span class="p">,</span> <span class="n">Implies</span><span class="p">,</span> <span class="n">Portfolio</span><span class="p">,</span> <span class="n">binary_interpolant</span><span class="p">,</span> <span class="n">BVToNatural</span><span class="p">,</span> \
     <span class="n">get_model</span><span class="p">,</span> <span class="n">is_valid</span><span class="p">,</span> <span class="n">FALSE</span><span class="p">,</span> <span class="n">get_env</span>
 <span class="kn">from</span> <span class="nn">pysmt.shortcuts</span> <span class="kn">import</span> <span class="n">is_sat</span><span class="p">,</span> <span class="n">is_unsat</span><span class="p">,</span> <span class="n">Solver</span><span class="p">,</span> <span class="n">TRUE</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 
 <span class="kn">from</span> <span class="nn">pysmt.solvers.msat</span> <span class="kn">import</span> <span class="n">MSatInterpolator</span>
 
@@ -59,7 +58,7 @@
     <span class="k">return</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">@</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">(),</span> <span class="n">t</span><span class="p">),</span> <span class="n">v</span><span class="o">.</span><span class="n">symbol_type</span><span class="p">())</span></div>
 
 
-<div class="viewcode-block" id="get_subs"><a class="viewcode-back" href="../backend.html#backend.get_subs">[docs]</a><span class="k">def</span> <span class="nf">get_subs</span><span class="p">(</span><span class="n">P</span><span class="p">:</span> <span class="n">FNode</span> <span class="o">|</span> <span class="n">Container</span><span class="p">[</span><span class="n">FNode</span><span class="p">],</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<div class="viewcode-block" id="get_subs"><a class="viewcode-back" href="../backend.html#backend.get_subs">[docs]</a><span class="k">def</span> <span class="nf">get_subs</span><span class="p">(</span><span class="n">P</span><span class="p">:</span> <span class="n">Container</span><span class="p">[</span><span class="n">FNode</span><span class="p">]</span> <span class="o">|</span> <span class="n">FNode</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Builds a map from :math:`x` to :math:`x_i` and from :math:`x&#39;` to :math:`x_{i+1}`,</span>
 <span class="sd">    for all :math:`x` in :math:`P`.</span>
@@ -76,7 +75,7 @@
 <div class="viewcode-block" id="get_unrolling"><a class="viewcode-back" href="../backend.html#backend.get_unrolling">[docs]</a><span class="k">def</span> <span class="nf">get_unrolling</span><span class="p">(</span><span class="n">P</span><span class="p">:</span> <span class="n">FNode</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Unrolling of the property from :math:`j` to :math:`k`:</span>
 
-<span class="sd">    E.g. :math:`P^j ∧ P^{j+1} ∧ ⋯ ∧ P^{k-1} ∧ P^k`</span>
+<span class="sd">    I.e. :math:`P^j ∧ P^{j+1} ∧ ⋯ ∧ P^{k-1} ∧ P^k`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">assert</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">k</span>
     <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
@@ -103,7 +102,7 @@
         <span class="k">return</span> <span class="n">get_unrolling</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trans</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="BMCInduction"><a class="viewcode-back" href="../backend.html#backend.BMCInduction">[docs]</a><span class="k">class</span> <span class="nc">BMCInduction</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="BMCInduction"><a class="viewcode-back" href="../backend.html#backend.BMCInduction">[docs]</a><span class="k">class</span> <span class="nc">BMCInduction</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">system</span> <span class="o">=</span> <span class="n">system</span>
 
@@ -165,7 +164,7 @@
                 <span class="k">return</span></div></div>
 
 
-<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">unique</span><span class="p">,</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">auto</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">auto</span>
 
 
 <div class="viewcode-block" id="Status"><a class="viewcode-back" href="../backend.html#backend.Status">[docs]</a><span class="k">class</span> <span class="nc">Status</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
@@ -252,12 +251,16 @@
                 <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="IMC"><a class="viewcode-back" href="../backend.html#backend.IMC">[docs]</a><span class="k">class</span> <span class="nc">IMC</span><span class="p">:</span>
+<div class="viewcode-block" id="IMC"><a class="viewcode-back" href="../backend.html#backend.IMC">[docs]</a><span class="k">def</span> <span class="nf">IMC</span><span class="p">(</span><span class="n">TS</span><span class="p">:</span> <span class="n">TransitionSystem</span><span class="p">,</span>
+        <span class="n">P</span><span class="p">:</span> <span class="n">FNode</span><span class="p">,</span>
+        <span class="n">S</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">customInterpolator</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Interpolating Model Checking</span>
 
 <span class="sd">    As specified at S. Fulvio Rollini, “Craig Interpolation and Proof Manipulation:</span>
 <span class="sd">    Theory and Applications to Model Checking,” Università della Svizzera Italiana. p. 38.</span>
+<span class="sd">    available at http://verify.inf.usi.ch/sites/default/files/RolliniPhDThesis.pdf</span>
 
 <span class="sd">    A property to be verified is encoded as a formula :math:`P` , so that the system is safe if the</span>
 <span class="sd">    error states where :math:`¬P` holds are not reachable from :math:`S`.</span>
@@ -275,68 +278,63 @@
 <span class="sd">    and bounded model checking (BMC), is based on iteratively building such a :math:`\\hat P`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">system</span><span class="p">:</span> <span class="n">TransitionSystem</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">system</span> <span class="o">=</span> <span class="n">system</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">S</span><span class="p">:</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="n">TS</span><span class="o">.</span><span class="n">init</span>
 
-<div class="viewcode-block" id="IMC.check_property"><a class="viewcode-back" href="../backend.html#backend.IMC.check_property">[docs]</a>    <span class="k">def</span> <span class="nf">check_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">P</span><span class="p">:</span> <span class="n">FNode</span><span class="p">,</span> <span class="n">S</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">customInterpolator</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="c1"># based on Algorithm 4 from http://verify.inf.usi.ch/sites/default/files/RolliniPhDThesis.pdf at p. 38</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">S</span><span class="p">:</span>
-            <span class="n">S</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">init</span>
+    <span class="c1"># first makes sure P is not violated by S</span>
+    <span class="k">if</span> <span class="n">m</span> <span class="o">:=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">S</span> <span class="o">&amp;</span> <span class="n">Not</span><span class="p">(</span><span class="n">P</span><span class="p">)):</span>
+        <span class="c1"># halt return a counterexample</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Status</span><span class="o">.</span><span class="n">UNSAFE1</span>
 
-        <span class="c1"># first makes sure P is not violated by S</span>
-        <span class="k">if</span> <span class="n">m</span> <span class="o">:=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">S</span> <span class="o">&amp;</span> <span class="n">Not</span><span class="p">(</span><span class="n">P</span><span class="p">)):</span>
-            <span class="c1"># halt return a counterexample</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">Status</span><span class="o">.</span><span class="n">UNSAFE1</span>
+    <span class="c1"># bound</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>
 
-        <span class="c1"># bound</span>
-        <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="c1"># overapproximation of states at distance at most i from S</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">R_i</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span><span class="n">TS</span><span class="o">.</span><span class="n">get_subs</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
 
-        <span class="c1"># overapproximation of states at distance at most i from S</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">R_i</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">get_subs</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
-
-        <span class="c1"># for a bound k and a current overapproximation R(i) of the states</span>
-        <span class="c1"># at distance at most i from S , the algorithm checks if P is violated</span>
-        <span class="c1"># by the states reachable from R(i) in at most k steps.</span>
-        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-            <span class="n">A</span> <span class="o">=</span> <span class="n">R_i</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">get_unrolling</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-            <span class="n">B</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span><span class="n">And</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">get_unrolling</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="p">)),</span> <span class="n">Or</span><span class="p">(</span><span class="n">get_unrolling</span><span class="p">(</span><span class="n">Not</span><span class="p">(</span><span class="n">P</span><span class="p">),</span> <span class="n">k</span><span class="p">)))</span>
-            <span class="k">if</span> <span class="n">m</span> <span class="o">:=</span> <span class="n">is_sat</span><span class="p">(</span><span class="n">A</span> <span class="o">&amp;</span> <span class="n">B</span><span class="p">):</span>
-                <span class="c1"># the error might be real or spurious, caused by an insufficient value of k</span>
-                <span class="k">if</span> <span class="n">is_valid</span><span class="p">(</span><span class="n">R_i</span><span class="o">.</span><span class="n">EqualsOrIff</span><span class="p">(</span><span class="n">S</span><span class="p">)):</span>
-                    <span class="c1"># error is real so the system is unsafe</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-                    <span class="k">return</span> <span class="n">Status</span><span class="o">.</span><span class="n">UNSAFE2</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="c1"># error is spurious so k is increased to allow finer overapproximations, and</span>
-                    <span class="c1"># the algorithm restarts from S.</span>
-                    <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
-                    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-                    <span class="n">R_i</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">get_subs</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
-            <span class="c1"># R(i) ⋀_{j=0}^{k−1} T^j ⋁_{l=0}^k ¬P^l is unsat </span>
+    <span class="c1"># for a bound k and a current overapproximation R(i) of the states</span>
+    <span class="c1"># at distance at most i from S , the algorithm checks if P is violated</span>
+    <span class="c1"># by the states reachable from R(i) in at most k steps.</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">R_i</span> <span class="o">&amp;</span> <span class="n">TS</span><span class="o">.</span><span class="n">get_unrolling</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span><span class="n">And</span><span class="p">(</span><span class="n">TS</span><span class="o">.</span><span class="n">get_unrolling</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="p">)),</span> <span class="n">Or</span><span class="p">(</span><span class="n">get_unrolling</span><span class="p">(</span><span class="n">Not</span><span class="p">(</span><span class="n">P</span><span class="p">),</span> <span class="n">k</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">m</span> <span class="o">:=</span> <span class="n">is_sat</span><span class="p">(</span><span class="n">A</span> <span class="o">&amp;</span> <span class="n">B</span><span class="p">):</span>
+            <span class="c1"># the error might be real or spurious, caused by an insufficient value of k</span>
+            <span class="k">if</span> <span class="n">is_valid</span><span class="p">(</span><span class="n">R_i</span><span class="o">.</span><span class="n">EqualsOrIff</span><span class="p">(</span><span class="n">S</span><span class="p">)):</span>
+                <span class="c1"># error is real so the system is unsafe</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">Status</span><span class="o">.</span><span class="n">UNSAFE2</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># an interpolant I(i) is computed, which represents an approximation</span>
-                <span class="c1"># of the image of R(i) (i.e., of the states reachable from R(i) in one step).</span>
-                <span class="k">if</span> <span class="n">customInterpolator</span><span class="p">:</span>
-                    <span class="n">I_i</span> <span class="o">=</span> <span class="n">bin_itp</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">I_i</span> <span class="o">=</span> <span class="n">binary_interpolant</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+                <span class="c1"># error is spurious so k is increased to allow finer overapproximations, and</span>
+                <span class="c1"># the algorithm restarts from S.</span>
+                <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">R_i</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span><span class="n">TS</span><span class="o">.</span><span class="n">get_subs</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="c1"># R(i) ⋀_{j=0}^{k−1} T^j ⋁_{l=0}^k ¬P^l is unsat </span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># an interpolant I(i) is computed, which represents an approximation</span>
+            <span class="c1"># of the image of R(i) (i.e., of the states reachable from R(i) in one step).</span>
+            <span class="k">if</span> <span class="n">customInterpolator</span><span class="p">:</span>
+                <span class="n">I_i</span> <span class="o">=</span> <span class="n">bin_itp</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">I_i</span> <span class="o">=</span> <span class="n">binary_interpolant</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
 
-                <span class="c1"># a fixpoint check is carried out: if I(i) |= R(i), it means that</span>
-                <span class="c1"># all states have been covered, and the system is safe; otherwise,</span>
-                <span class="c1"># R(i + 1) is set to R(i) ∨ I(i) and the procedure continues.</span>
-                <span class="k">if</span> <span class="n">is_valid</span><span class="p">(</span><span class="n">I_i</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">R_i</span><span class="p">)):</span>
-                    <span class="c1"># the current R(i) corresponds to an inductive invariant P̂</span>
-                    <span class="c1"># stronger than P: on one side, S |= R(i), moreover R(i) ∧ T |= I&#39;(i)</span>
-                    <span class="c1"># and I(i) |= R(i) imply R(i) ∧ T |= R&#39;(i); on the other side,</span>
-                    <span class="c1"># the fact that at each iteration 0 ≤ h ≤ i, R(h) ∧ ⋀_{j=0}^{k−1} T |= ⋀_{l=0}^k P^l,</span>
-                    <span class="c1"># together with R(i) being an inductive invariant, yield R(i) |= P.</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Proved at step </span><span class="si">{</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                    <span class="k">return</span> <span class="n">Status</span><span class="o">.</span><span class="n">SAFE</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">R_i</span> <span class="o">=</span> <span class="n">R_i</span> <span class="o">|</span> <span class="n">I_i</span>
-                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span></div></div>
+            <span class="c1"># a fixpoint check is carried out: if I(i) |= R(i), it means that</span>
+            <span class="c1"># all states have been covered, and the system is safe; otherwise,</span>
+            <span class="c1"># R(i + 1) is set to R(i) ∨ I(i) and the procedure continues.</span>
+            <span class="k">if</span> <span class="n">is_valid</span><span class="p">(</span><span class="n">I_i</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">R_i</span><span class="p">)):</span>
+                <span class="c1"># the current R(i) corresponds to an inductive invariant P̂</span>
+                <span class="c1"># stronger than P: on one side, S |= R(i), moreover R(i) ∧ T |= I&#39;(i)</span>
+                <span class="c1"># and I(i) |= R(i) imply R(i) ∧ T |= R&#39;(i); on the other side,</span>
+                <span class="c1"># the fact that at each iteration 0 ≤ h ≤ i, R(h) ∧ ⋀_{j=0}^{k−1} T |= ⋀_{l=0}^k P^l,</span>
+                <span class="c1"># together with R(i) being an inductive invariant, yield R(i) |= P.</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Proved at step </span><span class="si">{</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">Status</span><span class="o">.</span><span class="n">SAFE</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">R_i</span> <span class="o">=</span> <span class="n">R_i</span> <span class="o">|</span> <span class="n">I_i</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span></div>
 
 
 <div class="viewcode-block" id="get_or_and"><a class="viewcode-back" href="../backend.html#backend.get_or_and">[docs]</a><span class="k">def</span> <span class="nf">get_or_and</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
@@ -364,7 +362,7 @@
     <span class="k">return</span> <span class="n">binary_interpolant</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="pdr"><a class="viewcode-back" href="../backend.html#backend.pdr">[docs]</a><span class="k">def</span> <span class="nf">pdr</span><span class="p">(</span><span class="n">P</span><span class="p">:</span> <span class="n">FNode</span><span class="p">,</span>
+<div class="viewcode-block" id="PDR"><a class="viewcode-back" href="../backend.html#backend.PDR">[docs]</a><span class="k">def</span> <span class="nf">PDR</span><span class="p">(</span><span class="n">P</span><span class="p">:</span> <span class="n">FNode</span><span class="p">,</span>
         <span class="n">TS</span><span class="p">:</span> <span class="n">TransitionSystem</span><span class="p">,</span>
         <span class="n">get_currently_known_invariant</span><span class="o">=...</span><span class="p">,</span>
         <span class="n">strengthen</span><span class="o">=...</span><span class="p">,</span>
@@ -531,22 +529,20 @@
     <span class="kn">from</span> <span class="nn">util.examples.trab4</span> <span class="kn">import</span> <span class="n">trab4EvenMoreSimplified</span><span class="p">,</span> <span class="n">trab4FinalSimplification</span><span class="p">,</span> <span class="n">trab4NoImplies</span>
     <span class="n">example</span> <span class="o">=</span> <span class="n">trab4NoImplies</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
     <span class="n">bmcind</span> <span class="o">=</span> <span class="n">BMCInduction</span><span class="p">(</span><span class="n">example</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">interp</span> <span class="o">=</span> <span class="n">IMC</span><span class="p">(</span><span class="n">example</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">example</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;proving </span><span class="si">{</span><span class="n">prop</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="c1"># bmcind.check_property(prop[0])</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">interp</span><span class="o">.</span><span class="n">check_property</span><span class="p">(</span><span class="n">prop</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span></div>
+        <span class="nb">print</span><span class="p">(</span><span class="n">IMC</span><span class="p">(</span><span class="n">example</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">prop</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span></div>
 
 
 <div class="viewcode-block" id="trab4CustomInterpolator"><a class="viewcode-back" href="../backend.html#backend.trab4CustomInterpolator">[docs]</a><span class="k">def</span> <span class="nf">trab4CustomInterpolator</span><span class="p">():</span>
     <span class="kn">from</span> <span class="nn">util.examples.trab4</span> <span class="kn">import</span> <span class="n">trab4EvenMoreSimplified</span><span class="p">,</span> <span class="n">trab4FinalSimplification</span><span class="p">,</span> <span class="n">trab4NoImplies</span>
     <span class="n">example</span> <span class="o">=</span> <span class="n">trab4NoImplies</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">pc_is_bv</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">bmcind</span> <span class="o">=</span> <span class="n">BMCInduction</span><span class="p">(</span><span class="n">example</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">interp</span> <span class="o">=</span> <span class="n">IMC</span><span class="p">(</span><span class="n">example</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">example</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;proving </span><span class="si">{</span><span class="n">prop</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="c1"># bmcind.check_property(prop[0])</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">interp</span><span class="o">.</span><span class="n">check_property</span><span class="p">(</span><span class="n">prop</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">customInterpolator</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></div>
+        <span class="nb">print</span><span class="p">(</span><span class="n">IMC</span><span class="p">(</span><span class="n">example</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">prop</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">customInterpolator</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="interp"><a class="viewcode-back" href="../backend.html#backend.interp">[docs]</a><span class="k">def</span> <span class="nf">interp</span><span class="p">(</span><span class="n">P</span><span class="p">:</span> <span class="n">FNode</span><span class="p">,</span> <span class="n">Q</span><span class="p">:</span> <span class="n">FNode</span><span class="p">):</span>

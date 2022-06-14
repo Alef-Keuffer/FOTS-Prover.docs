@@ -85,13 +85,13 @@ each time encodes a different state</p>
 
 </dd></dl>
 
-<dl class="py class">
+<dl class="py function">
 <dt class="sig sig-object py" id="backend.IMC">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">IMC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">system</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#IMC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.IMC" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Interpolating Model Checking</p>
+<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">IMC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">S</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customInterpolator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#IMC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.IMC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interpolating Model Checking</p>
 <p>As specified at S. Fulvio Rollini, “Craig Interpolation and Proof Manipulation:
-Theory and Applications to Model Checking,” Università della Svizzera Italiana. p. 38.</p>
+Theory and Applications to Model Checking,” Università della Svizzera Italiana. p. 38.
+available at <a class="reference external" href="http://verify.inf.usi.ch/sites/default/files/RolliniPhDThesis.pdf">http://verify.inf.usi.ch/sites/default/files/RolliniPhDThesis.pdf</a></p>
 <p>A property to be verified is encoded as a formula <span class="math notranslate nohighlight">\(P\)</span> , so that the system is safe if the
 error states where <span class="math notranslate nohighlight">\(¬P\)</span> holds are not reachable from <span class="math notranslate nohighlight">\(S\)</span>.</p>
 <p>Verifying that the system satisfies <span class="math notranslate nohighlight">\(P\)</span> reduces to prove
@@ -104,11 +104,53 @@ inductiveness of <span class="math notranslate nohighlight">\(P\)</span> cannot 
 formula <span class="math notranslate nohighlight">\(\hat P\)</span>, stronger than <span class="math notranslate nohighlight">\(P ( \hat P |= P )\)</span>, is an inductive invariant,
 from which <span class="math notranslate nohighlight">\(P\)</span> would follow as a consequence; this algorithm, which combines interpolation
 and bounded model checking (BMC), is based on iteratively building such a <span class="math notranslate nohighlight">\(\hat P\)</span>.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="backend.IMC.check_property">
-<span class="sig-name descname"><span class="pre">check_property</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">S</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customInterpolator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#IMC.check_property"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.IMC.check_property" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="backend.PDR">
+<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">PDR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_currently_known_invariant=Ellipsis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strengthen=Ellipsis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lift=Ellipsis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_init=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_max=inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pd=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inc=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#PDR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.PDR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterative-Deepening k-Induction with Property Direction
+as specified at D. Beyer and M. Dangl, “Software Verification with PDR: Implementation and Empirical Evaluation of the State of the Art,” arXiv:1908.06271 [cs], Feb. 2020, Accessed: Mar. 05, 2022. [Online]. Available: http://arxiv.org/abs/1908.06271</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k_init</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – the initial value <span class="math notranslate nohighlight">\(≥1\)</span> for the bound <cite>k</cite></p></li>
+<li><p><strong>k_max</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – an upper limit for the bound <cite>k</cite></p></li>
+<li><p><strong>inc</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – a function <span class="math notranslate nohighlight">\(ℕ → ℕ\)</span> such that <span class="math notranslate nohighlight">\(∀n ∈ ℕ: inc(n) &gt; n\)</span></p></li>
+<li><p><strong>TS</strong> (<a class="reference internal" href="#backend.TransitionSystem" title="backend.TransitionSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionSystem</span></code></a>) – Contains predicates defining the initial states and the transfer relation</p></li>
+<li><p><strong>P</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">FNode</span></code>) – The safety property</p></li>
+<li><p><strong>get_currently_known_invariant</strong> – used to obtain the strongest invariant currently
+available via a concurrently running (external) auxiliary-invariant generator</p></li>
+<li><p><strong>pd</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – boolean flag pd (reminding of “property-directed”) is used to control
+whether failed induction checks are used to guide the algorithm towards
+a sufficient strengthening of the safety property P to prove correctness;
+if pd is set to false, the algorithm behaves exactly like standard k-induction.</p></li>
+<li><p><strong>lift</strong> – <p>Given a failed attempt to prove some candidate invariant <span class="math notranslate nohighlight">\(Q\)</span> by induction,
+the function lift is used to obtain from a concrete counterexample-to-induction (CTI)
+state a set of CTI states described by a state predicate C. An implementation of the function
+<span class="math notranslate nohighlight">\(k ∈ ℕ, \Inv ∈ ℕ × (S → 𝔹) × (S → 𝔹) × S → (S → 𝔹)\)</span> and <span class="math notranslate nohighlight">\(C = \lift(k, \Inv , Q, s)\)</span>,
+lift needs to satisfy the condition that for a CTI <span class="math notranslate nohighlight">\(s ∈ S\)</span> where <span class="math notranslate nohighlight">\(S\)</span> is the set of
+program states, the following holds:</p>
+<div class="math notranslate nohighlight">
+\[C(s) ∧ \left( ∀s_n ∈ S: C(s_n) ⇒ \Inv(s_n) ∧ ⋀_{i=n}^{n+k−1} (Q(s_i) ∧ T(s_i ,s_{i+1})) ⇒ ¬Q(s_{n+k}) \right)\]</div>
+<p>which means that the CTI s must be an element of the set of states described by the resulting predicate
+C and that all states in this set must be CTIs, i.e., they need to be k-predecessors of <span class="math notranslate nohighlight">\(¬Q\)</span>-states,
+or in other words, each state in the set of states described by the predicate <span class="math notranslate nohighlight">\(C\)</span> must reach some
+<span class="math notranslate nohighlight">\(¬Q\)</span>-state via <span class="math notranslate nohighlight">\(k\)</span> unrollings of the transition relation <span class="math notranslate nohighlight">\(T\)</span>.</p>
+</p></li>
+<li><p><strong>strengthen</strong> – The function strengthen: <span class="math notranslate nohighlight">\(ℕ × (S → 𝔹) × (S → 𝔹) → (S → 𝔹)\)</span>
+is used to obtain for a k-inductive invariant a stronger k-inductive invariant, i.e.,
+its result needs to imply the input invariant, and, just like the input invariant,
+it must not be violated within k loop iterations and must be k-inductive.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code> | <a class="reference internal" href="#backend.Status" title="backend.Status"><code class="xref py py-class docutils literal notranslate"><span class="pre">Status</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>True</cite> if <cite>P</cite> holds, <cite>Status.UNKNOWN</cite> if <cite>k &gt; k_max</cite> , <cite>False</cite> otherwise</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py class">
@@ -239,7 +281,7 @@ for all <span class="math notranslate nohighlight">\(x\)</span> in <span class="
 <dt class="sig sig-object py" id="backend.get_unrolling">
 <span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">get_unrolling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#get_unrolling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.get_unrolling" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unrolling of the property from <span class="math notranslate nohighlight">\(j\)</span> to <span class="math notranslate nohighlight">\(k\)</span>:</p>
-<p>E.g. <span class="math notranslate nohighlight">\(P^j ∧ P^{j+1} ∧ ⋯ ∧ P^{k-1} ∧ P^k\)</span></p>
+<p>I.e. <span class="math notranslate nohighlight">\(P^j ∧ P^{j+1} ∧ ⋯ ∧ P^{k-1} ∧ P^k\)</span></p>
 </dd></dl>
 
 <dl class="py function">
@@ -266,53 +308,6 @@ for all <span class="math notranslate nohighlight">\(x\)</span> in <span class="
 <dt class="sig sig-object py" id="backend.next_var">
 <span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">next_var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#next_var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.next_var" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the ‘next’ of the given variable</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="backend.pdr">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">pdr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_currently_known_invariant=Ellipsis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strengthen=Ellipsis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lift=Ellipsis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_init=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_max=inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pd=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inc=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#pdr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.pdr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Iterative-Deepening k-Induction with Property Direction
-as specified at D. Beyer and M. Dangl, “Software Verification with PDR: Implementation and Empirical Evaluation of the State of the Art,” arXiv:1908.06271 [cs], Feb. 2020, Accessed: Mar. 05, 2022. [Online]. Available: http://arxiv.org/abs/1908.06271</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>k_init</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – the initial value <span class="math notranslate nohighlight">\(≥1\)</span> for the bound <cite>k</cite></p></li>
-<li><p><strong>k_max</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – an upper limit for the bound <cite>k</cite></p></li>
-<li><p><strong>inc</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – a function <span class="math notranslate nohighlight">\(ℕ → ℕ\)</span> such that <span class="math notranslate nohighlight">\(∀n ∈ ℕ: inc(n) &gt; n\)</span></p></li>
-<li><p><strong>TS</strong> (<a class="reference internal" href="#backend.TransitionSystem" title="backend.TransitionSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionSystem</span></code></a>) – Contains predicates defining the initial states and the transfer relation</p></li>
-<li><p><strong>P</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">FNode</span></code>) – The safety property</p></li>
-<li><p><strong>get_currently_known_invariant</strong> – used to obtain the strongest invariant currently
-available via a concurrently running (external) auxiliary-invariant generator</p></li>
-<li><p><strong>pd</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – boolean flag pd (reminding of “property-directed”) is used to control
-whether failed induction checks are used to guide the algorithm towards
-a sufficient strengthening of the safety property P to prove correctness;
-if pd is set to false, the algorithm behaves exactly like standard k-induction.</p></li>
-<li><p><strong>lift</strong> – <p>Given a failed attempt to prove some candidate invariant <span class="math notranslate nohighlight">\(Q\)</span> by induction,
-the function lift is used to obtain from a concrete counterexample-to-induction (CTI)
-state a set of CTI states described by a state predicate C. An implementation of the function
-<span class="math notranslate nohighlight">\(k ∈ ℕ, \Inv ∈ ℕ × (S → 𝔹) × (S → 𝔹) × S → (S → 𝔹)\)</span> and <span class="math notranslate nohighlight">\(C = \lift(k, \Inv , Q, s)\)</span>,
-lift needs to satisfy the condition that for a CTI <span class="math notranslate nohighlight">\(s ∈ S\)</span> where <span class="math notranslate nohighlight">\(S\)</span> is the set of
-program states, the following holds:</p>
-<div class="math notranslate nohighlight">
-\[C(s) ∧ \left( ∀s_n ∈ S: C(s_n) ⇒ \Inv(s_n) ∧ ⋀_{i=n}^{n+k−1} (Q(s_i) ∧ T(s_i ,s_{i+1})) ⇒ ¬Q(s_{n+k}) \right)\]</div>
-<p>which means that the CTI s must be an element of the set of states described by the resulting predicate
-C and that all states in this set must be CTIs, i.e., they need to be k-predecessors of <span class="math notranslate nohighlight">\(¬Q\)</span>-states,
-or in other words, each state in the set of states described by the predicate <span class="math notranslate nohighlight">\(C\)</span> must reach some
-<span class="math notranslate nohighlight">\(¬Q\)</span>-state via <span class="math notranslate nohighlight">\(k\)</span> unrollings of the transition relation <span class="math notranslate nohighlight">\(T\)</span>.</p>
-</p></li>
-<li><p><strong>strengthen</strong> – The function strengthen: <span class="math notranslate nohighlight">\(ℕ × (S → 𝔹) × (S → 𝔹) → (S → 𝔹)\)</span>
-is used to obtain for a k-inductive invariant a stronger k-inductive invariant, i.e.,
-its result needs to imply the input invariant, and, just like the input invariant,
-it must not be violated within k loop iterations and must be k-inductive.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code> | <a class="reference internal" href="#backend.Status" title="backend.Status"><code class="xref py py-class docutils literal notranslate"><span class="pre">Status</span></code></a></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><cite>True</cite> if <cite>P</cite> holds, <cite>Status.UNKNOWN</cite> if <cite>k &gt; k_max</cite> , <cite>False</cite> otherwise</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py function">
