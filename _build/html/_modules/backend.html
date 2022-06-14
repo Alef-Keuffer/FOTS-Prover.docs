@@ -376,15 +376,14 @@
         <span class="n">O</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
         <span class="c1"># begin: base-case check (BMC)</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        # Base Case. The base case of k -induction consists of running BMC with the</span>
-<span class="sd">        # current bound k. 4 This means that starting from all initial program states, all</span>
-<span class="sd">        # states of the program reachable within at most k −1 unwindings of the transition</span>
-<span class="sd">        # relation are explored. If a ¬P -state is found, the algorithm terminates.</span>
-<span class="sd">        base_case = get_unrolling(TS.init, 0, 0) &amp; get_or_and(TS.trans, Not(P), k - 1)</span>
-<span class="sd">        if is_sat(base_case):</span>
-<span class="sd">            return False</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#</span>
+        <span class="c1"># Base Case. The base case of k -induction consists of running BMC with the</span>
+        <span class="c1"># current bound k. 4 This means that starting from all initial program states, all</span>
+        <span class="c1"># states of the program reachable within at most k −1 unwindings of the transition</span>
+        <span class="c1"># relation are explored. If a ¬P -state is found, the algorithm terminates.</span>
+        <span class="n">base_case</span> <span class="o">=</span> <span class="n">get_unrolling</span><span class="p">(</span><span class="n">TS</span><span class="o">.</span><span class="n">init</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">get_or_and</span><span class="p">(</span><span class="n">TS</span><span class="o">.</span><span class="n">trans</span><span class="p">,</span> <span class="n">Not</span><span class="p">(</span><span class="n">P</span><span class="p">),</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_sat</span><span class="p">(</span><span class="n">base_case</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
         <span class="c1"># end ################################################################</span>
 
         <span class="c1"># begin: forward-condition check (as described in Sec. 2)</span>
