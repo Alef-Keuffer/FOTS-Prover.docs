@@ -42,9 +42,7 @@
 
 <span class="kn">from</span> <span class="nn">pysmt.fnode</span> <span class="kn">import</span> <span class="n">FNode</span>
 <span class="kn">from</span> <span class="nn">pysmt.shortcuts</span> <span class="kn">import</span> <span class="n">Symbol</span><span class="p">,</span> <span class="n">Not</span><span class="p">,</span> <span class="n">And</span><span class="p">,</span> <span class="n">Or</span><span class="p">,</span> <span class="n">EqualsOrIff</span><span class="p">,</span> <span class="n">Implies</span><span class="p">,</span> <span class="n">Portfolio</span><span class="p">,</span> <span class="n">binary_interpolant</span><span class="p">,</span> <span class="n">BVToNatural</span><span class="p">,</span> \
-    <span class="n">get_model</span><span class="p">,</span> <span class="n">is_valid</span><span class="p">,</span> <span class="n">FALSE</span><span class="p">,</span> <span class="n">get_env</span>
-<span class="kn">from</span> <span class="nn">pysmt.shortcuts</span> <span class="kn">import</span> <span class="n">is_sat</span><span class="p">,</span> <span class="n">is_unsat</span><span class="p">,</span> <span class="n">Solver</span><span class="p">,</span> <span class="n">TRUE</span>
-
+    <span class="n">get_model</span><span class="p">,</span> <span class="n">is_valid</span><span class="p">,</span> <span class="n">FALSE</span><span class="p">,</span> <span class="n">get_env</span><span class="p">,</span> <span class="n">is_sat</span><span class="p">,</span> <span class="n">is_unsat</span><span class="p">,</span> <span class="n">Solver</span><span class="p">,</span> <span class="n">TRUE</span>
 <span class="kn">from</span> <span class="nn">pysmt.solvers.msat</span> <span class="kn">import</span> <span class="n">MSatInterpolator</span>
 
 
@@ -374,7 +372,7 @@
         <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">Status</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Iterative-Deepening k-Induction with Property Direction</span>
-<span class="sd">    as specified at D. Beyer and M. Dangl, “Software Verification with PDR: Implementation and Empirical Evaluation of the State of the Art,” arXiv:1908.06271 [cs], Feb. 2020, Accessed: Mar. 05, 2022. [Online]. Available: http://arxiv.org/abs/1908.06271</span>
+<span class="sd">    as specified at D. Beyer and M. Dangl, “Software Verification with PDR: Implementation and Empirical Evaluation of the State of the Art,” arXiv:1908.06271 [cs], Feb. 2020, Accessed: Mar. 05, 2022. [Online]. Available: https://arxiv.org/abs/1908.06271</span>
 
 <span class="sd">    :param k_init: the initial value :math:`≥1` for the bound `k`</span>
 <span class="sd">    :param k_max: an upper limit for the bound `k`</span>
