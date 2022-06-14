@@ -90,6 +90,20 @@ each time encodes a different state</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">IMC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">system</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#IMC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.IMC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Interpolating Model Checking</p>
+<p>As specified at S. Fulvio Rollini, “Craig Interpolation and Proof Manipulation:
+Theory and Applications to Model Checking,” Università della Svizzera Italiana. p. 38.</p>
+<p>A property to be verified is encoded as a formula <span class="math notranslate nohighlight">\(P\)</span> , so that the system is safe if the
+error states where <span class="math notranslate nohighlight">\(¬P\)</span> holds are not reachable from <span class="math notranslate nohighlight">\(S\)</span>.</p>
+<p>Verifying that the system satisfies <span class="math notranslate nohighlight">\(P\)</span> reduces to prove
+that <span class="math notranslate nohighlight">\(P\)</span> is an inductive invariant property:</p>
+<div class="math notranslate nohighlight">
+\[S ⊨ P\qquad P ∧ T ⊨ P'\]</div>
+<p>If (i) the initial states satisfy <span class="math notranslate nohighlight">\(P\)</span> and, (ii) assuming <span class="math notranslate nohighlight">\(P\)</span> holds, it also holds after
+applying the transition relation, then <span class="math notranslate nohighlight">\(P\)</span> holds in all reachable states. When the
+inductiveness of <span class="math notranslate nohighlight">\(P\)</span> cannot be directly proved, it might be possible to show that another
+formula <span class="math notranslate nohighlight">\(\hat P\)</span>, stronger than <span class="math notranslate nohighlight">\(P ( \hat P |= P )\)</span>, is an inductive invariant,
+from which <span class="math notranslate nohighlight">\(P\)</span> would follow as a consequence; this algorithm, which combines interpolation
+and bounded model checking (BMC), is based on iteratively building such a <span class="math notranslate nohighlight">\(\hat P\)</span>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="backend.IMC.check_property">
 <span class="sig-name descname"><span class="pre">check_property</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">S</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customInterpolator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#IMC.check_property"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.IMC.check_property" title="Permalink to this definition">¶</a></dt>
