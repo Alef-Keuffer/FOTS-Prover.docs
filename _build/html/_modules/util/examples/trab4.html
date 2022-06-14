@@ -1,0 +1,369 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>util.examples.trab4 &#8212; FOTS-Prover  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/agogo.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../../../index.html">FOTS-Prover  documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for util.examples.trab4</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pysmt.shortcuts</span> <span class="kn">import</span> <span class="n">Symbol</span><span class="p">,</span> <span class="n">And</span><span class="p">,</span> <span class="n">Or</span><span class="p">,</span> <span class="n">BVToNatural</span>
+
+<span class="kn">from</span> <span class="nn">backend</span> <span class="kn">import</span> <span class="n">TransitionSystem</span><span class="p">,</span> <span class="n">next_var</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">assume m &gt;= 0 and n &gt;= 0 and r == 0 and x == m and y == n</span>
+<span class="sd">0: while y &gt; 0:</span>
+<span class="sd">1:    if y &amp; 1 == 1: </span>
+<span class="sd">            y , r  = y-1 , r+x</span>
+<span class="sd">2:    x , y = x&lt;&lt;1  ,  y&gt;&gt;1</span>
+<span class="sd">3: assert r == m * n</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="trab4NoImplies"><a class="viewcode-back" href="../../../util.examples.html#util.examples.trab4.trab4NoImplies">[docs]</a><span class="k">def</span> <span class="nf">trab4NoImplies</span><span class="p">(</span><span class="n">bit_count</span><span class="p">,</span> <span class="n">pc_is_bv</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pysmt.typing</span> <span class="kn">import</span> <span class="n">BVType</span><span class="p">,</span> <span class="n">INT</span>
+
+    <span class="c1"># Variables</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">pc_is_bv</span><span class="p">:</span>
+        <span class="n">pc</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;pc&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">pc</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;pc&quot;</span><span class="p">,</span> <span class="n">INT</span><span class="p">)</span>
+
+    <span class="n">npc</span> <span class="o">=</span> <span class="n">next_var</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span>
+    <span class="n">ny</span> <span class="o">=</span> <span class="n">next_var</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">nx</span> <span class="o">=</span> <span class="n">next_var</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">nr</span> <span class="o">=</span> <span class="n">next_var</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+    <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">nx</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">ny</span><span class="p">,</span> <span class="n">r</span><span class="p">:</span> <span class="n">nr</span><span class="p">,</span> <span class="n">pc</span><span class="p">:</span> <span class="n">npc</span><span class="p">}</span>
+
+    <span class="n">t</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">And</span><span class="p">([</span><span class="n">d</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">s</span><span class="p">])</span>
+    <span class="c1"># pc = 0 ∧ y &gt; 0 ∧ pc′ = 1                  enters WHILE</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">t</span><span class="p">({</span><span class="n">pc</span><span class="p">})</span>
+    <span class="c1"># pc = 0 ∧ y ≤ 0 ∧ pc′ = 3                 doesn&#39;t enters WHILE</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">t</span><span class="p">({</span><span class="n">pc</span><span class="p">})</span>
+    <span class="c1"># pc = 1 ∧ y &amp; 1 = 1 ∧ y′ = y − 1 ∧ r′ = r + x ∧ pc′ = 2      IF condition is true</span>
+    <span class="n">p3</span> <span class="o">=</span> <span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">ny</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">nr</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">t</span><span class="p">({</span><span class="n">pc</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span><span class="p">})</span>
+    <span class="c1"># pc = 1 ∧ y &amp; 1 ≠ 1 ∧ pc′ = 2                      IF condition is false</span>
+    <span class="n">p4</span> <span class="o">=</span> <span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">NotEquals</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">t</span><span class="p">({</span><span class="n">pc</span><span class="p">})</span>
+    <span class="c1"># pc = 2 ∧ y′ = y &gt;&gt; 1 ∧ x′ = x &lt;&lt; 1 ∧ pc′ = 0      loop back after attributions</span>
+    <span class="n">p5</span> <span class="o">=</span> <span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">nx</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">ny</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">y</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">t</span><span class="p">({</span><span class="n">pc</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">})</span>
+    <span class="c1"># pc = 3 ∧ pc ′ = 3         end of program</span>
+    <span class="n">p6</span> <span class="o">=</span> <span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">t</span><span class="p">({})</span>
+
+    <span class="n">pre</span> <span class="o">=</span> <span class="p">((</span><span class="n">m</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="c1"># m ≥ 0</span>
+           <span class="p">(</span><span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="c1"># n ≥ 0</span>
+           <span class="n">r</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="c1"># r = 0</span>
+           <span class="n">x</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="c1"># x = m</span>
+           <span class="n">y</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># y = n</span>
+           <span class="p">)</span>
+
+    <span class="n">init</span> <span class="o">=</span> <span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">pre</span>
+
+    <span class="n">trans</span> <span class="o">=</span> <span class="n">Or</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">,</span> <span class="n">p5</span><span class="p">,</span> <span class="n">p6</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">pc_is_bv</span><span class="p">:</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">pc</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="p">(</span><span class="n">BVToNatural</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">-</span> <span class="n">pc</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span>
+    <span class="n">prop_positivo</span> <span class="o">=</span> <span class="n">V</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+    <span class="n">prop_terminacao</span> <span class="o">=</span> <span class="p">(</span><span class="n">V</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">)))</span>
+    <span class="n">invariant</span> <span class="o">=</span> <span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">prop_pre_implies_inv</span> <span class="o">=</span> <span class="n">pre</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">invariant</span><span class="p">)</span>
+    <span class="n">prop_cond3</span> <span class="o">=</span> <span class="p">(</span><span class="n">invariant</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">trans</span><span class="p">)</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+    <span class="n">prop_cond3_2</span> <span class="o">=</span> <span class="p">(</span><span class="n">invariant</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+
+    <span class="n">inv_prop_cond3</span> <span class="o">=</span> <span class="p">(</span><span class="n">invariant</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span>
+    <span class="n">subprop</span> <span class="o">=</span> <span class="p">(</span><span class="n">invariant</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">trans</span><span class="p">)</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>  <span class="c1"># falso como????</span>
+    <span class="n">mypost</span> <span class="o">=</span> <span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span>  <span class="c1"># nao consegue</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">TransitionSystem</span><span class="p">(</span><span class="n">init</span><span class="p">,</span> <span class="n">trans</span><span class="p">),</span>
+        <span class="p">[(</span><span class="n">prop_positivo</span><span class="p">,</span> <span class="s2">&quot;prop_positivo&quot;</span><span class="p">),</span>
+         <span class="p">(</span><span class="n">prop_terminacao</span><span class="p">,</span> <span class="s2">&quot;prop_terminacao&quot;</span><span class="p">),</span>
+         <span class="p">(</span><span class="n">prop_pre_implies_inv</span><span class="p">,</span> <span class="s2">&quot;prop_pre_implies_inv&quot;</span><span class="p">),</span>
+         <span class="p">(</span><span class="n">prop_cond3</span><span class="p">,</span> <span class="s2">&quot;prop_cond3&quot;</span><span class="p">),</span>
+         <span class="p">(</span><span class="n">mypost</span><span class="p">,</span> <span class="s2">&quot;mypost&quot;</span><span class="p">),</span>
+         <span class="p">(</span><span class="n">subprop</span><span class="p">,</span> <span class="s2">&quot;subprop&quot;</span><span class="p">),</span>
+         <span class="p">(</span><span class="n">inv_prop_cond3</span><span class="p">,</span> <span class="s2">&quot;inv_prop_cond3&quot;</span><span class="p">),</span>
+         <span class="p">(</span><span class="n">prop_cond3_2</span><span class="p">,</span> <span class="s2">&quot;prop_cond3_2&quot;</span><span class="p">)])</span></div>
+
+
+<div class="viewcode-block" id="trab4Simplified"><a class="viewcode-back" href="../../../util.examples.html#util.examples.trab4.trab4Simplified">[docs]</a><span class="k">def</span> <span class="nf">trab4Simplified</span><span class="p">(</span><span class="n">bit_count</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pysmt.typing</span> <span class="kn">import</span> <span class="n">BVType</span>
+
+    <span class="c1"># Variables</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="n">pc</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;pc&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+
+    <span class="n">npc</span> <span class="o">=</span> <span class="n">next_var</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span>
+    <span class="n">ny</span> <span class="o">=</span> <span class="n">next_var</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">nx</span> <span class="o">=</span> <span class="n">next_var</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">nr</span> <span class="o">=</span> <span class="n">next_var</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+    <span class="kn">from</span> <span class="nn">util.transition_deprecated</span> <span class="kn">import</span> <span class="n">T_v1</span>
+    <span class="n">T_v1</span><span class="p">(</span><span class="n">variables</span><span class="o">=</span><span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">nr</span><span class="p">,</span> <span class="n">pc</span><span class="p">,</span> <span class="n">npc</span><span class="p">])</span>
+
+    <span class="c1"># pc = 0 ∧ y &gt; 0 ∧ pc′ = 1                  enters WHILE</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">T_v1</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">),</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="c1"># pc = 0 ∧ y ≤ 0 ∧ pc′ = 3                 doesn&#39;t enters WHILE</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">T_v1</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">),</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+    <span class="c1"># pc = 1 ∧ y &amp; 1 = 1 ∧ y′ = y − 1 ∧ r′ = r + x ∧ pc′ = 2      IF condition is true</span>
+    <span class="n">p3</span> <span class="o">=</span> <span class="n">T_v1</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">ny</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">nr</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="n">x</span><span class="p">))</span>
+    <span class="c1"># pc = 1 ∧ y &amp; 1 ≠ 1 ∧ pc′ = 2                      IF condition is false</span>
+    <span class="n">p4</span> <span class="o">=</span> <span class="n">T_v1</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">NotEquals</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+    <span class="c1"># pc = 2 ∧ y′ = y &gt;&gt; 1 ∧ x′ = x &lt;&lt; 1 ∧ pc′ = 0      loop back after attributions</span>
+    <span class="n">p5</span> <span class="o">=</span> <span class="n">T_v1</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">nx</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">ny</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">y</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="c1"># pc = 3 ∧ pc ′ = 3         end of program</span>
+    <span class="n">p6</span> <span class="o">=</span> <span class="n">T_v1</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+
+    <span class="n">pre</span> <span class="o">=</span> <span class="p">((</span><span class="n">m</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="c1"># m ≥ 0</span>
+           <span class="p">(</span><span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="c1"># n ≥ 0</span>
+           <span class="n">r</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="c1"># r = 0</span>
+           <span class="n">x</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="c1"># x = m</span>
+           <span class="n">y</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># y = n</span>
+           <span class="p">)</span>
+
+    <span class="n">init</span> <span class="o">=</span> <span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">pre</span>
+
+    <span class="n">trans</span> <span class="o">=</span> <span class="n">Or</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">,</span> <span class="n">p5</span><span class="p">,</span> <span class="n">p6</span><span class="p">)</span>
+
+    <span class="n">V</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">pc</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span>
+    <span class="n">prop_positivo</span> <span class="o">=</span> <span class="n">V</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+    <span class="n">prop_terminacao</span> <span class="o">=</span> <span class="p">(</span><span class="n">V</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">)))</span>
+    <span class="n">invariant</span> <span class="o">=</span> <span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">prop_pre_implies_inv</span> <span class="o">=</span> <span class="n">pre</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">invariant</span><span class="p">)</span>
+    <span class="n">prop_cond3</span> <span class="o">=</span> <span class="p">(</span><span class="n">invariant</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">pc</span><span class="o">.</span><span class="n">NotEquals</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">subprop</span> <span class="o">=</span> <span class="p">(</span><span class="n">invariant</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>  <span class="c1"># falso como????</span>
+    <span class="n">mypost</span> <span class="o">=</span> <span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span>  <span class="c1"># nao consegue</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">TransitionSystem</span><span class="p">(</span><span class="n">init</span><span class="p">,</span> <span class="n">trans</span><span class="p">),</span>
+        <span class="p">[</span><span class="n">prop_positivo</span><span class="p">,</span> <span class="n">prop_terminacao</span><span class="p">,</span> <span class="n">prop_pre_implies_inv</span><span class="p">,</span> <span class="n">prop_cond3</span><span class="p">,</span> <span class="n">mypost</span><span class="p">,</span> <span class="n">subprop</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="prog4"><a class="viewcode-back" href="../../../util.examples.html#util.examples.trab4.prog4">[docs]</a><span class="k">def</span> <span class="nf">prog4</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">m</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">n</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">assert</span> <span class="n">m</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">r</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">==</span> <span class="n">m</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">==</span> <span class="n">n</span>
+
+    <span class="n">s</span> <span class="o">=</span> <span class="k">lambda</span><span class="p">:</span> <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">{</span><span class="s1">&#39;r&#39;</span><span class="p">:</span> <span class="n">r</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">:</span> <span class="n">m</span><span class="p">,</span> <span class="s1">&#39;n&#39;</span><span class="p">:</span> <span class="n">n</span><span class="p">}</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+
+    <span class="k">while</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;start cycle: </span><span class="si">{</span><span class="n">s</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">y</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">r</span> <span class="o">+=</span> <span class="n">x</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;after if: </span><span class="si">{</span><span class="n">s</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span>
+        <span class="n">y</span> <span class="o">&gt;&gt;=</span> <span class="mi">1</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;after cycle: </span><span class="si">{</span><span class="n">s</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">r</span> <span class="o">==</span> <span class="n">m</span> <span class="o">*</span> <span class="n">n</span></div>
+
+
+<div class="viewcode-block" id="trab4EvenMoreSimplified"><a class="viewcode-back" href="../../../util.examples.html#util.examples.trab4.trab4EvenMoreSimplified">[docs]</a><span class="k">def</span> <span class="nf">trab4EvenMoreSimplified</span><span class="p">(</span><span class="n">bit_count</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pysmt.typing</span> <span class="kn">import</span> <span class="n">BVType</span>
+
+    <span class="c1"># Variables</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="n">pc</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;pc&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+
+    <span class="n">npc</span> <span class="o">=</span> <span class="n">next_var</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span>
+    <span class="n">ny</span> <span class="o">=</span> <span class="n">next_var</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">nx</span> <span class="o">=</span> <span class="n">next_var</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">nr</span> <span class="o">=</span> <span class="n">next_var</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+    <span class="kn">from</span> <span class="nn">util.transition</span> <span class="kn">import</span> <span class="n">TS</span>
+
+    <span class="c1"># pc = 0 ∧ y &gt; 0 -&gt; pc′ = 1                  enters WHILE</span>
+    <span class="n">TS</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">),</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="c1"># pc = 0 ∧ y ≤ 0 -&gt; pc′ = 3                 doesn&#39;t enters WHILE</span>
+    <span class="n">TS</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">),</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+    <span class="c1"># pc = 1 ∧ y &amp; 1 = 1 -&gt; y′ = y − 1 ∧ r′ = r + x ∧ pc′ = 2      IF condition is true</span>
+    <span class="n">TS</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">ny</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">nr</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="n">x</span><span class="p">))</span>
+    <span class="c1"># pc = 1 ∧ y &amp; 1 ≠ 1 -&gt; pc′ = 2                      IF condition is false</span>
+    <span class="n">TS</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">NotEquals</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+    <span class="c1"># pc = 2 -&gt; y′ = y &gt;&gt; 1 ∧ x′ = x &lt;&lt; 1 ∧ pc′ = 0      loop back after attributions</span>
+    <span class="n">TS</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">nx</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">ny</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">y</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="c1"># pc = 3         end of program</span>
+    <span class="n">TS</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+
+    <span class="n">pre</span> <span class="o">=</span> <span class="p">((</span><span class="n">m</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="c1"># m ≥ 0</span>
+           <span class="p">(</span><span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="c1"># n ≥ 0</span>
+           <span class="n">r</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="c1"># r = 0</span>
+           <span class="n">x</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="c1"># x = m</span>
+           <span class="n">y</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># y = n</span>
+           <span class="p">)</span>
+
+    <span class="n">init</span> <span class="o">=</span> <span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">pre</span>
+
+    <span class="n">V</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">pc</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span>
+    <span class="n">prop_positivo</span> <span class="o">=</span> <span class="n">V</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+    <span class="n">prop_terminacao</span> <span class="o">=</span> <span class="p">(</span><span class="n">V</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">)))</span>
+    <span class="n">invariant</span> <span class="o">=</span> <span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">prop_pre_implies_inv</span> <span class="o">=</span> <span class="n">pre</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">invariant</span><span class="p">)</span>
+    <span class="n">prop_cond3</span> <span class="o">=</span> <span class="p">(</span><span class="n">invariant</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">pc</span><span class="o">.</span><span class="n">NotEquals</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">mypost</span> <span class="o">=</span> <span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span>  <span class="c1"># nao consegue</span>
+    <span class="n">subprop</span> <span class="o">=</span> <span class="p">(</span><span class="n">invariant</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>  <span class="c1"># falso como????</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">TransitionSystem</span><span class="p">(</span><span class="n">init</span><span class="p">,</span> <span class="n">TS</span><span class="p">()),</span>
+        <span class="p">[</span><span class="n">prop_positivo</span><span class="p">,</span> <span class="n">prop_terminacao</span><span class="p">,</span> <span class="n">prop_pre_implies_inv</span><span class="p">,</span> <span class="n">prop_cond3</span><span class="p">,</span> <span class="n">mypost</span><span class="p">,</span> <span class="n">subprop</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="trab4FinalSimplification"><a class="viewcode-back" href="../../../util.examples.html#util.examples.trab4.trab4FinalSimplification">[docs]</a><span class="k">def</span> <span class="nf">trab4FinalSimplification</span><span class="p">(</span><span class="n">bit_count</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pysmt.typing</span> <span class="kn">import</span> <span class="n">BVType</span>
+
+    <span class="c1"># Variables</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+    <span class="n">pc</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;pc&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">))</span>
+
+    <span class="n">npc</span> <span class="o">=</span> <span class="n">next_var</span><span class="p">(</span><span class="n">pc</span><span class="p">)</span>
+    <span class="n">ny</span> <span class="o">=</span> <span class="n">next_var</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">nx</span> <span class="o">=</span> <span class="n">next_var</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">nr</span> <span class="o">=</span> <span class="n">next_var</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+    <span class="kn">from</span> <span class="nn">util.transition</span> <span class="kn">import</span> <span class="n">TransitionPredicate</span>
+
+    <span class="n">T</span> <span class="o">=</span> <span class="n">TransitionPredicate</span><span class="p">()</span>
+
+    <span class="c1"># pc = 0 ∧ y &gt; 0 -&gt; pc′ = 1                  enters WHILE</span>
+    <span class="n">T</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">),</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="c1"># pc = 0 ∧ y ≤ 0 -&gt; pc′ = 3                 doesn&#39;t enters WHILE</span>
+    <span class="n">T</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">),</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+    <span class="c1"># pc = 1 ∧ y &amp; 1 = 1 -&gt; y′ = y − 1 ∧ r′ = r + x ∧ pc′ = 2      IF condition is true</span>
+    <span class="n">T</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">ny</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">nr</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">r</span> <span class="o">+</span> <span class="n">x</span><span class="p">))</span>
+    <span class="c1"># pc = 1 ∧ y &amp; 1 ≠ 1 -&gt; pc′ = 2                      IF condition is false</span>
+    <span class="n">T</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">NotEquals</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+    <span class="c1"># pc = 2 -&gt; y′ = y &gt;&gt; 1 ∧ x′ = x &lt;&lt; 1 ∧ pc′ = 0      loop back after attributions</span>
+    <span class="n">T</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">nx</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">ny</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">y</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="c1"># pc = 3         end of program</span>
+    <span class="n">T</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+
+    <span class="n">pre</span> <span class="o">=</span> <span class="p">((</span><span class="n">m</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="c1"># m ≥ 0</span>
+           <span class="p">(</span><span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="c1"># n ≥ 0</span>
+           <span class="n">r</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="c1"># r = 0</span>
+           <span class="n">x</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">&amp;</span>  <span class="c1"># x = m</span>
+           <span class="n">y</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># y = n</span>
+           <span class="p">)</span>
+
+    <span class="n">init</span> <span class="o">=</span> <span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">pre</span>
+    <span class="n">V</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">pc</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span>
+    <span class="n">prop_positivo</span> <span class="o">=</span> <span class="n">V</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+    <span class="n">prop_terminacao</span> <span class="o">=</span> <span class="p">(</span><span class="n">V</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">)))</span>
+    <span class="n">invariant</span> <span class="o">=</span> <span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">prop_pre_implies_inv</span> <span class="o">=</span> <span class="n">pre</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">invariant</span><span class="p">)</span>
+    <span class="n">prop_cond3</span> <span class="o">=</span> <span class="p">(</span><span class="n">invariant</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+    <span class="n">mypost</span> <span class="o">=</span> <span class="n">pc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">n</span><span class="p">))</span>  <span class="c1"># nao consegue</span>
+    <span class="n">subprop</span> <span class="o">=</span> <span class="p">(</span><span class="n">invariant</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">npc</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>  <span class="c1"># falso como????</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">TransitionSystem</span><span class="p">(</span><span class="n">init</span><span class="p">,</span> <span class="n">T</span><span class="o">.</span><span class="n">get</span><span class="p">()),</span>
+        <span class="p">[(</span><span class="n">prop_positivo</span><span class="p">,</span> <span class="s2">&quot;prop_positivo&quot;</span><span class="p">),</span>
+         <span class="p">(</span><span class="n">prop_terminacao</span><span class="p">,</span> <span class="s2">&quot;prop_terminacao&quot;</span><span class="p">),</span>
+         <span class="p">(</span><span class="n">prop_pre_implies_inv</span><span class="p">,</span> <span class="s2">&quot;prop_pre_implies_inv&quot;</span><span class="p">),</span>
+         <span class="p">(</span><span class="n">prop_cond3</span><span class="p">,</span> <span class="s2">&quot;prop_cond3&quot;</span><span class="p">),</span>
+         <span class="c1"># (mypost, &quot;mypost&quot;),</span>
+         <span class="p">(</span><span class="n">subprop</span><span class="p">,</span> <span class="s2">&quot;subprop&quot;</span><span class="p">)])</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">FOTS-Prover</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../../../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="../../../py-modindex.html" title="Python Module Index"
+              >modules</a> |
+            <a href="../../../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Alef Keuffer, Alexandre Rodrigues Balde, Bruno Filipe Jardim Machado, Pedro Paulo Costa Pereira.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.1.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

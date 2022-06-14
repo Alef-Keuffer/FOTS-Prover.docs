@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>wp &#8212; FOTS-Prover  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/agogo.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">FOTS-Prover  documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for wp</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pysmt.fnode</span> <span class="kn">import</span> <span class="n">FNode</span>
+<span class="kn">from</span> <span class="nn">pysmt.shortcuts</span> <span class="kn">import</span> <span class="n">Symbol</span><span class="p">,</span> <span class="n">And</span>
+<span class="kn">from</span> <span class="nn">pysmt.typing</span> <span class="kn">import</span> <span class="n">INT</span>
+
+
+<div class="viewcode-block" id="wp_"><a class="viewcode-back" href="../wp.html#wp.wp_">[docs]</a><span class="k">def</span> <span class="nf">wp_</span><span class="p">(</span><span class="n">substitutions</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">FNode</span><span class="p">,</span> <span class="n">FNode</span><span class="p">],</span> <span class="n">formula</span><span class="p">:</span> <span class="n">FNode</span><span class="p">):</span>
+    <span class="n">freeSubs</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">substitutions</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">formula</span><span class="o">.</span><span class="n">get_free_variables</span><span class="p">()}</span>
+    <span class="k">return</span> <span class="n">formula</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span><span class="n">freeSubs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="is_next"><a class="viewcode-back" href="../wp.html#wp.is_next">[docs]</a><span class="k">def</span> <span class="nf">is_next</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s1">&#39;next(&#39;</span> <span class="o">==</span> <span class="n">s</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="ow">and</span> <span class="s1">&#39;)&#39;</span> <span class="o">==</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="prev_name"><a class="viewcode-back" href="../wp.html#wp.prev_name">[docs]</a><span class="k">def</span> <span class="nf">prev_name</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">is_next</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span><span class="p">[</span><span class="mi">5</span><span class="p">:][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="wp"><a class="viewcode-back" href="../wp.html#wp.wp">[docs]</a><span class="k">def</span> <span class="nf">wp</span><span class="p">(</span><span class="n">ns</span><span class="p">,</span> <span class="n">pos</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Based on https://www.cs.williams.edu/~freund/cs326/ReasoningPart1.html</span>
+
+<span class="sd">    We usually want to use the precondition that guarantees correctness for the broadest set of inputs.</span>
+<span class="sd">    Stated differently, we want the weakest precondition: the most general precondition needed to establish</span>
+<span class="sd">    the postcondition. The terms “weak” and “strong” refer to how general or specific an assertion is.</span>
+<span class="sd">    The weaker an assertion is, the more general it is; the stronger it is, the more specific it is.</span>
+<span class="sd">    We write P = wp(S,Q) to indicate that P is the weakest precondition for statement S and postcondition Q.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">wp</span> <span class="o">=</span> <span class="n">pos</span>
+    <span class="n">nextD</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">phi</span> <span class="ow">in</span> <span class="n">ns</span><span class="o">.</span><span class="n">get_atoms</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">phi</span><span class="o">.</span><span class="n">is_equals</span><span class="p">():</span>
+            <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">phi</span><span class="o">.</span><span class="n">_content</span><span class="o">.</span><span class="n">args</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">l</span><span class="o">.</span><span class="n">is_symbol</span><span class="p">()</span> <span class="ow">and</span> <span class="n">is_next</span><span class="p">(</span><span class="n">l</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">()):</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="n">l</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="n">r</span>
+            <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">is_symbol</span><span class="p">()</span> <span class="ow">and</span> <span class="n">is_next</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">()):</span>
+                <span class="k">if</span> <span class="n">n</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Equality between next variables&#39;</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="n">n</span> <span class="o">=</span> <span class="n">r</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="n">l</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">a</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No assignment made&#39;</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">nextD</span><span class="p">[</span><span class="n">prev_name</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">())]</span> <span class="o">=</span> <span class="n">a</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">wp</span> <span class="o">&amp;=</span> <span class="n">phi</span>
+    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">pos</span><span class="o">.</span><span class="n">get_free_variables</span><span class="p">():</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">:=</span> <span class="n">a</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">())</span> <span class="ow">in</span> <span class="n">nextD</span><span class="p">:</span>
+            <span class="n">wp</span> <span class="o">=</span> <span class="n">wp</span><span class="o">.</span><span class="n">substitute</span><span class="p">({</span><span class="n">a</span><span class="p">:</span> <span class="n">nextD</span><span class="p">[</span><span class="n">p</span><span class="p">]})</span>
+    <span class="k">return</span> <span class="n">wp</span></div>
+
+
+<div class="viewcode-block" id="example1"><a class="viewcode-back" href="../wp.html#wp.example1">[docs]</a><span class="k">def</span> <span class="nf">example1</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    example:</span>
+<span class="sd">    get</span>
+<span class="sd">    nS: x = x + 1;</span>
+<span class="sd">    pos: { x &gt; 0 }</span>
+<span class="sd">    return</span>
+<span class="sd">    wp: { x + 1 &gt; 0 }</span>
+<span class="sd">    { x + 1 &gt; 0 } = wp({ x &gt; 0 },⟦x = x + 1⟧) -&gt; { x &gt; 0 }[x+1/x]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">INT</span><span class="p">)</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">pos</span><span class="o">.</span><span class="n">substitute</span><span class="p">({</span><span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="example2"><a class="viewcode-back" href="../wp.html#wp.example2">[docs]</a><span class="k">def</span> <span class="nf">example2</span><span class="p">():</span>
+    <span class="kn">from</span> <span class="nn">backend</span> <span class="kn">import</span> <span class="n">next_var</span>
+    <span class="c1"># x = x + 1 ; assert x &gt; 0</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">INT</span><span class="p">)</span>
+    <span class="n">nx</span> <span class="o">=</span> <span class="n">next_var</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">wp</span><span class="p">(</span><span class="n">ns</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="T"><a class="viewcode-back" href="../wp.html#wp.T">[docs]</a><span class="k">class</span> <span class="nc">T</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">variables</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transitions</span> <span class="o">=</span> <span class="p">[]</span>
+
+<div class="viewcode-block" id="T.prime"><a class="viewcode-back" href="../wp.html#wp.T.prime">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">prime</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+        <span class="n">new_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">()</span><span class="si">}</span><span class="s2">′&quot;</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">()</span><span class="si">}</span><span class="s2">)′&quot;</span>
+        <span class="k">return</span> <span class="n">Symbol</span><span class="p">(</span><span class="n">new_name</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">symbol_type</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="T.add_trans"><a class="viewcode-back" href="../wp.html#wp.T.add_trans">[docs]</a>    <span class="k">def</span> <span class="nf">add_trans</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">NS</span><span class="p">):</span>
+        <span class="n">attributions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">NS</span><span class="o">.</span><span class="n">get_atoms</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">is_equals</span><span class="p">():</span>
+                <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">args</span><span class="p">()</span>
+                <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="o">.</span><span class="n">args</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">r</span><span class="p">,</span> <span class="n">r</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="o">.</span><span class="n">args</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">l</span><span class="p">)</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">r</span> <span class="k">if</span> <span class="n">l</span> <span class="o">!=</span> <span class="n">l</span> <span class="k">else</span> <span class="o">...</span></div></div>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">example2</span><span class="p">())</span>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">FOTS-Prover</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="../py-modindex.html" title="Python Module Index"
+              >modules</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Alef Keuffer, Alexandre Rodrigues Balde, Bruno Filipe Jardim Machado, Pedro Paulo Costa Pereira.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.0.1.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
