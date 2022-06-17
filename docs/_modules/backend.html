@@ -360,7 +360,7 @@
 <span class="sd">    it also holds after applying the transition relation, then :math:`P` holds in all</span>
 <span class="sd">    reachable states. When the inductiveness of :math:`P` cannot be directly proved,</span>
 <span class="sd">    it might be possible to show that another formula :math:`\\hat P`, stronger than</span>
-<span class="sd">    :math:`P ( \\hat P |= P )`, is an inductive invariant, from which :math:`P` would</span>
+<span class="sd">    :math:`P ( \\hat P ⊨ P )`, is an inductive invariant, from which :math:`P` would</span>
 <span class="sd">    follow as a consequence; this algorithm, which combines interpolation and bounded</span>
 <span class="sd">    model checking (BMC), is based on iteratively building such a :math:`\\hat P`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -546,7 +546,7 @@
 
 <span class="sd">    :param k_init: the initial value :math:`≥1` for the bound `k`</span>
 <span class="sd">    :param k_max: an upper limit for the bound `k`</span>
-<span class="sd">    :param inc: a function :math:`ℕ → ℕ` such that :math:`∀n ∈ ℕ: inc(n) &gt; n`</span>
+<span class="sd">    :param inc: a function :math:`ℕ → ℕ` such that :math:`∀n ∈ ℕ: \\inc(n) &gt; n`</span>
 <span class="sd">    :param TS: Contains predicates defining the initial states and the transfer relation</span>
 <span class="sd">    :param P: The safety property</span>
 <span class="sd">    :param get_currently_known_invariant: used to obtain the strongest invariant currently</span>

@@ -80,6 +80,7 @@ mathjax3_config = {
     "tex": {                        
         "macros": {                 
             "Inv": '{\\operatorname{Inv}}',
+            "inc": '{\\operatorname{inc}}',
             "lift": '{\\operatorname{lift}}',
             "strenghten": '{\\operatorname{strenghten}}',
             }                       

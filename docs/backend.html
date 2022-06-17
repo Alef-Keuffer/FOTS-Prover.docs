@@ -16,7 +16,7 @@
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"Inv": "{\\operatorname{Inv}}", "lift": "{\\operatorname{lift}}", "strenghten": "{\\operatorname{strenghten}}"}}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"Inv": "{\\operatorname{Inv}}", "inc": "{\\operatorname{inc}}", "lift": "{\\operatorname{lift}}", "strenghten": "{\\operatorname{strenghten}}"}}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
@@ -187,7 +187,7 @@ that <span class="math notranslate nohighlight">\(P\)</span> is an inductive inv
 it also holds after applying the transition relation, then <span class="math notranslate nohighlight">\(P\)</span> holds in all
 reachable states. When the inductiveness of <span class="math notranslate nohighlight">\(P\)</span> cannot be directly proved,
 it might be possible to show that another formula <span class="math notranslate nohighlight">\(\hat P\)</span>, stronger than
-<span class="math notranslate nohighlight">\(P ( \hat P |= P )\)</span>, is an inductive invariant, from which <span class="math notranslate nohighlight">\(P\)</span> would
+<span class="math notranslate nohighlight">\(P ( \hat P ⊨ P )\)</span>, is an inductive invariant, from which <span class="math notranslate nohighlight">\(P\)</span> would
 follow as a consequence; this algorithm, which combines interpolation and bounded
 model checking (BMC), is based on iteratively building such a <span class="math notranslate nohighlight">\(\hat P\)</span>.</p>
 </dd></dl>
@@ -205,7 +205,7 @@ Implementation and Empirical Evaluation of the State of the Art” arXiv:1908.06
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>k_init</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – the initial value <span class="math notranslate nohighlight">\(≥1\)</span> for the bound <cite>k</cite></p></li>
 <li><p><strong>k_max</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – an upper limit for the bound <cite>k</cite></p></li>
-<li><p><strong>inc</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – a function <span class="math notranslate nohighlight">\(ℕ → ℕ\)</span> such that <span class="math notranslate nohighlight">\(∀n ∈ ℕ: inc(n) &gt; n\)</span></p></li>
+<li><p><strong>inc</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – a function <span class="math notranslate nohighlight">\(ℕ → ℕ\)</span> such that <span class="math notranslate nohighlight">\(∀n ∈ ℕ: \inc(n) &gt; n\)</span></p></li>
 <li><p><strong>TS</strong> (<a class="reference internal" href="#backend.TransitionSystem" title="backend.TransitionSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionSystem</span></code></a>) – Contains predicates defining the initial states and the transfer relation</p></li>
 <li><p><strong>P</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">FNode</span></code>) – The safety property</p></li>
 <li><p><strong>get_currently_known_invariant</strong> – used to obtain the strongest invariant currently
