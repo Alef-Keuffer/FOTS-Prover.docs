@@ -34,7 +34,12 @@ extensions = [
     'sphinx_autodoc_typehints',
     'sphinx.ext.viewcode',
     'sphinx.ext.doctest',
+    # https://sphinx-exec-code.readthedocs.io/en/latest/configuration.html
+    'sphinx_execute_code',
 ]
+
+exec_code_working_dir = '../src'
+exec_code_folders = ['../src']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']

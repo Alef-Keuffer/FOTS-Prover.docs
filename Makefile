@@ -1,6 +1,6 @@
 # Minimal makefile for Sphinx documentation
 #
-
+SHELL := /bin/bash
 # You can set these variables from the command line, and also
 # from the environment for the first two.
 SPHINXOPTS    ?=
@@ -20,7 +20,7 @@ help:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 github:
-	@make html
+	. ../venv/bin/activate;make html
 	@cp -a _build/html/. docs
 	@git add .
 	@git commit -m .

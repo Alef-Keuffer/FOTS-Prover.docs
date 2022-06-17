@@ -227,38 +227,26 @@ it must not be violated within k loop iterations and must be k-inductive.</p></l
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="backend.example_failed_interpolation1">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">example_failed_interpolation1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#example_failed_interpolation1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.example_failed_interpolation1" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="backend.ctigar_pdr_pseudo">
+<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">ctigar_pdr_pseudo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#ctigar_pdr_pseudo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.ctigar_pdr_pseudo" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="backend.example_failed_interpolation2">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">example_failed_interpolation2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#example_failed_interpolation2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.example_failed_interpolation2" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="backend.get_assignment_as_formula">
+<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">get_assignment_as_formula</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">F</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#get_assignment_as_formula"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.get_assignment_as_formula" title="Permalink to this definition">¶</a></dt>
+<dd><p>If formula <span class="math notranslate nohighlight">\(F\)</span> is satisfiable,
+returns <span class="math notranslate nohighlight">\(⋀_{x_i ∈ \operatorname{vars}(F)} x_i ≡ v_i\)</span>,
+otherwise returns <code class="xref py py-const docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">FNode</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="backend.example_failed_interpolation3">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">example_failed_interpolation3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#example_failed_interpolation3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.example_failed_interpolation3" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="backend.example_get_logic">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">example_get_logic</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#example_get_logic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.example_get_logic" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="backend.example_interpolation">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">example_interpolation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#example_interpolation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.example_interpolation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="backend.example_interpolation2">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">example_interpolation2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#example_interpolation2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.example_interpolation2" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="backend.example_interpolation3">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">example_interpolation3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#example_interpolation3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.example_interpolation3" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="backend.get_assignment_as_formula_from_model">
+<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">get_assignment_as_formula_from_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#get_assignment_as_formula_from_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.get_assignment_as_formula_from_model" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -301,9 +289,14 @@ for all <span class="math notranslate nohighlight">\(x\)</span> in <span class="
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="backend.main">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.main" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="backend.lifting_query">
+<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">lifting_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#lifting_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.lifting_query" title="Permalink to this definition">¶</a></dt>
+<dd><p>The lifting query takes the form <span class="math notranslate nohighlight">\(s ∧ z ∧ T ∧ ¬t'\)</span>, which asks whether an <span class="math notranslate nohighlight">\(s\)</span>-state
+has a successor other than <span class="math notranslate nohighlight">\(t\)</span> under input assignment <span class="math notranslate nohighlight">\(z\)</span>. Since this is not the case
+by construction, the query yields an unsatisfiable core that typically reveals a
+significantly reduced partial assignment that can replace <span class="math notranslate nohighlight">\(s\)</span>.</p>
+<p>As per J. Birgmeier, A. R. Bradley, and G. Weissenbacher, “Counterexample to Induction-Guided Abstraction-Refinement (CTIGAR),” p.6.</p>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="backend.next_var">
@@ -312,13 +305,8 @@ for all <span class="math notranslate nohighlight">\(x\)</span> in <span class="
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="backend.trab4CustomInterpolator">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">trab4CustomInterpolator</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#trab4CustomInterpolator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.trab4CustomInterpolator" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="backend.trab4NormalInterpolator">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">trab4NormalInterpolator</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#trab4NormalInterpolator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.trab4NormalInterpolator" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="backend.pdr_pseudo">
+<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">pdr_pseudo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#pdr_pseudo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.pdr_pseudo" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </section>
