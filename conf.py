@@ -62,6 +62,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # html_theme = 'sphinx_book_theme'
 html_theme = 'python_docs_theme'
 html_show_sphinx = False
+html_experimental_html5_writer = True
 html_theme_options = {
     # 'body_min_width': 0,
     'body_max_width': False,

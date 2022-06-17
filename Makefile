@@ -19,10 +19,13 @@ help:
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-github:
+my_html:
 	@rm -r _build/html
 	. ../venv/bin/activate; make html
 	@cp -a _build/html/. docs
+
+github:
+	@make my_html
 	@git add .
 	@git commit -m .
 	@git push

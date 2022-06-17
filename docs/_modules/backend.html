@@ -127,12 +127,12 @@
 
 <div class="viewcode-block" id="next_var"><a class="viewcode-back" href="../backend.html#backend.next_var">[docs]</a><span class="k">def</span> <span class="nf">next_var</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns the &#39;next&#39; of the given variable&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;next(</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="n">v</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">(),</span> <span class="n">v</span><span class="o">.</span><span class="n">symbol_type</span><span class="p">())</span></div>
+    <span class="k">return</span> <span class="n">Symbol</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;next(</span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">()</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">symbol_type</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="at_time"><a class="viewcode-back" href="../backend.html#backend.at_time">[docs]</a><span class="k">def</span> <span class="nf">at_time</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Builds an SMT variable representing v at time t&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">Symbol</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">@</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">(),</span> <span class="n">t</span><span class="p">),</span> <span class="n">v</span><span class="o">.</span><span class="n">symbol_type</span><span class="p">())</span></div>
+    <span class="k">return</span> <span class="n">Symbol</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">()</span><span class="si">}</span><span class="s2">@</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">symbol_type</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="get_subs"><a class="viewcode-back" href="../backend.html#backend.get_subs">[docs]</a><span class="k">def</span> <span class="nf">get_subs</span><span class="p">(</span><span class="n">P</span><span class="p">:</span> <span class="n">Container</span><span class="p">[</span><span class="n">FNode</span><span class="p">]</span> <span class="o">|</span> <span class="n">FNode</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
@@ -345,23 +345,24 @@
 <span class="sd">    Interpolating Model Checking</span>
 
 <span class="sd">    As specified at S. Fulvio Rollini, “Craig Interpolation and Proof Manipulation:</span>
-<span class="sd">    Theory and Applications to Model Checking,” Università della Svizzera Italiana. p. 38.</span>
-<span class="sd">    available at https://verify.inf.usi.ch/sites/default/files/RolliniPhDThesis.pdf</span>
+<span class="sd">    Theory and Applications to Model Checking,” Università della Svizzera Italiana. p.</span>
+<span class="sd">    38. available at https://verify.inf.usi.ch/sites/default/files/RolliniPhDThesis.pdf</span>
 
-<span class="sd">    A property to be verified is encoded as a formula :math:`P` , so that the system is safe if the</span>
-<span class="sd">    error states where :math:`¬P` holds are not reachable from :math:`S`.</span>
+<span class="sd">    A property to be verified is encoded as a formula :math:`P` , so that the system is</span>
+<span class="sd">    safe if the error states where :math:`¬P` holds are not reachable from :math:`S`.</span>
 
 <span class="sd">    Verifying that the system satisfies :math:`P` reduces to prove</span>
 <span class="sd">    that :math:`P` is an inductive invariant property:</span>
 
 <span class="sd">    .. math:: S ⊨ P\\qquad P ∧ T ⊨ P&#39;</span>
 
-<span class="sd">    If (i) the initial states satisfy :math:`P` and, (ii) assuming :math:`P` holds, it also holds after</span>
-<span class="sd">    applying the transition relation, then :math:`P` holds in all reachable states. When the</span>
-<span class="sd">    inductiveness of :math:`P` cannot be directly proved, it might be possible to show that another</span>
-<span class="sd">    formula :math:`\\hat P`, stronger than :math:`P ( \\hat P |= P )`, is an inductive invariant,</span>
-<span class="sd">    from which :math:`P` would follow as a consequence; this algorithm, which combines interpolation</span>
-<span class="sd">    and bounded model checking (BMC), is based on iteratively building such a :math:`\\hat P`.</span>
+<span class="sd">    If (i) the initial states satisfy :math:`P` and, (ii) assuming :math:`P` holds,</span>
+<span class="sd">    it also holds after applying the transition relation, then :math:`P` holds in all</span>
+<span class="sd">    reachable states. When the inductiveness of :math:`P` cannot be directly proved,</span>
+<span class="sd">    it might be possible to show that another formula :math:`\\hat P`, stronger than</span>
+<span class="sd">    :math:`P ( \\hat P |= P )`, is an inductive invariant, from which :math:`P` would</span>
+<span class="sd">    follow as a consequence; this algorithm, which combines interpolation and bounded</span>
+<span class="sd">    model checking (BMC), is based on iteratively building such a :math:`\\hat P`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">S</span><span class="p">:</span>
@@ -380,9 +381,9 @@
     <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">R_i</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span><span class="n">TS</span><span class="o">.</span><span class="n">get_subs</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
 
-    <span class="c1"># for a bound k and a current overapproximation R(i) of the states</span>
-    <span class="c1"># at distance at most i from S , the algorithm checks if P is violated</span>
-    <span class="c1"># by the states reachable from R(i) in at most k steps.</span>
+    <span class="c1"># for a bound k and a current overapproximation R(i) of the states at distance at</span>
+    <span class="c1"># most i from S, the algorithm checks if P is violated by the states reachable</span>
+    <span class="c1"># from R(i) in at most k steps.</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">A</span> <span class="o">=</span> <span class="n">R_i</span> <span class="o">&amp;</span> <span class="n">TS</span><span class="o">.</span><span class="n">get_unrolling</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">B</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span><span class="n">And</span><span class="p">(</span><span class="n">TS</span><span class="o">.</span><span class="n">get_unrolling</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="p">)),</span> <span class="n">Or</span><span class="p">(</span><span class="n">get_unrolling</span><span class="p">(</span><span class="n">Not</span><span class="p">(</span><span class="n">P</span><span class="p">),</span> <span class="n">k</span><span class="p">)))</span>
@@ -393,28 +394,28 @@
                 <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">Status</span><span class="o">.</span><span class="n">UNSAFE2</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># error is spurious so k is increased to allow finer overapproximations, and</span>
-                <span class="c1"># the algorithm restarts from S.</span>
+                <span class="c1"># error is spurious so k is increased to allow finer</span>
+                <span class="c1"># overapproximations, and the algorithm restarts from S.</span>
                 <span class="n">k</span> <span class="o">+=</span> <span class="mi">1</span>
                 <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
                 <span class="n">R_i</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span><span class="n">TS</span><span class="o">.</span><span class="n">get_subs</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
-        <span class="c1"># R(i) ⋀_{j=0}^{k−1} T^j ⋁_{l=0}^k ¬P^l is unsat </span>
+        <span class="c1"># R(i) ⋀_{j=0}^{k−1} T^j ⋁_{l=0}^k ¬P^l is unsat</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># an interpolant I(i) is computed, which represents an approximation</span>
-            <span class="c1"># of the image of R(i) (i.e., of the states reachable from R(i) in one step).</span>
+            <span class="c1"># an interpolant I(i) is computed, which represents an approximation of the</span>
+            <span class="c1"># image of R(i) (i.e., of the states reachable from R(i) in one step).</span>
             <span class="k">if</span> <span class="n">customInterpolator</span><span class="p">:</span>
                 <span class="n">I_i</span> <span class="o">=</span> <span class="n">bin_itp</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">I_i</span> <span class="o">=</span> <span class="n">binary_interpolant</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
 
-            <span class="c1"># a fixpoint check is carried out: if I(i) |= R(i), it means that</span>
-            <span class="c1"># all states have been covered, and the system is safe; otherwise,</span>
-            <span class="c1"># R(i + 1) is set to R(i) ∨ I(i) and the procedure continues.</span>
+            <span class="c1"># a fixpoint check is carried out: if I(i) |= R(i), it means that all</span>
+            <span class="c1"># states have been covered, and the system is safe; otherwise, R(i + 1) is</span>
+            <span class="c1"># set to R(i) ∨ I(i) and the procedure continues.</span>
             <span class="k">if</span> <span class="n">is_valid</span><span class="p">(</span><span class="n">I_i</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">R_i</span><span class="p">)):</span>
-                <span class="c1"># the current R(i) corresponds to an inductive invariant P̂</span>
-                <span class="c1"># stronger than P: on one side, S |= R(i), moreover R(i) ∧ T |= I&#39;(i)</span>
-                <span class="c1"># and I(i) |= R(i) imply R(i) ∧ T |= R&#39;(i); on the other side,</span>
-                <span class="c1"># the fact that at each iteration 0 ≤ h ≤ i, R(h) ∧ ⋀_{j=0}^{k−1} T |= ⋀_{l=0}^k P^l,</span>
+                <span class="c1"># the current R(i) corresponds to an inductive invariant P̂ stronger</span>
+                <span class="c1"># than P: on one side, S |= R(i), moreover R(i) ∧ T |= I&#39;(i) and I(i)</span>
+                <span class="c1"># |= R(i) imply R(i) ∧ T |= R&#39;(i); on the other side, the fact that at</span>
+                <span class="c1"># each iteration 0 ≤ h ≤ i, R(h) ∧ ⋀_{j=0}^{k−1} T |= ⋀_{l=0}^k P^l,</span>
                 <span class="c1"># together with R(i) being an inductive invariant, yield R(i) |= P.</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Proved at step </span><span class="si">{</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">Status</span><span class="o">.</span><span class="n">SAFE</span>
@@ -434,7 +435,7 @@
 <div class="viewcode-block" id="get_assignment_as_formula"><a class="viewcode-back" href="../backend.html#backend.get_assignment_as_formula">[docs]</a><span class="k">def</span> <span class="nf">get_assignment_as_formula</span><span class="p">(</span><span class="n">F</span><span class="p">:</span> <span class="n">FNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">FNode</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    If formula :math:`F` is satisfiable,</span>
-<span class="sd">    returns :math:`⋀_{x_i ∈ \operatorname{vars}(F)} x_i ≡ v_i`,</span>
+<span class="sd">    returns :math:`⋀_{x_i ∈ \\operatorname{vars}(F)} x_i ≡ v_i`,</span>
 <span class="sd">    otherwise returns :const:`None`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">get_assignment_as_formula_from_model</span><span class="p">(</span><span class="n">get_model</span><span class="p">(</span><span class="n">F</span><span class="p">))</span></div>
@@ -442,12 +443,14 @@
 
 <div class="viewcode-block" id="lifting_query"><a class="viewcode-back" href="../backend.html#backend.lifting_query">[docs]</a><span class="k">def</span> <span class="nf">lifting_query</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">FNode</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="n">FNode</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The lifting query takes the form :math:`s ∧ z ∧ T ∧ ¬t&#39;`, which asks whether an :math:`s`-state</span>
-<span class="sd">    has a successor other than :math:`t` under input assignment :math:`z`. Since this is not the case</span>
-<span class="sd">    by construction, the query yields an unsatisfiable core that typically reveals a</span>
-<span class="sd">    significantly reduced partial assignment that can replace :math:`s`.</span>
+<span class="sd">    The lifting query takes the form :math:`s ∧ z ∧ T ∧ ¬t&#39;`, which asks whether an</span>
+<span class="sd">    :math:`s`-state has a successor other than :math:`t` under input assignment</span>
+<span class="sd">    :math:`z`. Since this is not the case by construction, the query yields an</span>
+<span class="sd">    unsatisfiable core that typically reveals a significantly reduced partial</span>
+<span class="sd">    assignment that can replace :math:`s`.</span>
 
-<span class="sd">    As per J. Birgmeier, A. R. Bradley, and G. Weissenbacher, “Counterexample to Induction-Guided Abstraction-Refinement (CTIGAR),” p.6.</span>
+<span class="sd">    As per J. Birgmeier, A. R. Bradley, and G. Weissenbacher, “Counterexample to</span>
+<span class="sd">    Induction-Guided Abstraction-Refinement (CTIGAR),” p.6.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">unsat_core</span> <span class="o">=</span> <span class="n">get_unsat_core</span><span class="p">([</span><span class="n">s</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Not</span><span class="p">(</span><span class="n">next_var</span><span class="p">(</span><span class="n">t</span><span class="p">))])</span>
     <span class="k">return</span> <span class="n">And</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">EqualsOrIff</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">unsat_core</span><span class="p">])</span></div>
@@ -509,13 +512,14 @@
 
 <span class="k">def</span> <span class="nf">_lift</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">Inv</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    We can implement lift using Craig interpolation</span>
-<span class="sd">    between</span>
+<span class="sd">    We can implement lift using Craig interpolation between</span>
+
 <span class="sd">    :math:`A: s = s_n` and</span>
 <span class="sd">    :math:`B: Inv (s_n) ⋀_{i=n}^{n+k-1}( Q(s_i) ∧ T(s_i, s_{i+1}) ) ⇒ ¬Q(s_n+k)`</span>
-<span class="sd">    because :math:`s` is a CTI, and therefore we know that :math:`A ⇒ B` holds.</span>
-<span class="sd">    Hence, the resulting interpolant satisfies the criteria for :math:`C` to</span>
-<span class="sd">    be a valid lifting of s according to the requirements towards the function lift.</span>
+
+<span class="sd">    because :math:`s` is a CTI, and therefore we know that :math:`A ⇒ B` holds. Hence,</span>
+<span class="sd">    the resulting interpolant satisfies the criteria for :math:`C` to be a valid</span>
+<span class="sd">    lifting of s according to the requirements towards the function lift.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">A</span> <span class="o">=</span> <span class="n">s</span> <span class="o">==</span> <span class="o">...</span>
     <span class="n">B</span> <span class="o">=</span> <span class="o">...</span>
@@ -533,9 +537,12 @@
         <span class="n">inc</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
         <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">Status</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Iterative-Deepening k-Induction with Property Direction as specified at D. Beyer and M. Dangl, “Software</span>
-<span class="sd">    Verification with PDR: Implementation and Empirical Evaluation of the State of the Art” arXiv\:1908.06271 [cs],</span>
-<span class="sd">    Feb. 2020, Accessed: Mar. 05, 2022. [Online]. Available https://arxiv.org/abs/1908.06271</span>
+<span class="sd">    Iterative-Deepening k-Induction with Property Direction.</span>
+
+<span class="sd">    As specified at D. Beyer and M. Dangl, “Software Verification with PDR:</span>
+<span class="sd">    Implementation and Empirical Evaluation of the State of the Art” arXiv\:1908.06271</span>
+<span class="sd">    [cs], Feb. 2020, Accessed: Mar. 05, 2022. [Online]. Available</span>
+<span class="sd">    https://arxiv.org/abs/1908.06271.</span>
 
 <span class="sd">    :param k_init: the initial value :math:`≥1` for the bound `k`</span>
 <span class="sd">    :param k_max: an upper limit for the bound `k`</span>
@@ -545,27 +552,32 @@
 <span class="sd">    :param get_currently_known_invariant: used to obtain the strongest invariant currently</span>
 <span class="sd">        available via a concurrently running (external) auxiliary-invariant generator</span>
 <span class="sd">    :param pd: boolean flag pd (reminding of “property-directed”) is used to control</span>
-<span class="sd">        whether failed induction checks are used to guide the algorithm towards</span>
-<span class="sd">        a sufficient strengthening of the safety property P to prove correctness;</span>
-<span class="sd">        if pd is set to false, the algorithm behaves exactly like standard k-induction.</span>
-<span class="sd">    :param lift: Given a failed attempt to prove some candidate invariant :math:`Q` by induction,</span>
-<span class="sd">        the function lift is used to obtain from a concrete counterexample-to-induction (CTI)</span>
-<span class="sd">        state a set of CTI states described by a state predicate C. An implementation of the function</span>
-<span class="sd">        :math:`k ∈ ℕ, \\Inv ∈ ℕ × (S → 𝔹) × (S → 𝔹) × S → (S → 𝔹)` and :math:`C = \\lift(k, \\Inv , Q, s)`,</span>
-<span class="sd">        lift needs to satisfy the condition that for a CTI :math:`s ∈ S` where :math:`S` is the set of</span>
+<span class="sd">        whether failed induction checks are used to guide the algorithm towards a</span>
+<span class="sd">        sufficient strengthening of the safety property P to prove correctness; if pd is</span>
+<span class="sd">        set to false, the algorithm behaves exactly like standard k-induction.</span>
+
+<span class="sd">    :param lift: Given a failed attempt to prove some candidate invariant :math:`Q` by</span>
+<span class="sd">        induction, the function lift is used to obtain from a concrete</span>
+<span class="sd">        counterexample-to-induction (CTI) state a set of CTI states described by a state</span>
+<span class="sd">        predicate C. An implementation of the function :math:`k ∈ ℕ, \\Inv ∈ ℕ × (S → 𝔹) ×</span>
+<span class="sd">        (S → 𝔹) × S → (S → 𝔹)` and :math:`C = \\lift(k, \\Inv , Q, s)`, lift needs to</span>
+<span class="sd">        satisfy the condition that for a CTI :math:`s ∈ S` where :math:`S` is the set of</span>
 <span class="sd">        program states, the following holds:</span>
 
 <span class="sd">        .. math:: C(s) ∧ \\left( ∀s_n ∈ S: C(s_n) ⇒ \\Inv(s_n) ∧ ⋀_{i=n}^{n+k−1} (Q(s_i) ∧ T(s_i ,s_{i+1})) ⇒ ¬Q(s_{n+k}) \\right)</span>
 
-<span class="sd">        which means that the CTI s must be an element of the set of states described by the resulting predicate</span>
-<span class="sd">        C and that all states in this set must be CTIs, i.e., they need to be k-predecessors of :math:`¬Q`-states,</span>
-<span class="sd">        or in other words, each state in the set of states described by the predicate :math:`C` must reach some</span>
-<span class="sd">        :math:`¬Q`-state via :math:`k` unrollings of the transition relation :math:`T`.</span>
-<span class="sd">    :param strengthen: The function strengthen: :math:`ℕ × (S → 𝔹) × (S → 𝔹) → (S → 𝔹)`</span>
-<span class="sd">        is used to obtain for a k-inductive invariant a stronger k-inductive invariant, i.e.,</span>
-<span class="sd">        its result needs to imply the input invariant, and, just like the input invariant,</span>
-<span class="sd">        it must not be violated within k loop iterations and must be k-inductive.</span>
-<span class="sd">    :return: `True` if `P` holds, `Status.UNKNOWN` if `k &gt; k_max` , `False` otherwise</span>
+<span class="sd">        which means that the CTI s must be an element of the set of states described by</span>
+<span class="sd">        the resulting predicate C and that all states in this set must be CTIs, i.e.,</span>
+<span class="sd">        they need to be k-predecessors of :math:`¬Q`-states, or in other words,</span>
+<span class="sd">        each state in the set of states described by the predicate :math:`C` must reach</span>
+<span class="sd">        some :math:`¬Q`-state via :math:`k` unrollings of the transition relation</span>
+<span class="sd">        :math:`T`.</span>
+<span class="sd">    :param strengthen: The function strengthen: :math:`ℕ × (S → 𝔹) × (S → 𝔹) → (S →</span>
+<span class="sd">        𝔹)` is used to obtain for a k-inductive invariant a stronger k-inductive</span>
+<span class="sd">        invariant, i.e., its result needs to imply the input invariant, and, just like the</span>
+<span class="sd">        input invariant, it must not be violated within k loop iterations and must be</span>
+<span class="sd">        k-inductive.</span>
+<span class="sd">    :return: `True` if `P` holds, `Status.UNKNOWN` if `k &gt; k_max` , `False` otherwise.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># current bound</span>
@@ -590,7 +602,7 @@
         <span class="n">base_case</span> <span class="o">=</span> <span class="n">get_unrolling</span><span class="p">(</span><span class="n">TS</span><span class="o">.</span><span class="n">init</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">get_or_and</span><span class="p">(</span><span class="n">TS</span><span class="o">.</span><span class="n">trans</span><span class="p">,</span> <span class="n">Not</span><span class="p">(</span><span class="n">P</span><span class="p">),</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">is_sat</span><span class="p">(</span><span class="n">base_case</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
-        <span class="c1"># end ################################################################</span>
+        <span class="c1"># end ############################################################################</span>
 
         <span class="c1"># begin: forward-condition check (as described in Sec. 2)</span>
         <span class="c1">#</span>
@@ -602,7 +614,7 @@
         <span class="n">forward_condition</span> <span class="o">=</span> <span class="n">get_unrolling</span><span class="p">(</span><span class="n">TS</span><span class="o">.</span><span class="n">init</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">TS</span><span class="o">.</span><span class="n">get_unrolling</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">is_unsat</span><span class="p">(</span><span class="n">forward_condition</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">True</span>
-        <span class="c1"># end ################################################################</span>
+        <span class="c1"># end ############################################################################</span>
 
         <span class="c1"># begin: attempt to prove each proof obligation using k-induction</span>
         <span class="k">if</span> <span class="n">pd</span><span class="p">:</span>
@@ -610,36 +622,41 @@
                 <span class="c1"># begin: check the base case for a proof obligation o</span>
                 <span class="n">base_case_o</span> <span class="o">=</span> <span class="n">get_unrolling</span><span class="p">(</span><span class="n">TS</span><span class="o">.</span><span class="n">init</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">get_or_and</span><span class="p">(</span><span class="n">TS</span><span class="o">.</span><span class="n">trans</span><span class="p">,</span> <span class="n">Not</span><span class="p">(</span><span class="n">o</span><span class="p">),</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">is_sat</span><span class="p">(</span><span class="n">base_case_o</span><span class="p">):</span>
-                    <span class="c1"># If any violations of the proof obligation o are found,</span>
-                    <span class="c1"># this means that a predecessor state of a ¬P-state,</span>
-                    <span class="c1"># and thus, transitively, a ¬P -state, is reachable, so we return false.</span>
+                    <span class="c1"># If any violations of the proof obligation o are found, this means</span>
+                    <span class="c1"># that a predecessor state of a ¬P-state, and thus, transitively,</span>
+                    <span class="c1"># a ¬P -state, is reachable, so we return false.</span>
                     <span class="k">return</span> <span class="kc">False</span>
-                <span class="c1"># end ################################################################</span>
+                <span class="c1"># end ####################################################################</span>
 
                 <span class="k">else</span><span class="p">:</span>
                     <span class="c1"># no violation was found</span>
 
                     <span class="c1"># begin: check the inductive-step case to prove o</span>
                     <span class="c1">#</span>
-                    <span class="c1"># Inductive-Step Case. The forward-condition check, however, can only prove</span>
-                    <span class="c1"># safety for programs with finite (and, in practice, short) loops. To prove safety</span>
-                    <span class="c1"># beyond the bound k, the algorithm applies induction: The inductive-step case</span>
-                    <span class="c1"># attempts to prove that after every sequence of k unrollings of the transition</span>
-                    <span class="c1"># relation that did not reach a ¬P-state, there can also be no subsequent transition</span>
-                    <span class="c1"># into a ¬P-state by unwinding the transition relation once more. In the realm</span>
-                    <span class="c1"># of model checking of software, however, the safety property P is often not</span>
-                    <span class="c1"># directly k-inductive for any value of k, thus causing the inductive-step-case check</span>
-                    <span class="c1"># to fail. It is therefore state-of-the-art practice to add auxiliary invariants to this</span>
-                    <span class="c1"># check to further strengthen the induction hypothesis and make it more likely</span>
-                    <span class="c1"># to succeed. Thus, the inductive-step case proves a program safe if the following</span>
+                    <span class="c1"># Inductive-Step Case. The forward-condition check, however,</span>
+                    <span class="c1"># can only prove safety for programs with finite (and, in practice</span>
+                    <span class="c1"># short) loops. To prove safety beyond the bound k, the algorithm</span>
+                    <span class="c1"># applies induction: The inductive-step case attempts to prove tha</span>
+                    <span class="c1"># after every sequence of k unrollings of the transition relation</span>
+                    <span class="c1"># that did not reach a ¬P-state, there can also be no subsequent</span>
+                    <span class="c1"># transition into a ¬P-state by unwinding the transition relation</span>
+                    <span class="c1"># once more. In the realm of model checking of software, however,</span>
+                    <span class="c1"># the safety property P is often not directly k-inductive for any</span>
+                    <span class="c1"># value of k, thus causing the inductive-step-case check to fail.</span>
+                    <span class="c1"># It is therefore state-of-the-art practice to add auxiliary</span>
+                    <span class="c1"># invariants to this check to further strengthen the induction</span>
+                    <span class="c1"># hypothesis and make it more likely to succeed. Thus,</span>
+                    <span class="c1"># the inductive-step case proves a program safe if the following</span>
                     <span class="c1"># condition is unsatisfiable:</span>
                     <span class="c1">#</span>
-                    <span class="c1">#           Inv(s_n) ⋀_{i=n}^{n+k-1}(P(s_i) ∧ T(s_i,s_{i+1})) ∧ ¬P(s_{n+k})</span>
+                    <span class="c1">#   Inv(s_n) ⋀_{i=n}^{n+k-1}(P(s_i) ∧ T(s_i,s_{i+1})) ∧ ¬P(s_{n+k})</span>
                     <span class="c1">#</span>
-                    <span class="c1"># where Inv is an auxiliary invariant, and sₙ,…,sₙ₊ₖ is any sequence of states. If</span>
-                    <span class="c1"># this check fails, the induction attempt is inconclusive, and the program is neither</span>
-                    <span class="c1"># proved safe nor unsafe yet with the current value of k and the given auxiliary</span>
-                    <span class="c1"># invariant. In this case, the algorithm increases the value of k and starts over.</span>
+                    <span class="c1"># where Inv is an auxiliary invariant, and sₙ,…,sₙ₊ₖ is any</span>
+                    <span class="c1"># sequence of states. If this check fails, the induction attempt is</span>
+                    <span class="c1"># inconclusive, and the program is neither proved safe nor unsafe</span>
+                    <span class="c1"># yet with the current value of k and the given auxiliary</span>
+                    <span class="c1"># invariant. In this case, the algorithm increases the value of k</span>
+                    <span class="c1"># and starts over.</span>
                     <span class="n">step_case_o_n</span> <span class="o">=</span> <span class="o">...</span>
                     <span class="n">ExternalInv</span> <span class="o">=</span> <span class="n">get_currently_known_invariant</span><span class="p">()</span>
                     <span class="n">Inv</span> <span class="o">=</span> <span class="n">InternalInv</span> <span class="o">&amp;</span> <span class="n">ExternalInv</span>
@@ -650,22 +667,23 @@
                         <span class="c1"># if the step-case check for o is successful,</span>
                         <span class="c1"># we no longer track o in the set O of unproven proof obligations</span>
 
-                        <span class="c1"># We could now directly use the proof obligation as an invariant,</span>
-                        <span class="c1"># but instead, we first try to strengthen it into a stronger invariant</span>
-                        <span class="c1"># that removes even more unreachable states from future consideration before</span>
-                        <span class="c1"># conjoining it to our internally computed auxiliary invariant. In our</span>
-                        <span class="c1"># implementation, we implement strengthen by attempting to drop components</span>
-                        <span class="c1"># from a (disjunctive) invariant and checking if the remaining clause is</span>
-                        <span class="c1"># still inductive.</span>
+                        <span class="c1"># We could now directly use the proof obligation as an</span>
+                        <span class="c1"># invariant, but instead, we first try to strengthen it into a</span>
+                        <span class="c1"># stronger invariant that removes even more unreachable states</span>
+                        <span class="c1"># from future consideration before conjoining it to our</span>
+                        <span class="c1"># internally computed auxiliary invariant. In our</span>
+                        <span class="c1"># implementation, we implement strengthen by attempting to drop</span>
+                        <span class="c1"># components from a (disjunctive) invariant and checking if the</span>
+                        <span class="c1"># remaining clause is still inductive.</span>
                         <span class="n">InternalInv</span> <span class="o">&amp;=</span> <span class="n">strengthen</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">Inv</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span>
                     <span class="c1"># end ################################################################</span>
         <span class="c1"># end: attempt to prove each proof obligation using k-induction</span>
 
         <span class="c1"># begin: check the inductive-step case for the safety property P</span>
         <span class="c1">#</span>
-        <span class="c1"># This check is mostly analogous to the inductive-step case check for</span>
-        <span class="c1"># the proof obligations described above, except that if the check is successful, we</span>
-        <span class="c1"># immediately return true.</span>
+        <span class="c1"># This check is mostly analogous to the inductive-step case check for the proof</span>
+        <span class="c1"># obligations described above, except that if the check is successful,</span>
+        <span class="c1"># we immediately return true.</span>
         <span class="n">step_case_n</span> <span class="o">=</span> <span class="o">...</span>
 
         <span class="n">ExternalInv</span> <span class="o">=</span> <span class="n">get_currently_known_invariant</span><span class="p">()</span>
@@ -676,7 +694,7 @@
                 <span class="n">O</span> <span class="o">=</span> <span class="n">O</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">Not</span><span class="p">(</span><span class="n">lift</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">Inv</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">s</span><span class="p">)))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
-        <span class="c1"># end ################################################################</span>
+        <span class="c1"># end ############################################################################</span>
 
         <span class="n">k</span> <span class="o">=</span> <span class="n">inc</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">Status</span><span class="o">.</span><span class="n">UNKNOWN</span></div>

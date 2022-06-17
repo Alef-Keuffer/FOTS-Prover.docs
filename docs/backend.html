@@ -175,28 +175,31 @@ each time encodes a different state</p>
 <span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">IMC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">S</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customInterpolator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#IMC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.IMC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interpolating Model Checking</p>
 <p>As specified at S. Fulvio Rollini, “Craig Interpolation and Proof Manipulation:
-Theory and Applications to Model Checking,” Università della Svizzera Italiana. p. 38.
-available at <a class="reference external" href="https://verify.inf.usi.ch/sites/default/files/RolliniPhDThesis.pdf">https://verify.inf.usi.ch/sites/default/files/RolliniPhDThesis.pdf</a></p>
-<p>A property to be verified is encoded as a formula <span class="math notranslate nohighlight">\(P\)</span> , so that the system is safe if the
-error states where <span class="math notranslate nohighlight">\(¬P\)</span> holds are not reachable from <span class="math notranslate nohighlight">\(S\)</span>.</p>
+Theory and Applications to Model Checking,” Università della Svizzera Italiana. p.
+38. available at <a class="reference external" href="https://verify.inf.usi.ch/sites/default/files/RolliniPhDThesis.pdf">https://verify.inf.usi.ch/sites/default/files/RolliniPhDThesis.pdf</a></p>
+<p>A property to be verified is encoded as a formula <span class="math notranslate nohighlight">\(P\)</span> , so that the system is
+safe if the error states where <span class="math notranslate nohighlight">\(¬P\)</span> holds are not reachable from <span class="math notranslate nohighlight">\(S\)</span>.</p>
 <p>Verifying that the system satisfies <span class="math notranslate nohighlight">\(P\)</span> reduces to prove
 that <span class="math notranslate nohighlight">\(P\)</span> is an inductive invariant property:</p>
 <div class="math notranslate nohighlight">
 \[S ⊨ P\qquad P ∧ T ⊨ P'\]</div>
-<p>If (i) the initial states satisfy <span class="math notranslate nohighlight">\(P\)</span> and, (ii) assuming <span class="math notranslate nohighlight">\(P\)</span> holds, it also holds after
-applying the transition relation, then <span class="math notranslate nohighlight">\(P\)</span> holds in all reachable states. When the
-inductiveness of <span class="math notranslate nohighlight">\(P\)</span> cannot be directly proved, it might be possible to show that another
-formula <span class="math notranslate nohighlight">\(\hat P\)</span>, stronger than <span class="math notranslate nohighlight">\(P ( \hat P |= P )\)</span>, is an inductive invariant,
-from which <span class="math notranslate nohighlight">\(P\)</span> would follow as a consequence; this algorithm, which combines interpolation
-and bounded model checking (BMC), is based on iteratively building such a <span class="math notranslate nohighlight">\(\hat P\)</span>.</p>
+<p>If (i) the initial states satisfy <span class="math notranslate nohighlight">\(P\)</span> and, (ii) assuming <span class="math notranslate nohighlight">\(P\)</span> holds,
+it also holds after applying the transition relation, then <span class="math notranslate nohighlight">\(P\)</span> holds in all
+reachable states. When the inductiveness of <span class="math notranslate nohighlight">\(P\)</span> cannot be directly proved,
+it might be possible to show that another formula <span class="math notranslate nohighlight">\(\hat P\)</span>, stronger than
+<span class="math notranslate nohighlight">\(P ( \hat P |= P )\)</span>, is an inductive invariant, from which <span class="math notranslate nohighlight">\(P\)</span> would
+follow as a consequence; this algorithm, which combines interpolation and bounded
+model checking (BMC), is based on iteratively building such a <span class="math notranslate nohighlight">\(\hat P\)</span>.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="backend.PDR">
 <span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">PDR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_currently_known_invariant=Ellipsis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strengthen=Ellipsis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lift=Ellipsis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_init=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_max=inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pd=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inc=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#PDR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.PDR" title="Permalink to this definition">¶</a></dt>
-<dd><p>Iterative-Deepening k-Induction with Property Direction as specified at D. Beyer and M. Dangl, “Software
-Verification with PDR: Implementation and Empirical Evaluation of the State of the Art” arXiv:1908.06271 [cs],
-Feb. 2020, Accessed: Mar. 05, 2022. [Online]. Available <a class="reference external" href="https://arxiv.org/abs/1908.06271">https://arxiv.org/abs/1908.06271</a></p>
+<dd><p>Iterative-Deepening k-Induction with Property Direction.</p>
+<p>As specified at D. Beyer and M. Dangl, “Software Verification with PDR:
+Implementation and Empirical Evaluation of the State of the Art” arXiv:1908.06271
+[cs], Feb. 2020, Accessed: Mar. 05, 2022. [Online]. Available
+<a class="reference external" href="https://arxiv.org/abs/1908.06271">https://arxiv.org/abs/1908.06271</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -208,33 +211,37 @@ Feb. 2020, Accessed: Mar. 05, 2022. [Online]. Available <a class="reference exte
 <li><p><strong>get_currently_known_invariant</strong> – used to obtain the strongest invariant currently
 available via a concurrently running (external) auxiliary-invariant generator</p></li>
 <li><p><strong>pd</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – boolean flag pd (reminding of “property-directed”) is used to control
-whether failed induction checks are used to guide the algorithm towards
-a sufficient strengthening of the safety property P to prove correctness;
-if pd is set to false, the algorithm behaves exactly like standard k-induction.</p></li>
-<li><p><strong>lift</strong> – <p>Given a failed attempt to prove some candidate invariant <span class="math notranslate nohighlight">\(Q\)</span> by induction,
-the function lift is used to obtain from a concrete counterexample-to-induction (CTI)
-state a set of CTI states described by a state predicate C. An implementation of the function
-<span class="math notranslate nohighlight">\(k ∈ ℕ, \Inv ∈ ℕ × (S → 𝔹) × (S → 𝔹) × S → (S → 𝔹)\)</span> and <span class="math notranslate nohighlight">\(C = \lift(k, \Inv , Q, s)\)</span>,
-lift needs to satisfy the condition that for a CTI <span class="math notranslate nohighlight">\(s ∈ S\)</span> where <span class="math notranslate nohighlight">\(S\)</span> is the set of
+whether failed induction checks are used to guide the algorithm towards a
+sufficient strengthening of the safety property P to prove correctness; if pd is
+set to false, the algorithm behaves exactly like standard k-induction.</p></li>
+<li><p><strong>lift</strong> – <p>Given a failed attempt to prove some candidate invariant <span class="math notranslate nohighlight">\(Q\)</span> by
+induction, the function lift is used to obtain from a concrete
+counterexample-to-induction (CTI) state a set of CTI states described by a state
+predicate C. An implementation of the function <span class="math notranslate nohighlight">\(k ∈ ℕ, \Inv ∈ ℕ × (S → 𝔹) ×
+(S → 𝔹) × S → (S → 𝔹)\)</span> and <span class="math notranslate nohighlight">\(C = \lift(k, \Inv , Q, s)\)</span>, lift needs to
+satisfy the condition that for a CTI <span class="math notranslate nohighlight">\(s ∈ S\)</span> where <span class="math notranslate nohighlight">\(S\)</span> is the set of
 program states, the following holds:</p>
 <div class="math notranslate nohighlight">
 \[C(s) ∧ \left( ∀s_n ∈ S: C(s_n) ⇒ \Inv(s_n) ∧ ⋀_{i=n}^{n+k−1} (Q(s_i) ∧ T(s_i ,s_{i+1})) ⇒ ¬Q(s_{n+k}) \right)\]</div>
-<p>which means that the CTI s must be an element of the set of states described by the resulting predicate
-C and that all states in this set must be CTIs, i.e., they need to be k-predecessors of <span class="math notranslate nohighlight">\(¬Q\)</span>-states,
-or in other words, each state in the set of states described by the predicate <span class="math notranslate nohighlight">\(C\)</span> must reach some
-<span class="math notranslate nohighlight">\(¬Q\)</span>-state via <span class="math notranslate nohighlight">\(k\)</span> unrollings of the transition relation <span class="math notranslate nohighlight">\(T\)</span>.</p>
+<p>which means that the CTI s must be an element of the set of states described by
+the resulting predicate C and that all states in this set must be CTIs, i.e.,
+they need to be k-predecessors of <span class="math notranslate nohighlight">\(¬Q\)</span>-states, or in other words,
+each state in the set of states described by the predicate <span class="math notranslate nohighlight">\(C\)</span> must reach
+some <span class="math notranslate nohighlight">\(¬Q\)</span>-state via <span class="math notranslate nohighlight">\(k\)</span> unrollings of the transition relation
+<span class="math notranslate nohighlight">\(T\)</span>.</p>
 </p></li>
-<li><p><strong>strengthen</strong> – The function strengthen: <span class="math notranslate nohighlight">\(ℕ × (S → 𝔹) × (S → 𝔹) → (S → 𝔹)\)</span>
-is used to obtain for a k-inductive invariant a stronger k-inductive invariant, i.e.,
-its result needs to imply the input invariant, and, just like the input invariant,
-it must not be violated within k loop iterations and must be k-inductive.</p></li>
+<li><p><strong>strengthen</strong> – The function strengthen: <span class="math notranslate nohighlight">\(ℕ × (S → 𝔹) × (S → 𝔹) → (S →
+𝔹)\)</span> is used to obtain for a k-inductive invariant a stronger k-inductive
+invariant, i.e., its result needs to imply the input invariant, and, just like the
+input invariant, it must not be violated within k loop iterations and must be
+k-inductive.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code> | <a class="reference internal" href="#backend.Status" title="backend.Status"><code class="xref py py-class docutils literal notranslate"><span class="pre">Status</span></code></a></p>
 </dd>
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><cite>True</cite> if <cite>P</cite> holds, <cite>Status.UNKNOWN</cite> if <cite>k &gt; k_max</cite> , <cite>False</cite> otherwise</p>
+<dd class="field-odd"><p><cite>True</cite> if <cite>P</cite> holds, <cite>Status.UNKNOWN</cite> if <cite>k &gt; k_max</cite> , <cite>False</cite> otherwise.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -376,11 +383,13 @@ for all <span class="math notranslate nohighlight">\(x\)</span> in <span class="
 <dl class="py function">
 <dt class="sig sig-object py" id="backend.lifting_query">
 <span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">lifting_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#lifting_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.lifting_query" title="Permalink to this definition">¶</a></dt>
-<dd><p>The lifting query takes the form <span class="math notranslate nohighlight">\(s ∧ z ∧ T ∧ ¬t'\)</span>, which asks whether an <span class="math notranslate nohighlight">\(s\)</span>-state
-has a successor other than <span class="math notranslate nohighlight">\(t\)</span> under input assignment <span class="math notranslate nohighlight">\(z\)</span>. Since this is not the case
-by construction, the query yields an unsatisfiable core that typically reveals a
-significantly reduced partial assignment that can replace <span class="math notranslate nohighlight">\(s\)</span>.</p>
-<p>As per J. Birgmeier, A. R. Bradley, and G. Weissenbacher, “Counterexample to Induction-Guided Abstraction-Refinement (CTIGAR),” p.6.</p>
+<dd><p>The lifting query takes the form <span class="math notranslate nohighlight">\(s ∧ z ∧ T ∧ ¬t'\)</span>, which asks whether an
+<span class="math notranslate nohighlight">\(s\)</span>-state has a successor other than <span class="math notranslate nohighlight">\(t\)</span> under input assignment
+<span class="math notranslate nohighlight">\(z\)</span>. Since this is not the case by construction, the query yields an
+unsatisfiable core that typically reveals a significantly reduced partial
+assignment that can replace <span class="math notranslate nohighlight">\(s\)</span>.</p>
+<p>As per J. Birgmeier, A. R. Bradley, and G. Weissenbacher, “Counterexample to
+Induction-Guided Abstraction-Refinement (CTIGAR),” p.6.</p>
 </dd></dl>
 
 <dl class="py function">
