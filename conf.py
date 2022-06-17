@@ -36,6 +36,9 @@ extensions = [
     'sphinx.ext.doctest',
     # https://sphinx-exec-code.readthedocs.io/en/latest/configuration.html
     'sphinx_execute_code',
+    'sphinx.ext.githubpages',
+    'sphinx.ext.graphviz',
+    'sphinx.ext.todo',
 ]
 
 exec_code_working_dir = '../src'
@@ -55,9 +58,12 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'agogo'
+# html_theme = 'agogo'
+# html_theme = 'sphinx_book_theme'
+html_theme = 'python_docs_theme'
+html_show_sphinx = False
 html_theme_options = {
-    'body_min_width': 0,
+    # 'body_min_width': 0,
     'body_max_width': False,
 }
 

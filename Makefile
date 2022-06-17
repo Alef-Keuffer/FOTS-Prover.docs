@@ -20,7 +20,8 @@ help:
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
 github:
-	. ../venv/bin/activate;make html
+	@rm -r _build/html
+	. ../venv/bin/activate; make html
 	@cp -a _build/html/. docs
 	@git add .
 	@git commit -m .
