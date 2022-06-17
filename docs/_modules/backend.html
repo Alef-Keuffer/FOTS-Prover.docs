@@ -434,9 +434,9 @@
 
 <div class="viewcode-block" id="get_assignment_as_formula"><a class="viewcode-back" href="../backend.html#backend.get_assignment_as_formula">[docs]</a><span class="k">def</span> <span class="nf">get_assignment_as_formula</span><span class="p">(</span><span class="n">F</span><span class="p">:</span> <span class="n">FNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">FNode</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    If formula :math:`F` is satisfiable,</span>
-<span class="sd">    returns :math:`⋀_{x_i ∈ \\operatorname{vars}(F)} x_i ≡ v_i`,</span>
-<span class="sd">    otherwise returns :const:`None`.</span>
+<span class="sd">    If formula :math:`F` is satisfiable, returns :math:`\\displaystyle\\bigwedge_{x_i ∈</span>
+<span class="sd">    \\operatorname{vars}(F)} x_i ≡ v_i`, such that :math:`F` is true if each</span>
+<span class="sd">    :math:`x_i` takes value :math:`v_i`otherwise returns :const:`None`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">get_assignment_as_formula_from_model</span><span class="p">(</span><span class="n">get_model</span><span class="p">(</span><span class="n">F</span><span class="p">))</span></div>
 

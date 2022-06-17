@@ -326,9 +326,9 @@ k-inductive.</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="backend.get_assignment_as_formula">
 <span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">get_assignment_as_formula</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">F</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#get_assignment_as_formula"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.get_assignment_as_formula" title="Permalink to this definition">¶</a></dt>
-<dd><p>If formula <span class="math notranslate nohighlight">\(F\)</span> is satisfiable,
-returns <span class="math notranslate nohighlight">\(⋀_{x_i ∈ \operatorname{vars}(F)} x_i ≡ v_i\)</span>,
-otherwise returns <code class="xref py py-const docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<dd><p>If formula <span class="math notranslate nohighlight">\(F\)</span> is satisfiable, returns <span class="math notranslate nohighlight">\(\displaystyle\bigwedge_{x_i ∈
+\operatorname{vars}(F)} x_i ≡ v_i\)</span>, such that <span class="math notranslate nohighlight">\(F\)</span> is true if each
+<span class="math notranslate nohighlight">\(x_i\)</span> takes value <span class="math notranslate nohighlight">\(v_i\)</span>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">FNode</span></code></p>
