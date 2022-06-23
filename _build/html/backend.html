@@ -225,14 +225,13 @@ set to false, the algorithm behaves exactly like standard k-induction.</p></li>
 <li><p><strong>lift</strong> – <p>Given a failed attempt to prove some candidate invariant <span class="math notranslate nohighlight">\(Q\)</span> by
 induction, the function lift is used to obtain from a concrete
 counterexample-to-induction (CTI) state a set of CTI states described by a state
-predicate C. An implementation of the function <span class="math notranslate nohighlight">\(k ∈ ℕ, \Inv ∈ ℕ × (S → 
-𝔹) ×
-(S → 𝔹) × S → (S → 𝔹)\)</span> and <span class="math notranslate nohighlight">\(C = \lift(k, \Inv , Q, s)\)</span>, lift needs to
+predicate C. An implementation of the function <span class="math notranslate nohighlight">\(k ∈ ℕ, \Inv ∈ ℕ × (S →
+𝔹) × (S → 𝔹) × S → (S → 𝔹)\)</span> and <span class="math notranslate nohighlight">\(C = \lift(k, \Inv , Q, s)\)</span>, lift needs to
 satisfy the condition that for a CTI <span class="math notranslate nohighlight">\(s ∈ S\)</span> where <span class="math notranslate nohighlight">\(S\)</span> is the set of
 program states, the following holds:</p>
 <div class="math notranslate nohighlight">
-\[C(s) ∧ \left( ∀s_n ∈ S: C(s_n) ⇒ \Inv(s_n) ∧ ⋀_{i=n}^{n+k−1} (Q(\]</div>
-<p>s_i) ∧ T(s_i ,s_{i+1})) ⇒ ¬Q(s_{n+k}) right)</p>
+\[C(s) ∧ \left( ∀s_n ∈ S: C(s_n) ⇒            \Inv(s_n) ∧
+⋀_{i=n}^{n+k−1} (Q(s_i) ∧ T(s_i ,s_{i+1})) ⇒ ¬Q(s_{n+k}) \right)\]</div>
 <p>which means that the CTI s must be an element of the set of states described by
 the resulting predicate C and that all states in this set must be CTIs, i.e.,
 they need to be k-predecessors of <span class="math notranslate nohighlight">\(¬Q\)</span>-states, or in other words,
@@ -377,10 +376,9 @@ k-inductive.</p></li>
 <span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">get_or_and</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#get_or_and"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.get_or_and" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>:math:<a href="#id1"><span class="problematic" id="id2">`</span></a>displaystylebigvee_{n=0}^k left(displaystylebigwedge_{</p>
+<dd class="field-odd"><p><span class="math notranslate nohighlight">\(\displaystyle\bigvee_{n=0}^k\left(\displaystyle        \bigwedge_{i=0}^n T(s_i,s_{i+1}) ∧ P(s_n)        \right)\)</span></p>
 </dd>
 </dl>
-<p>i=0}^n T(s_i,s_{i+1}) ∧ P(s_n)right)`</p>
 </dd></dl>
 
 <dl class="py function">
