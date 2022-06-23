@@ -166,7 +166,15 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="util.transition.TS">
 <span class="sig-prename descclassname"><span class="pre">util.transition.</span></span><span class="sig-name descname"><span class="pre">TS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util/transition.html#TS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.transition.TS" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>Optional</em><em>[</em><em>pysmt.fnode.FNode</em><em>]</em>) – </p></li>
+<li><p><strong>ns</strong> (<em>Optional</em><em>[</em><em>pysmt.fnode.FNode</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="util.transition.TransitionPredicate">
@@ -175,7 +183,15 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="util.transition.TransitionPredicate.add">
 <span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util/transition.html#TransitionPredicate.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.transition.TransitionPredicate.add" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>pysmt.fnode.FNode</em>) – </p></li>
+<li><p><strong>ns</strong> (<em>Optional</em><em>[</em><em>pysmt.fnode.FNode</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="util.transition.TransitionPredicate.get">
@@ -187,27 +203,56 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="util.transition.get_formula_with_elements_fixed">
 <span class="sig-prename descclassname"><span class="pre">util.transition.</span></span><span class="sig-name descname"><span class="pre">get_formula_with_elements_fixed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nextVar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util/transition.html#get_formula_with_elements_fixed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.transition.get_formula_with_elements_fixed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nextVar</strong> (<em>dict</em><em>[</em><em>pysmt.fnode.FNode</em><em>, </em><em>pysmt.fnode.FNode</em><em>]</em>) – </p></li>
+<li><p><strong>s</strong> (<em>pysmt.fnode.FNode</em>) – </p></li>
+<li><p><strong>ns</strong> (<em>Optional</em><em>[</em><em>pysmt.fnode.FNode</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="util.transition.get_transition_with_elements_fixed">
 <span class="sig-prename descclassname"><span class="pre">util.transition.</span></span><span class="sig-name descname"><span class="pre">get_transition_with_elements_fixed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transitions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util/transition.html#get_transition_with_elements_fixed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.transition.get_transition_with_elements_fixed" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>transitions</strong> (<em>list</em><em>[</em><em>tuple</em><em>[</em><em>pysmt.fnode.FNode</em><em>] </em><em>| </em><em>tuple</em><em>[</em><em>pysmt.fnode.FNode</em><em>, </em><em>pysmt.fnode.FNode</em><em>]</em><em>]</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="util.transition.is_next">
 <span class="sig-prename descclassname"><span class="pre">util.transition.</span></span><span class="sig-name descname"><span class="pre">is_next</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util/transition.html#is_next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.transition.is_next" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>v</strong> (<em>pysmt.fnode.FNode</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="util.transition.map_prev_to_next">
 <span class="sig-prename descclassname"><span class="pre">util.transition.</span></span><span class="sig-name descname"><span class="pre">map_prev_to_next</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util/transition.html#map_prev_to_next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.transition.map_prev_to_next" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>variables</strong> (<em>set</em><em>[</em><em>pysmt.fnode.FNode</em><em>]</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="util.transition.prev_name">
 <span class="sig-prename descclassname"><span class="pre">util.transition.</span></span><span class="sig-name descname"><span class="pre">prev_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util/transition.html#prev_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.transition.prev_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>v</strong> (<em>pysmt.fnode.FNode</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-util.transition_deprecated">
@@ -215,7 +260,15 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="util.transition_deprecated.T_v1">
 <span class="sig-prename descclassname"><span class="pre">util.transition_deprecated.</span></span><span class="sig-name descname"><span class="pre">T_v1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">__vars</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/util/transition_deprecated.html#T_v1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#util.transition_deprecated.T_v1" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>Optional</em><em>[</em><em>pysmt.fnode.FNode</em><em>]</em>) – </p></li>
+<li><p><strong>ns</strong> (<em>Optional</em><em>[</em><em>pysmt.fnode.FNode</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-util">

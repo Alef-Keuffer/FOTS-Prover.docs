@@ -86,3 +86,7 @@ mathjax3_config = {
             }                       
         }                           
     }
+
+# -- Options for autodoc -------------------------------------------------
+
+autodoc_typehints = 'both'
