@@ -7,11 +7,16 @@ Welcome to FOTS-Prover's documentation!
 =======================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Contents:
 
    modules
 
+
+.. execute_code::
+    :linenos:
+
+    import examples.eq2
 
 Indices and tables
 ==================

@@ -11,18 +11,23 @@
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/pydoctheme.css?2022.1" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/thebelab.css" />
     
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     <script>window.MathJax = {"tex": {"macros": {"Inv": "{\\operatorname{Inv}}", "inc": "{\\operatorname{inc}}", "lift": "{\\operatorname{lift}}", "strenghten": "{\\operatorname{strenghten}}"}}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="wp module" href="wp.html" />
-    <link rel="prev" title="FOTS-Prover" href="modules.html" /><link rel="shortcut icon" type="image/png" href="_static/py.svg" />
+    <link rel="next" title="examples package" href="examples.html" />
+    <link rel="prev" title="src" href="modules.html" /><link rel="shortcut icon" type="image/png" href="_static/py.svg" />
             <script type="text/javascript" src="_static/copybutton.js"></script>
             <script type="text/javascript" src="_static/menu.js"></script> 
   </head>
@@ -53,12 +58,12 @@
   <div>
     <h4>Previous topic</h4>
     <p class="topless"><a href="modules.html"
-                          title="previous chapter">FOTS-Prover</a></p>
+                          title="previous chapter">src</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="wp.html"
-                          title="next chapter">wp module</a></p>
+    <p class="topless"><a href="examples.html"
+                          title="next chapter">examples package</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -91,10 +96,10 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="wp.html" title="wp module"
+          <a href="examples.html" title="examples package"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="modules.html" title="FOTS-Prover"
+          <a href="modules.html" title="src"
              accesskey="P">previous</a> |</li>
           <li><img src="_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
           <li><a href="https://www.python.org/">Python</a> &#187;</li>
@@ -107,7 +112,7 @@
               <a href="index.html">FOTS-Prover  documentation</a> &#187;
               
           </li>
-          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">FOTS-Prover</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" accesskey="U">src</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">backend module</a></li>
                 <li class="right">
                     
@@ -172,7 +177,7 @@ each time encodes a different state</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="backend.IMC">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">IMC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">TS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">S</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customInterpolator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#IMC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.IMC" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">IMC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">S</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolator=&lt;function</span> <span class="pre">binary_interpolant&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_info=True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#IMC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.IMC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interpolating Model Checking</p>
 <p>As specified at S. Fulvio Rollini, “Craig Interpolation and Proof Manipulation:
 Theory and Applications to Model Checking,” Università della Svizzera Italiana. p.
@@ -193,8 +198,11 @@ model checking (BMC), is based on iteratively building such a <span class="math 
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>TS</strong> (<a class="reference internal" href="#backend.TransitionSystem" title="backend.TransitionSystem"><em>backend.TransitionSystem</em></a>) – </p></li>
-<li><p><strong>P</strong> (<em>pysmt.fnode.FNode</em>) – </p></li>
+<li><p><strong>S</strong> (<a class="reference internal" href="predicate.html#predicate.Predicate" title="predicate.Predicate"><em>predicate.Predicate</em></a>) – </p></li>
+<li><p><strong>T</strong> (<a class="reference internal" href="predicate.html#predicate.Predicate" title="predicate.Predicate"><em>predicate.Predicate</em></a>) – </p></li>
+<li><p><strong>P</strong> (<a class="reference internal" href="predicate.html#predicate.Predicate" title="predicate.Predicate"><em>predicate.Predicate</em></a>) – </p></li>
+<li><p><strong>interpolator</strong> (<em>Callable</em><em>[</em><em>[</em><em>pysmt.fnode.FNode</em><em>, </em><em>pysmt.fnode.FNode</em><em>]</em><em>, </em><em>pysmt.fnode.FNode</em><em>]</em>) – </p></li>
+<li><p><strong>print_info</strong> (<em>bool</em>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -202,7 +210,7 @@ model checking (BMC), is based on iteratively building such a <span class="math 
 
 <dl class="py function">
 <dt class="sig sig-object py" id="backend.PDR">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">PDR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_currently_known_invariant=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strengthen=Ellipsis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lift=&lt;function</span> <span class="pre">_lift&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_init=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_max=inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pd=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inc=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#PDR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.PDR" title="Permalink to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">PDR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">I</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_currently_known_invariant=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strengthen=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lift=&lt;function</span> <span class="pre">_lift&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_init=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k_max=inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pd=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inc=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_info=True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#PDR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.PDR" title="Permalink to this definition">¶</a></dt>
 <dd><p>Iterative-Deepening k-Induction with Property Direction.</p>
 <p>As specified at D. Beyer and M. Dangl, “Software Verification with PDR:
 Implementation and Empirical Evaluation of the State of the Art” arXiv:1908.06271
@@ -211,11 +219,12 @@ Implementation and Empirical Evaluation of the State of the Art” arXiv:1908.06
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>print_info</strong> – Whether info about the steps should be printed.</p></li>
 <li><p><strong>k_init</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – the initial value <span class="math notranslate nohighlight">\(≥1\)</span> for the bound <cite>k</cite></p></li>
 <li><p><strong>k_max</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – an upper limit for the bound <cite>k</cite></p></li>
 <li><p><strong>inc</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – a function <span class="math notranslate nohighlight">\(ℕ → ℕ\)</span> such that <span class="math notranslate nohighlight">\(∀n ∈ ℕ: \inc(n) &gt; n\)</span></p></li>
-<li><p><strong>TS</strong> (<a class="reference internal" href="#backend.TransitionSystem" title="backend.TransitionSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransitionSystem</span></code></a>) – Contains predicates defining the initial states and the transfer relation</p></li>
-<li><p><strong>P</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">FNode</span></code>) – The safety property</p></li>
+<li><p><strong>TS</strong> – Contains predicates defining the initial states and the transfer relation</p></li>
+<li><p><strong>P</strong> (<a class="reference internal" href="predicate.html#predicate.Predicate" title="predicate.Predicate"><code class="xref py py-class docutils literal notranslate"><span class="pre">Predicate</span></code></a>) – The safety property</p></li>
 <li><p><strong>get_currently_known_invariant</strong> – used to obtain the strongest invariant currently
 available via a concurrently running (external) auxiliary-invariant generator</p></li>
 <li><p><strong>pd</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – boolean flag pd (reminding of “property-directed”) is used to control
@@ -231,7 +240,7 @@ satisfy the condition that for a CTI <span class="math notranslate nohighlight">
 program states, the following holds:</p>
 <div class="math notranslate nohighlight">
 \[C(s) ∧ \left( ∀s_n ∈ S: C(s_n) ⇒            \Inv(s_n) ∧
-⋀_{i=n}^{n+k−1} (Q(s_i) ∧ T(s_i ,s_{i+1})) ⇒ ¬Q(s_{n+k}) \right)\]</div>
+\displaystyle\bigwedge_{i=n}^{n+k−1} (Q(s_i) ∧ T(s_i ,s_{i+1})) ⇒ ¬Q(s_{n+k}) \right)\]</div>
 <p>which means that the CTI s must be an element of the set of states described by
 the resulting predicate C and that all states in this set must be CTIs, i.e.,
 they need to be k-predecessors of <span class="math notranslate nohighlight">\(¬Q\)</span>-states, or in other words,
@@ -244,6 +253,8 @@ some <span class="math notranslate nohighlight">\(¬Q\)</span>-state via <span c
 invariant, i.e., its result needs to imply the input invariant, and, just like the
 input invariant, it must not be violated within k loop iterations and must be
 k-inductive.</p></li>
+<li><p><strong>I</strong> (<a class="reference internal" href="predicate.html#predicate.Predicate" title="predicate.Predicate"><em>predicate.Predicate</em></a>) – </p></li>
+<li><p><strong>T</strong> (<a class="reference internal" href="predicate.html#predicate.Predicate" title="predicate.Predicate"><em>predicate.Predicate</em></a>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -336,16 +347,6 @@ k-inductive.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="backend.bin_itp">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">bin_itp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#bin_itp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.bin_itp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="backend.ctigar_pdr_pseudo">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">ctigar_pdr_pseudo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#ctigar_pdr_pseudo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.ctigar_pdr_pseudo" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="backend.get_assignment_as_formula">
 <span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">get_assignment_as_formula</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">F</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#get_assignment_as_formula"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.get_assignment_as_formula" title="Permalink to this definition">¶</a></dt>
 <dd><p>If formula <span class="math notranslate nohighlight">\(F\)</span> is satisfiable, returns <span class="math notranslate nohighlight">\(\displaystyle\bigwedge_{x_i ∈
@@ -365,6 +366,13 @@ k-inductive.</p></li>
 <dt class="sig sig-object py" id="backend.get_assignment_as_formula_from_model">
 <span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">get_assignment_as_formula_from_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#get_assignment_as_formula_from_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.get_assignment_as_formula_from_model" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">FNode</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><span class="math notranslate nohighlight">\(\displaystyle\bigwedge_{x ∈ \operatorname{vars}(M)}\left(        x ≡ ⟦x⟧_M
+\right)\)</span></p>
+</dd>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>M</strong> (<em>pysmt.solvers.solver.Model</em>) – </p>
 </dd>
@@ -372,11 +380,55 @@ k-inductive.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="backend.get_or_and">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">get_or_and</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#get_or_and"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.get_or_and" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="backend.get_base_case">
+<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">get_base_case</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">I</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#get_base_case"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.get_base_case" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><span class="math notranslate nohighlight">\(\displaystyle\bigvee_{n=0}^k\left(\displaystyle        \bigwedge_{i=0}^n T(s_i,s_{i+1}) ∧ P(s_n)        \right)\)</span></p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">FNode</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><span class="math notranslate nohighlight">\(I(0) ∧ \displaystyle\bigvee_{n=0}^{k-1}\left(\displaystyle        \bigwedge_{i=0}^{n-1} T(i,i+1) ∧ ¬P(n)        \right)\)</span></p>
+</dd>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<em>int</em>) – </p></li>
+<li><p><strong>I</strong> (<a class="reference internal" href="predicate.html#predicate.Predicate" title="predicate.Predicate"><em>predicate.Predicate</em></a>) – </p></li>
+<li><p><strong>T</strong> (<a class="reference internal" href="predicate.html#predicate.Predicate" title="predicate.Predicate"><em>predicate.Predicate</em></a>) – </p></li>
+<li><p><strong>P</strong> (<a class="reference internal" href="predicate.html#predicate.Predicate" title="predicate.Predicate"><em>predicate.Predicate</em></a>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="backend.get_name">
+<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#get_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.get_name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>s</strong> (<em>pysmt.fnode.FNode</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="backend.get_step_case">
+<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">get_step_case</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#get_step_case"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.get_step_case" title="Permalink to this definition">¶</a></dt>
+<dd><p>We assume this means that the forumla returned is an assertion over any k sequenece
+of states.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">FNode</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><span class="math notranslate nohighlight">\(\displaystyle\bigvee_{i=n}^{n+k-1}        \left(            P(i) ∧ T(i,i+1)        \right)        ∧ ¬P(n)\)</span>
+with the idea that making <span class="math notranslate nohighlight">\(n=0\)</span> in pySMT is equivalent to the formula above.</p>
+</dd>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k</strong> (<em>int</em>) – </p></li>
+<li><p><strong>T</strong> (<a class="reference internal" href="predicate.html#predicate.Predicate" title="predicate.Predicate"><em>predicate.Predicate</em></a>) – </p></li>
+<li><p><strong>P</strong> (<a class="reference internal" href="predicate.html#predicate.Predicate" title="predicate.Predicate"><em>predicate.Predicate</em></a>) – </p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -413,62 +465,11 @@ for all <span class="math notranslate nohighlight">\(x\)</span> in <span class="
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="backend.interp">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">interp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#interp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.interp" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>P</strong> (<em>pysmt.fnode.FNode</em>) – </p></li>
-<li><p><strong>Q</strong> (<em>pysmt.fnode.FNode</em>) – </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="backend.interpolate">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">interpolate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#interpolate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.interpolate" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong> (<em>pysmt.fnode.FNode</em>) – </p></li>
-<li><p><strong>B</strong> (<em>pysmt.fnode.FNode</em>) – </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="backend.is_next">
 <span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">is_next</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#is_next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.is_next" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>v</strong> (<em>pysmt.fnode.FNode</em>) – </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="backend.itp">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">itp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formulas</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#itp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.itp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="backend.lifting_query">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">lifting_query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#lifting_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.lifting_query" title="Permalink to this definition">¶</a></dt>
-<dd><p>The lifting query takes the form <span class="math notranslate nohighlight">\(s ∧ z ∧ T ∧ ¬t'\)</span>, which asks whether an
-<span class="math notranslate nohighlight">\(s\)</span>-state has a successor other than <span class="math notranslate nohighlight">\(t\)</span> under input assignment
-<span class="math notranslate nohighlight">\(z\)</span>. Since this is not the case by construction, the query yields an
-unsatisfiable core that typically reveals a significantly reduced partial
-assignment that can replace <span class="math notranslate nohighlight">\(s\)</span>.</p>
-<p>As per J. Birgmeier, A. R. Bradley, and G. Weissenbacher, “Counterexample to
-Induction-Guided Abstraction-Refinement (CTIGAR),” p.6.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>s</strong> (<em>pysmt.fnode.FNode</em>) – </p></li>
-<li><p><strong>t</strong> (<em>pysmt.fnode.FNode</em>) – </p></li>
-</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -485,51 +486,14 @@ Induction-Guided Abstraction-Refinement (CTIGAR),” p.6.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="backend.pdr_pseudo">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">pdr_pseudo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#pdr_pseudo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.pdr_pseudo" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="backend.step_case_P_n">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">step_case_P_n</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#step_case_P_n"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.step_case_P_n" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="backend.str_model">
+<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">str_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#str_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.str_model" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>k</strong> (<em>int</em>) – </p></li>
-<li><p><strong>P</strong> (<em>pysmt.fnode.FNode</em>) – </p></li>
-<li><p><strong>T</strong> (<em>pysmt.fnode.FNode</em>) – </p></li>
-</ul>
+<dd class="field-odd"><p><strong>m</strong> (<em>pysmt.solvers.solver.Model</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="backend.step_case_P_n_Pedro">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">step_case_P_n_Pedro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#step_case_P_n_Pedro"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.step_case_P_n_Pedro" title="Permalink to this definition">¶</a></dt>
-<dd><p>We assume this means that the forumla returned is an assertion over any k sequenece
-of states.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>k</strong> (<em>int</em>) – </p></li>
-<li><p><strong>P</strong> (<em>pysmt.fnode.FNode</em>) – </p></li>
-<li><p><strong>T</strong> (<em>pysmt.fnode.FNode</em>) – </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="backend.strenghten">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">strenghten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Inv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">o</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#strenghten"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.strenghten" title="Permalink to this definition">¶</a></dt>
-<dd><p>One possible implementation is attempting to drop components from a (disjunctive)
-invariant and checking if the remaining clause is still inductive.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="backend.test_pdr_on_trab_4">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">test_pdr_on_trab_4</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#test_pdr_on_trab_4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.test_pdr_on_trab_4" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </section>
 
@@ -543,12 +507,12 @@ invariant and checking if the remaining clause is still inductive.</p>
   <div>
     <h4>Previous topic</h4>
     <p class="topless"><a href="modules.html"
-                          title="previous chapter">FOTS-Prover</a></p>
+                          title="previous chapter">src</a></p>
   </div>
   <div>
     <h4>Next topic</h4>
-    <p class="topless"><a href="wp.html"
-                          title="next chapter">wp module</a></p>
+    <p class="topless"><a href="examples.html"
+                          title="next chapter">examples package</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -581,10 +545,10 @@ invariant and checking if the remaining clause is still inductive.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="wp.html" title="wp module"
+          <a href="examples.html" title="examples package"
              >next</a> |</li>
         <li class="right" >
-          <a href="modules.html" title="FOTS-Prover"
+          <a href="modules.html" title="src"
              >previous</a> |</li>
           <li><img src="_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
           <li><a href="https://www.python.org/">Python</a> &#187;</li>
@@ -597,7 +561,7 @@ invariant and checking if the remaining clause is still inductive.</p>
               <a href="index.html">FOTS-Prover  documentation</a> &#187;
               
           </li>
-          <li class="nav-item nav-item-1"><a href="modules.html" >FOTS-Prover</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">backend module</a></li>
                 <li class="right">
                     

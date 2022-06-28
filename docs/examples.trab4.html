@@ -1,0 +1,762 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>examples.trab4 module &#8212; FOTS-Prover  documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pydoctheme.css?2022.1" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/thebelab.css" />
+    
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"Inv": "{\\operatorname{Inv}}", "inc": "{\\operatorname{inc}}", "lift": "{\\operatorname{lift}}", "strenghten": "{\\operatorname{strenghten}}"}}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="imc module" href="imc.html" />
+    <link rel="prev" title="examples.pdr_simple_example_1 module" href="examples.pdr_simple_example_1.html" /><link rel="shortcut icon" type="image/png" href="_static/py.svg" />
+            <script type="text/javascript" src="_static/copybutton.js"></script>
+            <script type="text/javascript" src="_static/menu.js"></script> 
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu" />
+    <label for="menuToggler" class="toggler__label">
+        <span></span>
+    </label>
+    <nav class="nav-content" role="navigation">
+         <a href="https://www.python.org/" class="nav-logo">
+             <img src="_static/py.svg" alt="Logo"/>
+         </a>
+        <div class="version_switcher_placeholder"></div>
+        <form role="search" class="search" action="search.html" method="get">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                <path fill-rule="nonzero"
+                        d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="#444"></path>
+            </svg>
+            <input type="text" name="q" aria-label="Quick search"/>
+            <input type="submit" value="Go"/>
+        </form>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <div class="language_switcher_placeholder"></div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="examples.pdr_simple_example_1.html"
+                          title="previous chapter">examples.pdr_simple_example_1 module</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="imc.html"
+                          title="next chapter">imc module</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/examples.trab4.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </nav>
+    </div>
+</div>
+  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="imc.html" title="imc module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="examples.pdr_simple_example_1.html" title="examples.pdr_simple_example_1 module"
+             accesskey="P">previous</a> |</li>
+          <li><img src="_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+              <a href="index.html">FOTS-Prover  documentation</a> &#187;
+              
+          </li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="examples.html" accesskey="U">examples package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">examples.trab4 module</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-examples.trab4">
+<span id="examples-trab4-module"></span><h1>examples.trab4 module<a class="headerlink" href="#module-examples.trab4" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="examples.trab4.main">
+<span class="sig-prename descclassname"><span class="pre">examples.trab4.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/examples/trab4.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#examples.trab4.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="examples.trab4.prog4">
+<span class="sig-prename descclassname"><span class="pre">examples.trab4.</span></span><span class="sig-name descname"><span class="pre">prog4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/examples/trab4.html#prog4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#examples.trab4.prog4" title="Permalink to this definition">¶</a></dt>
+<dd><p>An attempt to codify the following piece of code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">assume</span> <span class="n">m</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">r</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">==</span> <span class="n">m</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">==</span> <span class="n">n</span>
+<span class="mi">0</span><span class="p">:</span> <span class="k">while</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="mi">1</span><span class="p">:</span>    <span class="k">if</span> <span class="n">y</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">y</span> <span class="p">,</span> <span class="n">r</span>  <span class="o">=</span> <span class="n">y</span><span class="o">-</span><span class="mi">1</span> <span class="p">,</span> <span class="n">r</span><span class="o">+</span><span class="n">x</span>
+<span class="mi">2</span><span class="p">:</span>    <span class="n">x</span> <span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">&lt;&lt;</span><span class="mi">1</span>  <span class="p">,</span>  <span class="n">y</span><span class="o">&gt;&gt;</span><span class="mi">1</span>
+<span class="mi">3</span><span class="p">:</span> <span class="k">assert</span> <span class="n">r</span> <span class="o">==</span> <span class="n">m</span> <span class="o">*</span> <span class="n">n</span>
+</pre></div>
+</div>
+<p>Executing it will print the value of pc and the variables at different points.
+The purpose of this function is to compare its output with traces provided by
+model checkers when returning counterexamples.</p>
+</dd></dl>
+
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">assume</span> <span class="n">m</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">n</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">r</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">==</span> <span class="n">m</span> <span class="ow">and</span> <span class="n">y</span> <span class="o">==</span> <span class="n">n</span>
+<span class="mi">0</span><span class="p">:</span> <span class="k">while</span> <span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="mi">1</span><span class="p">:</span>    <span class="k">if</span> <span class="n">y</span> <span class="o">&amp;</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">y</span> <span class="p">,</span> <span class="n">r</span>  <span class="o">=</span> <span class="n">y</span><span class="o">-</span><span class="mi">1</span> <span class="p">,</span> <span class="n">r</span><span class="o">+</span><span class="n">x</span>
+<span class="mi">2</span><span class="p">:</span>    <span class="n">x</span> <span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">&lt;&lt;</span><span class="mi">1</span>  <span class="p">,</span>  <span class="n">y</span><span class="o">&gt;&gt;</span><span class="mi">1</span>
+<span class="mi">3</span><span class="p">:</span> <span class="k">assert</span> <span class="n">r</span> <span class="o">==</span> <span class="n">m</span> <span class="o">*</span> <span class="n">n</span>
+</pre></div>
+</div>
+<p>In our notation each proposition <span class="math notranslate nohighlight">\(P\)</span> has variables. Each variable is indexed (by
+convention we index at <span class="math notranslate nohighlight">\(0\)</span> or <span class="math notranslate nohighlight">\(1\)</span> for next variables in transition
+relation). For example, if <span class="math notranslate nohighlight">\(T ≡ x' = x + 1\)</span> we would write <span class="math notranslate nohighlight">\(T ≡ x[1] = x[0]
++ 1\)</span>.</p>
+<p>We write <span class="math notranslate nohighlight">\(T[k]\)</span> to mean <span class="math notranslate nohighlight">\(T\)</span> with <span class="math notranslate nohighlight">\(k\)</span> added to the index of each
+variable.</p>
+<p>In the example above <span class="math notranslate nohighlight">\(T[k] ≡ x[k+1] = x[k] + 1\)</span>.</p>
+<p>So the state space after one transition from initial state is <span class="math notranslate nohighlight">\(I[0] ∧ T[0]\)</span>.</p>
+<p>Furthermore, <span class="math notranslate nohighlight">\(T[:k] ≡ \bigwedge_{i=0}^{k} T[k]\)</span></p>
+<p>Properties</p>
+<div class="math notranslate nohighlight">
+\[V ≡ (y - pc) + 3\]</div>
+<div class="math notranslate nohighlight">
+\[\textrm{nonnegative} ≡ V ≥ 0\]</div>
+<div class="math notranslate nohighlight">
+\[\textrm{decreasing} ≡ \bigwedge_{i=0}^{2}T(i,i+1) ⟹ V(3) ≤ V(0) ∨ V(3) = 0\]</div>
+<div class="math notranslate nohighlight">
+\[\textrm{termination} ≡ V = 0 ⟹ pc=3\]</div>
+<div class="math notranslate nohighlight">
+\[\textrm{INV} ≡ (m ⋅ n = x ⋅ y + r) ∧ y ≥ 0\]</div>
+<p>First we need to define some variables</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bit_count</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">Predicate</span><span class="p">(</span><span class="n">Variable</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">)))</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">Predicate</span><span class="p">(</span><span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">)))</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">Predicate</span><span class="p">(</span><span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;n&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">)))</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">Predicate</span><span class="p">(</span><span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">)))</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">Predicate</span><span class="p">(</span><span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">)))</span>
+<span class="n">pc</span> <span class="o">=</span> <span class="n">Predicate</span><span class="p">(</span><span class="n">Variable</span><span class="p">(</span><span class="s1">&#39;pc&#39;</span><span class="p">,</span> <span class="n">BVType</span><span class="p">(</span><span class="n">bit_count</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>Then we define a helper function <cite>t()</cite> to add <span class="math notranslate nohighlight">\(v'=v\)</span> to the transitions.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">variables</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">pc</span><span class="p">}</span>
+<span class="c1"># Variables not in s are unchanged</span>
+<span class="n">t</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">And</span><span class="p">([</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variables</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">s</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Now we can start defining the transition relation:</p>
+<p>The WHILE condition can be defined as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">WhileCondition</span> <span class="o">=</span> <span class="n">Predicate</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul>
+<li><dl>
+<dt>WHILE condition is True (<span class="math notranslate nohighlight">\(pc = 0 ∧ pc' = 1 ∧ \textrm{WhileCondition}\)</span>):</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p1</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span>
+    <span class="n">pc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+    <span class="n">pc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">WhileCondition</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">t</span><span class="p">({</span><span class="n">pc</span><span class="p">})</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>WHILE condition is False (<span class="math notranslate nohighlight">\(pc = 0 ∧ pc' = 3 ∧ ¬\textrm{WhileCondition}\)</span>):</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p2</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span>
+    <span class="n">pc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+    <span class="n">pc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+    <span class="o">~</span><span class="n">WhileCondition</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">t</span><span class="p">({</span><span class="n">pc</span><span class="p">})</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+<dl>
+<dt>The IF condition can be written as:</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IfCondition</span> <span class="o">=</span> <span class="n">Predicate</span><span class="p">((</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>Then</p>
+<ul>
+<li><dl>
+<dt>IF condition is True (<span class="math notranslate nohighlight">\(pc = 1 ∧ pc' = 2 ∧ \textrm{IfCondition} ∧ y' = y − 1 ∧ r' = r + x\)</span>):</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p3</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span>
+    <span class="n">pc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">pc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">IfCondition</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+    <span class="n">t</span><span class="p">({</span><span class="n">pc</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">r</span><span class="p">})</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>IF condition is False (<span class="math notranslate nohighlight">\(pc = 1 ∧ pc' = 2 ∧ ¬\textrm{IfCondition}\)</span>):</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p4</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span>
+    <span class="n">pc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">pc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+    <span class="o">~</span><span class="n">IfCondition</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">t</span><span class="p">({</span><span class="n">pc</span><span class="p">})</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>execute rest of WHILE body and loop back to condition check (<span class="math notranslate nohighlight">\(pc = 2 ∧ pc' = 0 ∧ y' = y ≫ 1 ∧ x' = x ≪ 1\)</span>)</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p5</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span>
+    <span class="n">pc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">pc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">t</span><span class="p">({</span><span class="n">pc</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">})</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>end of program (<span class="math notranslate nohighlight">\(pc = 3 ∧ pc' = 3\)</span>):</dt><dd><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p6</span> <span class="o">=</span> <span class="n">pc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">t</span><span class="p">({})</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Finally create the transition relation:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">trans</span> <span class="o">=</span> <span class="n">Or</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">,</span> <span class="n">p5</span><span class="p">,</span> <span class="n">p6</span><span class="p">)</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">Predicate</span><span class="p">(</span><span class="n">trans</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Establish the precondition:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pre</span> <span class="o">=</span> <span class="n">And</span><span class="p">(</span>
+     <span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">),</span>  <span class="c1"># m ≥ 0</span>
+     <span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">),</span>  <span class="c1"># n ≥ 0</span>
+     <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>  <span class="c1"># r = 0</span>
+     <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>  <span class="c1"># x = m</span>
+     <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># y = n</span>
+ <span class="p">)</span>
+</pre></div>
+</div>
+<p>Our postcondition:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">post</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The initial state:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">init</span> <span class="o">=</span> <span class="n">pc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">pre</span>
+<span class="n">I</span> <span class="o">=</span> <span class="n">Predicate</span><span class="p">(</span><span class="n">init</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We are going to stipulate a variant</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">V</span> <span class="o">=</span> <span class="n">Predicate</span><span class="p">((</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">pc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Because we are working in the theory of bit vectors we can have overflows.
+We are working in the theory of bit vectors because no interpolator is available in
+pySMT when bit vectors are mixed with integers.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">overflow_condition_for_variant</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">bit_count</span> <span class="o">-</span> <span class="mi">3</span>
+</pre></div>
+</div>
+<p>Finally we can encode the properties we desire to prove</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">overflow_condition_for_variant</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">bit_count</span> <span class="o">-</span> <span class="mi">3</span>
+<span class="n">variant_is_non_negative</span> <span class="o">=</span> <span class="n">V</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+<span class="n">variant_is_strictly_decreasing</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">&amp;</span>
+        <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">overflow_condition_for_variant</span><span class="p">))</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">V</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">V</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">|</span> <span class="n">V</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">variant_equals_zero_implies_termination</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="n">V</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span>
+     <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">overflow_condition_for_variant</span><span class="p">))</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span>
+        <span class="n">pc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">)))</span>
+
+<span class="n">invariant</span> <span class="o">=</span> <span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">precondition_implies_invariant</span> <span class="o">=</span> <span class="n">pre</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">invariant</span><span class="p">)</span>
+<span class="n">loop_termination_implies_postcondition</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">invariant</span> <span class="o">&amp;</span>
+        <span class="p">(</span><span class="o">~</span><span class="n">WhileCondition</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">post</span><span class="p">)</span>
+<span class="n">invariant_is_true_after_loop</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">wrong_prop</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">NotEquals</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">pc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">NotEquals</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">wrong_prop2</span> <span class="o">=</span> <span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">pc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">Equals</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">NotEquals</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Then we can execute</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">properties</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="n">variant_is_non_negative</span><span class="p">,</span> <span class="s2">&quot;variant_is_non_negative&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">variant_is_strictly_decreasing</span><span class="p">,</span> <span class="s2">&quot;variant_is_strictly_decreasing&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">variant_equals_zero_implies_termination</span><span class="p">,</span> <span class="s2">&quot;variant_equals_zero_implies_termination&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">precondition_implies_invariant</span><span class="p">,</span> <span class="s2">&quot;precondition_implies_invariant&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">loop_termination_implies_postcondition</span><span class="p">,</span> <span class="s2">&quot;loop_termination_implies_postcondition&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">wrong_prop</span><span class="p">,</span> <span class="s2">&quot;wrong_prop&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="n">wrong_prop2</span><span class="p">,</span> <span class="s2">&quot;wrong_prop2&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">algo</span> <span class="ow">in</span> <span class="p">[</span><span class="n">PDR</span><span class="p">,</span> <span class="n">IMC</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using </span><span class="si">{</span><span class="n">algo</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">prop</span><span class="p">,</span> <span class="n">prop_name</span> <span class="ow">in</span> <span class="n">properties</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;proving </span><span class="si">{</span><span class="n">prop_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">PDR</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Predicate</span><span class="p">(</span><span class="n">prop</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>The code can be executed obtaining:</p>
+<p><span class="caption-text">Code </span></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">examples.trab4</span> <span class="kn">import</span> <span class="n">main</span>
+<span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><span class="caption-text">Results</span></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Using PDR:
+proving variant_is_non_negative
+[k=1] Proved correctness: safety property is inductive
+True
+proving variant_is_strictly_decreasing
+[k=1] Proved correctness: safety property is inductive
+True
+proving variant_equals_zero_implies_termination
+[k=1] Proved correctness: safety property is inductive
+True
+proving precondition_implies_invariant
+[k=1] Proved correctness: safety property is inductive
+True
+proving loop_termination_implies_postcondition
+[k=1] Proved correctness: safety property is inductive
+True
+proving wrong_prop
+[k=5] base-case check failed
+  Counterexample:
+  y@4 := 0_4
+  pc@4 := 3_4
+  n@4 := 1_4
+  pc@3 := 0_4
+  r@3 := 0_4
+  r@4 := 0_4
+  x@3 := 0_4
+  x@4 := 0_4
+  y@3 := 0_4
+  n@3 := 1_4
+  m@3 := 0_4
+  m@4 := 0_4
+  pc@2 := 2_4
+  r@2 := 0_4
+  x@2 := 0_4
+  y@2 := 0_4
+  n@2 := 1_4
+  m@2 := 0_4
+  pc@1 := 1_4
+  r@1 := 0_4
+  x@1 := 0_4
+  y@1 := 1_4
+  n@1 := 1_4
+  m@1 := 0_4
+  pc@0 := 0_4
+  r@0 := 0_4
+  x@0 := 0_4
+  y@0 := 1_4
+  n@0 := 1_4
+  m@0 := 0_4
+False
+proving wrong_prop2
+[k=14] base-case check failed
+  Counterexample:
+  y@13 := 0_4
+  pc@13 := 3_4
+  n@13 := 12_4
+  pc@12 := 0_4
+  r@12 := 0_4
+  r@13 := 0_4
+  x@12 := 0_4
+  x@13 := 0_4
+  y@12 := 0_4
+  n@12 := 12_4
+  m@12 := 0_4
+  m@13 := 0_4
+  pc@11 := 2_4
+  r@11 := 0_4
+  x@11 := 0_4
+  y@11 := 0_4
+  n@11 := 12_4
+  m@11 := 0_4
+  pc@10 := 1_4
+  r@10 := 0_4
+  x@10 := 0_4
+  y@10 := 1_4
+  n@10 := 12_4
+  m@10 := 0_4
+  pc@9 := 0_4
+  r@9 := 0_4
+  x@9 := 0_4
+  y@9 := 1_4
+  n@9 := 12_4
+  m@9 := 0_4
+  pc@8 := 2_4
+  r@8 := 0_4
+  x@8 := 0_4
+  y@8 := 2_4
+  n@8 := 12_4
+  m@8 := 0_4
+  pc@7 := 1_4
+  r@7 := 0_4
+  x@7 := 0_4
+  y@7 := 3_4
+  n@7 := 12_4
+  m@7 := 0_4
+  pc@6 := 0_4
+  r@6 := 0_4
+  x@6 := 0_4
+  y@6 := 3_4
+  n@6 := 12_4
+  m@6 := 0_4
+  pc@5 := 2_4
+  r@5 := 0_4
+  x@5 := 0_4
+  y@5 := 6_4
+  n@5 := 12_4
+  m@5 := 0_4
+  pc@4 := 1_4
+  r@4 := 0_4
+  x@4 := 0_4
+  y@4 := 6_4
+  n@4 := 12_4
+  m@4 := 0_4
+  pc@3 := 0_4
+  r@3 := 0_4
+  x@3 := 0_4
+  y@3 := 6_4
+  n@3 := 12_4
+  m@3 := 0_4
+  pc@2 := 2_4
+  r@2 := 0_4
+  x@2 := 0_4
+  y@2 := 12_4
+  n@2 := 12_4
+  m@2 := 0_4
+  pc@1 := 1_4
+  r@1 := 0_4
+  x@1 := 0_4
+  y@1 := 12_4
+  n@1 := 12_4
+  m@1 := 0_4
+  pc@0 := 0_4
+  r@0 := 0_4
+  x@0 := 0_4
+  y@0 := 12_4
+  n@0 := 12_4
+  m@0 := 0_4
+False
+Using IMC:
+proving variant_is_non_negative
+[k=1] Proved correctness: safety property is inductive
+True
+proving variant_is_strictly_decreasing
+[k=1] Proved correctness: safety property is inductive
+True
+proving variant_equals_zero_implies_termination
+[k=1] Proved correctness: safety property is inductive
+True
+proving precondition_implies_invariant
+[k=1] Proved correctness: safety property is inductive
+True
+proving loop_termination_implies_postcondition
+[k=1] Proved correctness: safety property is inductive
+True
+proving wrong_prop
+[k=5] base-case check failed
+  Counterexample:
+  y@4 := 0_4
+  pc@4 := 3_4
+  n@4 := 1_4
+  pc@3 := 0_4
+  r@3 := 0_4
+  r@4 := 0_4
+  x@3 := 0_4
+  x@4 := 0_4
+  y@3 := 0_4
+  n@3 := 1_4
+  m@3 := 0_4
+  m@4 := 0_4
+  pc@2 := 2_4
+  r@2 := 0_4
+  x@2 := 0_4
+  y@2 := 0_4
+  n@2 := 1_4
+  m@2 := 0_4
+  pc@1 := 1_4
+  r@1 := 0_4
+  x@1 := 0_4
+  y@1 := 1_4
+  n@1 := 1_4
+  m@1 := 0_4
+  pc@0 := 0_4
+  r@0 := 0_4
+  x@0 := 0_4
+  y@0 := 1_4
+  n@0 := 1_4
+  m@0 := 0_4
+False
+proving wrong_prop2
+[k=14] base-case check failed
+  Counterexample:
+  y@13 := 0_4
+  pc@13 := 3_4
+  n@13 := 12_4
+  pc@12 := 0_4
+  r@12 := 0_4
+  r@13 := 0_4
+  x@12 := 0_4
+  x@13 := 0_4
+  y@12 := 0_4
+  n@12 := 12_4
+  m@12 := 0_4
+  m@13 := 0_4
+  pc@11 := 2_4
+  r@11 := 0_4
+  x@11 := 0_4
+  y@11 := 0_4
+  n@11 := 12_4
+  m@11 := 0_4
+  pc@10 := 1_4
+  r@10 := 0_4
+  x@10 := 0_4
+  y@10 := 1_4
+  n@10 := 12_4
+  m@10 := 0_4
+  pc@9 := 0_4
+  r@9 := 0_4
+  x@9 := 0_4
+  y@9 := 1_4
+  n@9 := 12_4
+  m@9 := 0_4
+  pc@8 := 2_4
+  r@8 := 0_4
+  x@8 := 0_4
+  y@8 := 2_4
+  n@8 := 12_4
+  m@8 := 0_4
+  pc@7 := 1_4
+  r@7 := 0_4
+  x@7 := 0_4
+  y@7 := 3_4
+  n@7 := 12_4
+  m@7 := 0_4
+  pc@6 := 0_4
+  r@6 := 0_4
+  x@6 := 0_4
+  y@6 := 3_4
+  n@6 := 12_4
+  m@6 := 0_4
+  pc@5 := 2_4
+  r@5 := 0_4
+  x@5 := 0_4
+  y@5 := 6_4
+  n@5 := 12_4
+  m@5 := 0_4
+  pc@4 := 1_4
+  r@4 := 0_4
+  x@4 := 0_4
+  y@4 := 6_4
+  n@4 := 12_4
+  m@4 := 0_4
+  pc@3 := 0_4
+  r@3 := 0_4
+  x@3 := 0_4
+  y@3 := 6_4
+  n@3 := 12_4
+  m@3 := 0_4
+  pc@2 := 2_4
+  r@2 := 0_4
+  x@2 := 0_4
+  y@2 := 12_4
+  n@2 := 12_4
+  m@2 := 0_4
+  pc@1 := 1_4
+  r@1 := 0_4
+  x@1 := 0_4
+  y@1 := 12_4
+  n@1 := 12_4
+  m@1 := 0_4
+  pc@0 := 0_4
+  r@0 := 0_4
+  x@0 := 0_4
+  y@0 := 12_4
+  n@0 := 12_4
+  m@0 := 0_4
+False
+</pre></div>
+</div>
+<p>asasd</p>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="examples.pdr_simple_example_1.html"
+                          title="previous chapter">examples.pdr_simple_example_1 module</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="imc.html"
+                          title="next chapter">imc module</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/examples.trab4.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="imc.html" title="imc module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="examples.pdr_simple_example_1.html" title="examples.pdr_simple_example_1 module"
+             >previous</a> |</li>
+          <li><img src="_static/py.svg" alt="python logo" style="vertical-align: middle; margin-top: -1px"/></li>
+          <li><a href="https://www.python.org/">Python</a> &#187;</li>
+          <li class="switchers">
+            <div class="language_switcher_placeholder"></div>
+            <div class="version_switcher_placeholder"></div>
+          </li>
+          <li>
+              
+              <a href="index.html">FOTS-Prover  documentation</a> &#187;
+              
+          </li>
+          <li class="nav-item nav-item-1"><a href="modules.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="examples.html" >examples package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">examples.trab4 module</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    &copy; Copyright 2022, Alef Keuffer, Alexandre Rodrigues Balde, Bruno Filipe Jardim Machado, Pedro Paulo Costa Pereira.
+    <br />
+    This page is licensed under the Python Software Foundation License Version 2.
+    <br />
+    Examples, recipes, and other code in the documentation are additionally licensed under the Zero Clause BSD License.
+    <br />
+    
+    <br />
+
+    The Python Software Foundation is a non-profit corporation.
+<a href="https://www.python.org/psf/donations/">Please donate.</a>
+<br />
+    <br />
+
+    Last updated on None.
+    
+    <br />
+
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.5.0.
+    </div>
+
+  </body>
+</html>

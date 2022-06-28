@@ -10,11 +10,16 @@
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/pydoctheme.css?2022.1" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/thebelab.css" />
     
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" /><link rel="shortcut icon" type="image/png" href="_static/py.svg" />
@@ -110,28 +115,31 @@
  | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#I"><strong>I</strong></a>
- | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
+ | <a href="#V"><strong>V</strong></a>
  | <a href="#W"><strong>W</strong></a>
  
 </div>
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="util.html#util.transition.TransitionPredicate.add">add() (util.transition.TransitionPredicate method)</a>
+      <li><a href="wp.html#wp.T.add_trans">add_trans() (wp.T method)</a>
+</li>
+      <li><a href="predicate.html#predicate.Predicate.at">at() (predicate.Predicate method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="wp.html#wp.T.add_trans">add_trans() (wp.T method)</a>
-</li>
       <li><a href="backend.html#backend.at_time">at_time() (in module backend)</a>
+</li>
+      <li><a href="predicate.html#predicate.at_time_plus">at_time_plus() (in module predicate)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -148,7 +156,7 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="backend.html#backend.bin_itp">bin_itp() (in module backend)</a>
+      <li><a href="imc.html#imc.bmc">bmc() (in module imc)</a>
 </li>
       <li><a href="backend.html#backend.BMCInduction">BMCInduction (class in backend)</a>
 </li>
@@ -161,10 +169,6 @@
       <li><a href="backend.html#backend.BMCInduction.check_property">check_property() (backend.BMCInduction method)</a>
 </li>
   </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="backend.html#backend.ctigar_pdr_pseudo">ctigar_pdr_pseudo() (in module backend)</a>
-</li>
-  </ul></td>
 </tr></table>
 
 <h2 id="E">E</h2>
@@ -172,9 +176,73 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="wp.html#wp.example1">example1() (in module wp)</a>
 </li>
+      <li><a href="wp.html#wp.example2">example2() (in module wp)</a>
+</li>
+      <li><a href="examples.misc.html#examples.misc.example_failed_interpolation1">example_failed_interpolation1() (in module examples.misc)</a>
+</li>
+      <li><a href="examples.misc.html#examples.misc.example_failed_interpolation2">example_failed_interpolation2() (in module examples.misc)</a>
+</li>
+      <li><a href="examples.misc.html#examples.misc.example_failed_interpolation3">example_failed_interpolation3() (in module examples.misc)</a>
+</li>
+      <li><a href="examples.misc.html#examples.misc.example_get_logic">example_get_logic() (in module examples.misc)</a>
+</li>
+      <li><a href="examples.misc.html#examples.misc.example_interpolation">example_interpolation() (in module examples.misc)</a>
+</li>
+      <li><a href="examples.misc.html#examples.misc.example_interpolation2">example_interpolation2() (in module examples.misc)</a>
+</li>
+      <li><a href="examples.misc.html#examples.misc.example_interpolation3">example_interpolation3() (in module examples.misc)</a>
+</li>
+      <li>
+    examples
+
+      <ul>
+        <li><a href="examples.html#module-examples">module</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="wp.html#wp.example2">example2() (in module wp)</a>
+      <li>
+    examples.eq2
+
+      <ul>
+        <li><a href="examples.eq2.html#module-examples.eq2">module</a>
+</li>
+      </ul></li>
+      <li>
+    examples.euclids_algorithm
+
+      <ul>
+        <li><a href="examples.euclids_algorithm.html#module-examples.euclids_algorithm">module</a>
+</li>
+      </ul></li>
+      <li>
+    examples.misc
+
+      <ul>
+        <li><a href="examples.misc.html#module-examples.misc">module</a>
+</li>
+      </ul></li>
+      <li>
+    examples.pdr_simple_example_1
+
+      <ul>
+        <li><a href="examples.pdr_simple_example_1.html#module-examples.pdr_simple_example_1">module</a>
+</li>
+      </ul></li>
+      <li>
+    examples.trab4
+
+      <ul>
+        <li><a href="examples.trab4.html#module-examples.trab4">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="imc.html#imc.finite_run">finite_run() (in module imc)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -182,25 +250,27 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="util.html#util.transition.TransitionPredicate.get">get() (util.transition.TransitionPredicate method)</a>
-</li>
       <li><a href="backend.html#backend.get_assignment_as_formula">get_assignment_as_formula() (in module backend)</a>
 </li>
       <li><a href="backend.html#backend.get_assignment_as_formula_from_model">get_assignment_as_formula_from_model() (in module backend)</a>
 </li>
-      <li><a href="backend.html#backend.BMCInduction.get_bmc">get_bmc() (backend.BMCInduction method)</a>
+      <li><a href="backend.html#backend.get_base_case">get_base_case() (in module backend)</a>
 </li>
-      <li><a href="util.html#util.transition.get_formula_with_elements_fixed">get_formula_with_elements_fixed() (in module util.transition)</a>
+      <li><a href="backend.html#backend.BMCInduction.get_bmc">get_bmc() (backend.BMCInduction method)</a>
 </li>
       <li><a href="backend.html#backend.BMCInduction.get_k_hypothesis">get_k_hypothesis() (backend.BMCInduction method)</a>
 </li>
       <li><a href="backend.html#backend.BMCInduction.get_k_induction">get_k_induction() (backend.BMCInduction method)</a>
 </li>
+      <li><a href="backend.html#backend.get_name">get_name() (in module backend)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="backend.html#backend.get_or_and">get_or_and() (in module backend)</a>
+      <li><a href="predicate.html#predicate.get_predicate">get_predicate() (in module predicate)</a>
 </li>
       <li><a href="backend.html#backend.BMCInduction.get_simple_path">get_simple_path() (backend.BMCInduction method)</a>
+</li>
+      <li><a href="backend.html#backend.get_step_case">get_step_case() (in module backend)</a>
 </li>
       <li><a href="backend.html#backend.TransitionSystem.get_subs">get_subs() (backend.TransitionSystem method)</a>
 
@@ -208,8 +278,6 @@
         <li><a href="backend.html#backend.get_subs">(in module backend)</a>
 </li>
       </ul></li>
-      <li><a href="util.html#util.transition.get_transition_with_elements_fixed">get_transition_with_elements_fixed() (in module util.transition)</a>
-</li>
       <li><a href="backend.html#backend.TransitionSystem.get_unrolling">get_unrolling() (backend.TransitionSystem method)</a>
 
       <ul>
@@ -222,55 +290,58 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    imc
+
+      <ul>
+        <li><a href="imc.html#module-imc">module</a>
+</li>
+      </ul></li>
       <li><a href="backend.html#backend.IMC">IMC() (in module backend)</a>
-</li>
-      <li><a href="backend.html#backend.interp">interp() (in module backend)</a>
-</li>
-      <li><a href="backend.html#backend.interpolate">interpolate() (in module backend)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="predicate.html#predicate.instantiate_predicate_variables_at">instantiate_predicate_variables_at() (in module predicate)</a>
+</li>
       <li><a href="backend.html#backend.is_next">is_next() (in module backend)</a>
 
       <ul>
-        <li><a href="util.html#util.transition.is_next">(in module util.transition)</a>
-</li>
         <li><a href="wp.html#wp.is_next">(in module wp)</a>
 </li>
       </ul></li>
-      <li><a href="backend.html#backend.itp">itp() (in module backend)</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="L">L</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="backend.html#backend.lifting_query">lifting_query() (in module backend)</a>
-</li>
   </ul></td>
 </tr></table>
 
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="util.html#util.transition.map_prev_to_next">map_prev_to_next() (in module util.transition)</a>
+      <li><a href="examples.trab4.html#examples.trab4.main">main() (in module examples.trab4)</a>
+
+      <ul>
+        <li><a href="predicate.html#predicate.main">(in module predicate)</a>
 </li>
+      </ul></li>
       <li>
     module
 
       <ul>
         <li><a href="backend.html#module-backend">backend</a>
 </li>
-        <li><a href="util.html#module-util">util</a>
+        <li><a href="examples.html#module-examples">examples</a>
 </li>
-        <li><a href="util.examples.html#module-util.examples">util.examples</a>
+        <li><a href="examples.eq2.html#module-examples.eq2">examples.eq2</a>
 </li>
-        <li><a href="util.examples.html#module-util.examples.trab4">util.examples.trab4</a>
+        <li><a href="examples.euclids_algorithm.html#module-examples.euclids_algorithm">examples.euclids_algorithm</a>
 </li>
-        <li><a href="util.html#module-util.transition">util.transition</a>
+        <li><a href="examples.misc.html#module-examples.misc">examples.misc</a>
 </li>
-        <li><a href="util.html#module-util.transition_deprecated">util.transition_deprecated</a>
+        <li><a href="examples.pdr_simple_example_1.html#module-examples.pdr_simple_example_1">examples.pdr_simple_example_1</a>
+</li>
+        <li><a href="examples.trab4.html#module-examples.trab4">examples.trab4</a>
+</li>
+        <li><a href="imc.html#module-imc">imc</a>
+</li>
+        <li><a href="predicate.html#module-predicate">predicate</a>
 </li>
         <li><a href="wp.html#module-wp">wp</a>
 </li>
@@ -291,19 +362,30 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="backend.html#backend.PDR">PDR() (in module backend)</a>
 </li>
-      <li><a href="backend.html#backend.pdr_pseudo">pdr_pseudo() (in module backend)</a>
-</li>
-      <li><a href="util.html#util.transition.prev_name">prev_name() (in module util.transition)</a>
+      <li>
+    predicate
 
       <ul>
-        <li><a href="wp.html#wp.prev_name">(in module wp)</a>
+        <li><a href="predicate.html#module-predicate">module</a>
 </li>
       </ul></li>
+      <li><a href="predicate.html#predicate.Predicate">Predicate (class in predicate)</a>
+</li>
+      <li><a href="imc.html#imc.pref">pref() (in module imc)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="wp.html#wp.T.prime">prime() (wp.T static method)</a>
+      <li><a href="wp.html#wp.prev_name">prev_name() (in module wp)</a>
 </li>
-      <li><a href="util.examples.html#util.examples.trab4.prog4">prog4() (in module util.examples.trab4)</a>
+      <li><a href="predicate.html#predicate.prime">prime() (in module predicate)</a>
+
+      <ul>
+        <li><a href="predicate.html#predicate.Predicate.prime">(predicate.Predicate method)</a>
+</li>
+        <li><a href="wp.html#wp.T.prime">(wp.T static method)</a>
+</li>
+      </ul></li>
+      <li><a href="examples.trab4.html#examples.trab4.prog4">prog4() (in module examples.trab4)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -315,15 +397,13 @@
 </li>
       <li><a href="backend.html#backend.Status.SAT">SAT (backend.Status attribute)</a>
 </li>
-      <li><a href="backend.html#backend.Status">Status (class in backend)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="backend.html#backend.step_case_P_n">step_case_P_n() (in module backend)</a>
+      <li><a href="backend.html#backend.Status">Status (class in backend)</a>
 </li>
-      <li><a href="backend.html#backend.step_case_P_n_Pedro">step_case_P_n_Pedro() (in module backend)</a>
+      <li><a href="backend.html#backend.str_model">str_model() (in module backend)</a>
 </li>
-      <li><a href="backend.html#backend.strenghten">strenghten() (in module backend)</a>
+      <li><a href="imc.html#imc.suff">suff() (in module imc)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -333,25 +413,9 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="wp.html#wp.T">T (class in wp)</a>
 </li>
-      <li><a href="util.html#util.transition_deprecated.T_v1">T_v1() (in module util.transition_deprecated)</a>
-</li>
-      <li><a href="backend.html#backend.test_pdr_on_trab_4">test_pdr_on_trab_4() (in module backend)</a>
-</li>
-      <li><a href="util.examples.html#util.examples.trab4.trab4EvenMoreSimplified">trab4EvenMoreSimplified() (in module util.examples.trab4)</a>
-</li>
-      <li><a href="util.examples.html#util.examples.trab4.trab4FinalSimplification">trab4FinalSimplification() (in module util.examples.trab4)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="util.examples.html#util.examples.trab4.trab4NoImplies">trab4NoImplies() (in module util.examples.trab4)</a>
-</li>
-      <li><a href="util.examples.html#util.examples.trab4.trab4Simplified">trab4Simplified() (in module util.examples.trab4)</a>
-</li>
-      <li><a href="util.html#util.transition.TransitionPredicate">TransitionPredicate (class in util.transition)</a>
-</li>
       <li><a href="backend.html#backend.TransitionSystem">TransitionSystem (class in backend)</a>
-</li>
-      <li><a href="util.html#util.transition.TS">TS() (in module util.transition)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -361,6 +425,12 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="backend.html#backend.Status.UNKNOWN">UNKNOWN (backend.Status attribute)</a>
 </li>
+      <li><a href="predicate.html#predicate.Predicate.unroll">unroll() (predicate.Predicate method)</a>
+</li>
+      <li><a href="predicate.html#predicate.Predicate.unroll_from_0">unroll_from_0() (predicate.Predicate method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="backend.html#backend.Status.UNSAFE">UNSAFE (backend.Status attribute)</a>
 </li>
       <li><a href="backend.html#backend.Status.UNSAFE1">UNSAFE1 (backend.Status attribute)</a>
@@ -369,43 +439,14 @@
 </li>
       <li><a href="backend.html#backend.Status.UNSAT">UNSAT (backend.Status attribute)</a>
 </li>
-      <li>
-    util
-
-      <ul>
-        <li><a href="util.html#module-util">module</a>
-</li>
-      </ul></li>
   </ul></td>
+</tr></table>
+
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    util.examples
-
-      <ul>
-        <li><a href="util.examples.html#module-util.examples">module</a>
+      <li><a href="predicate.html#predicate.Variable">Variable() (in module predicate)</a>
 </li>
-      </ul></li>
-      <li>
-    util.examples.trab4
-
-      <ul>
-        <li><a href="util.examples.html#module-util.examples.trab4">module</a>
-</li>
-      </ul></li>
-      <li>
-    util.transition
-
-      <ul>
-        <li><a href="util.html#module-util.transition">module</a>
-</li>
-      </ul></li>
-      <li>
-    util.transition_deprecated
-
-      <ul>
-        <li><a href="util.html#module-util.transition_deprecated">module</a>
-</li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
