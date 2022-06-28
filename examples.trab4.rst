@@ -29,7 +29,7 @@ So the state space after one transition from initial state is :math:`I[0] ∧ T[
 
 Furthermore, :math:`T[:k] ≡ \bigwedge_{i=0}^{k} T[k]`
 
-Properties
+Some examples of properties are:
 
 .. math:: V ≡ (y - pc) + 3
 .. math:: \textrm{nonnegative} ≡ V ≥ 0
@@ -218,7 +218,9 @@ Then we can execute
         print(f"Using {algo.__name__}:")
         for prop, prop_name in properties:
             print(f"proving {prop_name}")
-            print(PDR(I, T, Predicate(prop)))
+            print(algo(I, T, Predicate(prop)))
+
+From the code execution it can be seen that :func:`imc` is not yet working.
 
 The code can be executed obtaining:
 
