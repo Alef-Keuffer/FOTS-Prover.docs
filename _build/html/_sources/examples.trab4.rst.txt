@@ -229,4 +229,3 @@ The code can be executed obtaining:
    from examples.trab4 import main
    main()
 
-asasd
