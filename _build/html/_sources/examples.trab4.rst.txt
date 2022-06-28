@@ -220,7 +220,7 @@ Then we can execute
             print(f"proving {prop_name}")
             print(algo(I, T, Predicate(prop)))
 
-From the code execution it can be seen that :func:`imc` is not yet working.
+From the code execution it can be seen that :func:`IMC` is not yet working.
 
 The code can be executed obtaining:
 
