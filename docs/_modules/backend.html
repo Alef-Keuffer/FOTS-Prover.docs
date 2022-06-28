@@ -152,16 +152,23 @@
 
 <div class="viewcode-block" id="get_name"><a class="viewcode-back" href="../backend.html#backend.get_name">[docs]</a><span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">FNode</span><span class="p">):</span>
     <span class="kn">import</span> <span class="nn">re</span>
-    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;](.*)&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">())</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(.*)@&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">())</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_index"><a class="viewcode-back" href="../backend.html#backend.get_index">[docs]</a><span class="k">def</span> <span class="nf">get_index</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">FNode</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">re</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(.*)@(.*)&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">())</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="str_model"><a class="viewcode-back" href="../backend.html#backend.str_model">[docs]</a><span class="k">def</span> <span class="nf">str_model</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">Model</span><span class="p">):</span>
     <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">()):</span>
+    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">get_index</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]))):</span>
         <span class="n">n</span> <span class="o">=</span> <span class="n">get_name</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;*&#39;</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;0&#39;</span> <span class="ow">and</span> <span class="n">d</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">!=</span> <span class="n">v</span><span class="p">)</span><span class="si">}{</span><span class="n">x</span><span class="si">}</span><span class="s2"> := </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">get_index</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">&#39;0&#39;</span> <span class="ow">and</span> <span class="n">d</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">!=</span> <span class="n">v</span><span class="p">:</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;* </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1"> := </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1"> := </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="n">d</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
 
     <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
@@ -331,7 +338,7 @@
     <span class="c1"># from R(i) in at most k steps.</span>
     <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
         <span class="n">A</span> <span class="o">=</span> <span class="n">R</span> <span class="o">&amp;</span> <span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">B</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">Or</span><span class="p">(</span><span class="o">~</span><span class="n">P</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">Or</span><span class="p">(</span><span class="o">~</span><span class="n">P</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">i</span><span class="si">=}</span><span class="s2">,</span><span class="si">{</span><span class="n">k</span><span class="si">=}</span><span class="s2">] Checking BMC from R(i)&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">m</span> <span class="o">:=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">A</span> <span class="o">&amp;</span> <span class="n">B</span><span class="p">):</span>
             <span class="c1"># the error might be real or spurious, caused by an insufficient value of k</span>
@@ -357,11 +364,7 @@
             <span class="c1"># a fixpoint check is carried out: if I(i) |= R(i), it means that all</span>
             <span class="c1"># states have been covered, and the system is safe; otherwise, R(i + 1) is</span>
             <span class="c1"># set to R(i) ∨ I(i) and the procedure continues.</span>
-            <span class="c1"># solver = Solver()</span>
-            <span class="c1"># solver.add_assertion(I_i)</span>
-            <span class="c1"># if is_valid(I.Implies(R)):</span>
             <span class="k">if</span> <span class="n">is_valid</span><span class="p">(</span><span class="n">I</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">R</span><span class="p">)):</span>
-            <span class="c1"># if solver.is_valid(R_i):</span>
                 <span class="c1"># the current R(i) corresponds to an inductive invariant P̂ stronger</span>
                 <span class="c1"># than P: on one side, S |= R(i), moreover R(i) ∧ T |= I&#39;(i) and I(i)</span>
                 <span class="c1"># |= R(i) imply R(i) ∧ T |= R&#39;(i); on the other side, the fact that at</span>
@@ -407,7 +410,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 
-<span class="k">def</span> <span class="nf">_lift</span><span class="p">(</span><span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">Inv</span><span class="p">:</span> <span class="n">Predicate</span><span class="p">,</span> <span class="n">Q</span><span class="p">:</span> <span class="n">Predicate</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="n">Predicate</span><span class="p">,</span> <span class="n">T</span><span class="p">:</span> <span class="n">Predicate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">FNode</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_lift</span><span class="p">(</span><span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">Inv</span><span class="p">:</span> <span class="n">Predicate</span><span class="p">,</span> <span class="n">Q</span><span class="p">:</span> <span class="n">Predicate</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="n">Predicate</span><span class="p">,</span>
+          <span class="n">T</span><span class="p">:</span> <span class="n">Predicate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span> <span class="o">|</span> <span class="n">FNode</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    We can implement lift using Craig interpolation between</span>
 
@@ -418,11 +422,11 @@
 <span class="sd">    the resulting interpolant satisfies the criteria for :math:`C` to be a valid</span>
 <span class="sd">    lifting of s according to the requirements towards the function lift.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">A</span> <span class="o">=</span> <span class="n">s</span><span class="o">@</span><span class="mi">0</span>
-    <span class="n">B</span> <span class="o">=</span> <span class="p">(</span><span class="n">Inv</span><span class="o">@</span><span class="mi">0</span> <span class="o">&amp;</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">s</span> <span class="o">@</span> <span class="mi">0</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="p">(</span><span class="n">Inv</span> <span class="o">@</span> <span class="mi">0</span> <span class="o">&amp;</span>
          <span class="n">Q</span><span class="p">[:</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span>
          <span class="n">T</span><span class="p">[:</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-         <span class="p">)</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">Not</span><span class="p">(</span><span class="n">Q</span><span class="nd">@k</span><span class="p">))</span>
+         <span class="p">)</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">Not</span><span class="p">(</span><span class="n">Q</span> <span class="o">@</span> <span class="n">k</span><span class="p">))</span>
     <span class="kn">from</span> <span class="nn">pysmt.exceptions</span> <span class="kn">import</span> <span class="n">NoSolverAvailableError</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">binary_interpolant</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
@@ -438,7 +442,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">And</span><span class="p">(</span>
         <span class="n">I</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-        <span class="n">Or</span><span class="p">([</span><span class="n">T</span><span class="p">[:</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">P</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">)])</span>
+        <span class="n">Or</span><span class="p">([</span><span class="n">T</span><span class="p">[:</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">P</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">)])</span>
     <span class="p">)</span></div>
 
 
@@ -455,12 +459,12 @@
 <span class="sd">        with the idea that making :math:`n=0` in pySMT is equivalent to the formula above.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">And</span><span class="p">(</span>
-            <span class="p">(</span><span class="n">P</span><span class="p">[:</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]),</span>
-            <span class="p">(</span><span class="n">T</span><span class="p">[:</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]),</span>
-            <span class="c1"># Should we do Or(~P[i] for i in range(k+1)) instead of</span>
-            <span class="c1"># ~P[k]?</span>
-            <span class="o">~</span><span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
-            <span class="c1"># Or(~P[i] for i in range(k+1))</span>
+        <span class="p">(</span><span class="n">P</span><span class="p">[:</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]),</span>
+        <span class="p">(</span><span class="n">T</span><span class="p">[:</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]),</span>
+        <span class="c1"># Should we do Or(~P[i] for i in range(k+1)) instead of</span>
+        <span class="c1"># ~P[k]?</span>
+        <span class="o">~</span><span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
+        <span class="c1"># Or(~P[i] for i in range(k+1))</span>
     <span class="p">)</span></div>
 
 
@@ -546,8 +550,8 @@
             <span class="k">if</span> <span class="n">print_info</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">k</span><span class="si">=}</span><span class="s2">] base-case check failed&quot;</span><span class="p">)</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">INDENT</span><span class="si">}</span><span class="s2">Counterexample:&quot;</span><span class="p">)</span>
-                <span class="c1"># print(textwrap.indent(f&quot;{str_model(m)}&quot;, INDENT))</span>
-                <span class="nb">print</span><span class="p">(</span><span class="n">textwrap</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">INDENT</span><span class="p">))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">textwrap</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">str_model</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">INDENT</span><span class="p">))</span>
+                <span class="c1"># print(textwrap.indent(f&quot;{m}&quot;, INDENT))</span>
             <span class="k">return</span> <span class="kc">False</span>
         <span class="c1"># end ############################################################################</span>
 
@@ -558,7 +562,7 @@
         <span class="c1"># to prove that BMC fully explored the state space of the program by checking</span>
         <span class="c1"># that no state with distance k′ &gt; k−1 to the initial state is reachable. If this</span>
         <span class="c1"># check is successful, the algorithm terminates.</span>
-        <span class="n">forward_condition</span> <span class="o">=</span> <span class="n">I</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">T</span><span class="p">[:</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">forward_condition</span> <span class="o">=</span> <span class="n">I</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">T</span><span class="p">[:</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">is_unsat</span><span class="p">(</span><span class="n">forward_condition</span><span class="p">):</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">k</span><span class="si">=}</span><span class="s2">] Proved correctness: successful forward condition check&quot;</span><span class="p">)</span>
             <span class="n">pprint</span><span class="p">(</span><span class="n">forward_condition</span><span class="o">.</span><span class="n">serialize</span><span class="p">())</span>
