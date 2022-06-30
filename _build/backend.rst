@@ -1,7 +1,7 @@
-imc module
-==========
+backend module
+==============
 
-.. automodule:: imc
+.. automodule:: backend
    :members:
    :undoc-members:
    :show-inheritance:
