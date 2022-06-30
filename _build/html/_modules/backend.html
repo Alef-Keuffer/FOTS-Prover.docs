@@ -110,7 +110,7 @@
             
   <h1>Source code for backend</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">textwrap</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Container</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Collection</span><span class="p">,</span> <span class="n">Set</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Set</span>
 <span class="kn">from</span> <span class="nn">pysmt.fnode</span> <span class="kn">import</span> <span class="n">FNode</span>
 <span class="kn">from</span> <span class="nn">pysmt.shortcuts</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">auto</span>
@@ -119,7 +119,7 @@
 <span class="c1"># General</span>
 <span class="kn">from</span> <span class="nn">pysmt.solvers.solver</span> <span class="kn">import</span> <span class="n">Model</span>
 
-<span class="kn">from</span> <span class="nn">predicate</span> <span class="kn">import</span> <span class="n">Predicate</span>
+<span class="kn">from</span> <span class="nn">predicate</span> <span class="kn">import</span> <span class="n">Predicate</span><span class="p">,</span> <span class="n">str_model</span><span class="p">,</span> <span class="n">get_index</span>
 
 <span class="n">INDENT</span> <span class="o">=</span> <span class="s1">&#39;  &#39;</span>
 
@@ -134,155 +134,61 @@
     <span class="n">UNKNOWN</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="next_var"><a class="viewcode-back" href="../backend.html#backend.next_var">[docs]</a><span class="k">def</span> <span class="nf">next_var</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="n">FNode</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns the &#39;next&#39; of the given variable&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">Symbol</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;next(</span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">()</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">symbol_type</span><span class="p">())</span></div>
+<span class="c1"># BMC Induction</span>
 
 
-<div class="viewcode-block" id="at_time"><a class="viewcode-back" href="../backend.html#backend.at_time">[docs]</a><span class="k">def</span> <span class="nf">at_time</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="n">FNode</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Builds an SMT variable representing v at time t&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">Symbol</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">t</span><span class="si">}</span><span class="s2">]</span><span class="si">{</span><span class="n">v</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">symbol_type</span><span class="p">())</span></div>
+<div class="viewcode-block" id="get_variables"><a class="viewcode-back" href="../backend.html#backend.get_variables">[docs]</a><span class="k">def</span> <span class="nf">get_variables</span><span class="p">(</span><span class="o">*</span><span class="n">ps</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span>
+            <span class="nb">set</span><span class="p">(</span><span class="n">q</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ps</span>
+                <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_free_variables</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">get_index</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="is_next"><a class="viewcode-back" href="../backend.html#backend.is_next">[docs]</a><span class="k">def</span> <span class="nf">is_next</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="n">FNode</span><span class="p">):</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">()</span>
-    <span class="c1"># return &#39;next(&#39; == s[:5] and &#39;)&#39; == s[-1]</span>
-    <span class="k">return</span> <span class="s1">&#39;next(&#39;</span> <span class="ow">in</span> <span class="n">s</span></div>
-
-
-<div class="viewcode-block" id="get_name"><a class="viewcode-back" href="../backend.html#backend.get_name">[docs]</a><span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">FNode</span><span class="p">):</span>
-    <span class="kn">import</span> <span class="nn">re</span>
-    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(.*)@&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">())</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="get_index"><a class="viewcode-back" href="../backend.html#backend.get_index">[docs]</a><span class="k">def</span> <span class="nf">get_index</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">FNode</span><span class="p">):</span>
-    <span class="kn">import</span> <span class="nn">re</span>
-    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(.*)@(.*)&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">symbol_name</span><span class="p">())</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="str_model"><a class="viewcode-back" href="../backend.html#backend.str_model">[docs]</a><span class="k">def</span> <span class="nf">str_model</span><span class="p">(</span><span class="n">m</span><span class="p">:</span> <span class="n">Model</span><span class="p">):</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">get_index</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]))):</span>
-        <span class="n">n</span> <span class="o">=</span> <span class="n">get_name</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">get_index</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">&#39;0&#39;</span> <span class="ow">and</span> <span class="n">d</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">!=</span> <span class="n">v</span><span class="p">:</span>
-            <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;* </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1"> := </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1"> := </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="n">d</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-
-    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></div>
-    <span class="c1"># return &#39;\n&#39;.join(f&quot;{x} := {v}&quot; for x, v in sorted(m, key=lambda t: t[0].symbol_name()))</span>
-
-
-<div class="viewcode-block" id="get_subs"><a class="viewcode-back" href="../backend.html#backend.get_subs">[docs]</a><span class="k">def</span> <span class="nf">get_subs</span><span class="p">(</span><span class="n">P</span><span class="p">:</span> <span class="n">Container</span><span class="p">[</span><span class="n">FNode</span><span class="p">]</span> <span class="o">|</span> <span class="n">FNode</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Builds a map from :math:`x` to :math:`x_i` and from :math:`x&#39;` to :math:`x_{i+1}`,</span>
-<span class="sd">    for all :math:`x` in :math:`P`.</span>
+<div class="viewcode-block" id="get_simple_path"><a class="viewcode-back" href="../backend.html#backend.get_simple_path">[docs]</a><span class="k">def</span> <span class="nf">get_simple_path</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Simple path constraint for k-induction:</span>
+<span class="sd">    each time encodes a different state</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">FNode</span><span class="p">):</span>
-        <span class="n">P</span> <span class="o">=</span> <span class="n">P</span><span class="o">.</span><span class="n">get_free_variables</span><span class="p">()</span>
-        <span class="n">P</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">P</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">is_next</span><span class="p">(</span><span class="n">v</span><span class="p">)}</span>
-    <span class="n">subs_i</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">P</span><span class="p">:</span>
-        <span class="n">subs_i</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">at_time</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-        <span class="n">subs_i</span><span class="p">[</span><span class="n">next_var</span><span class="p">(</span><span class="n">v</span><span class="p">)]</span> <span class="o">=</span> <span class="n">at_time</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">subs_i</span></div>
-
-
-<div class="viewcode-block" id="get_unrolling"><a class="viewcode-back" href="../backend.html#backend.get_unrolling">[docs]</a><span class="k">def</span> <span class="nf">get_unrolling</span><span class="p">(</span><span class="n">P</span><span class="p">:</span> <span class="n">FNode</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Unrolling of the property from :math:`j` to :math:`k`:</span>
-
-<span class="sd">    I.e. :math:`P^j ∧ P^{j+1} ∧ ⋯ ∧ P^{k-1} ∧ P^k`</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">assert</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">k</span>
+    <span class="n">variables</span> <span class="o">=</span> <span class="n">get_variables</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">)</span>
     <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="n">subs_i</span> <span class="o">=</span> <span class="n">get_subs</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-        <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">P</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span><span class="n">subs_i</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">:</span>
+                <span class="n">state</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Not</span><span class="p">(</span><span class="n">EqualsOrIff</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">])))</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Or</span><span class="p">(</span><span class="n">state</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">And</span><span class="p">(</span><span class="n">res</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="TransitionSystem"><a class="viewcode-back" href="../backend.html#backend.TransitionSystem">[docs]</a><span class="k">class</span> <span class="nc">TransitionSystem</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Trivial representation of a FOTS (First Order Transition System).&quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init</span><span class="p">:</span> <span class="n">FNode</span><span class="p">,</span> <span class="n">trans</span><span class="p">:</span> <span class="n">FNode</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">FNode</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
-            <span class="nb">set</span><span class="p">(</span><span class="n">init</span><span class="o">.</span><span class="n">get_free_variables</span><span class="p">())</span><span class="o">.</span><span class="n">union</span><span class="p">((</span><span class="n">trans</span><span class="o">.</span><span class="n">get_free_variables</span><span class="p">())))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">init</span> <span class="o">=</span> <span class="n">init</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">trans</span> <span class="o">=</span> <span class="n">trans</span>
-
-<div class="viewcode-block" id="TransitionSystem.get_subs"><a class="viewcode-back" href="../backend.html#backend.TransitionSystem.get_subs">[docs]</a>    <span class="k">def</span> <span class="nf">get_subs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;See :func:`get_subs`&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">get_subs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="TransitionSystem.get_unrolling"><a class="viewcode-back" href="../backend.html#backend.TransitionSystem.get_unrolling">[docs]</a>    <span class="k">def</span> <span class="nf">get_unrolling</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;See :func:`get_unrolling`&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">get_unrolling</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">trans</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span></div></div>
+<div class="viewcode-block" id="get_k_induction"><a class="viewcode-back" href="../backend.html#backend.get_k_induction">[docs]</a><span class="k">def</span> <span class="nf">get_k_induction</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the K-Induction encoding at step K.</span>
+<span class="sd">    The forumla is k-inductive if it&#39;s unsat.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">And</span><span class="p">(</span><span class="n">P</span><span class="p">[:</span><span class="n">k</span><span class="p">],</span>
+               <span class="n">T</span><span class="p">[:</span><span class="n">k</span><span class="p">],</span>
+               <span class="n">get_simple_path</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span>
+               <span class="n">Not</span><span class="p">(</span><span class="n">P</span><span class="p">[</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]))</span></div>
 
 
-<span class="c1"># BMC Induction</span>
+<div class="viewcode-block" id="get_bmc"><a class="viewcode-back" href="../backend.html#backend.get_bmc">[docs]</a><span class="k">def</span> <span class="nf">get_bmc</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the BMC encoding at step k&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">And</span><span class="p">(</span><span class="n">I</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">T</span><span class="p">[:</span><span class="n">k</span><span class="p">],</span> <span class="n">Not</span><span class="p">(</span><span class="n">P</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span></div>
 
-<div class="viewcode-block" id="BMCInduction"><a class="viewcode-back" href="../backend.html#backend.BMCInduction">[docs]</a><span class="k">class</span> <span class="nc">BMCInduction</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">system</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">system</span> <span class="o">=</span> <span class="n">system</span>
 
-<div class="viewcode-block" id="BMCInduction.get_simple_path"><a class="viewcode-back" href="../backend.html#backend.BMCInduction.get_simple_path">[docs]</a>    <span class="k">def</span> <span class="nf">get_simple_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Simple path constraint for k-induction:</span>
-<span class="sd">        each time encodes a different state</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-            <span class="n">subs_i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">get_subs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-                <span class="n">state</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="n">subs_j</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">get_subs</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">variables</span><span class="p">:</span>
-                    <span class="n">v_i</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span><span class="n">subs_i</span><span class="p">)</span>
-                    <span class="n">v_j</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span><span class="n">subs_j</span><span class="p">)</span>
-                    <span class="n">state</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Not</span><span class="p">(</span><span class="n">EqualsOrIff</span><span class="p">(</span><span class="n">v_i</span><span class="p">,</span> <span class="n">v_j</span><span class="p">)))</span>
-                <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Or</span><span class="p">(</span><span class="n">state</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">And</span><span class="p">(</span><span class="n">res</span><span class="p">)</span></div>
+<div class="viewcode-block" id="BMC_IND"><a class="viewcode-back" href="../backend.html#backend.BMC_IND">[docs]</a><span class="k">def</span> <span class="nf">BMC_IND</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Interleaves BMC and K-Ind to verify the property.&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Checking property </span><span class="si">{</span><span class="n">P</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">ply.cpp</span> <span class="kn">import</span> <span class="n">xrange</span>
+    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">get_bmc</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   [BMC]    Checking bound </span><span class="si">{</span><span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_sat</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;--&gt; Bug found at step </span><span class="si">{</span><span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
 
-<div class="viewcode-block" id="BMCInduction.get_k_hypothesis"><a class="viewcode-back" href="../backend.html#backend.BMCInduction.get_k_hypothesis">[docs]</a>    <span class="k">def</span> <span class="nf">get_k_hypothesis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Hypothesis for k-induction: each state up to k-1 fulfills the property&quot;&quot;&quot;</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
-            <span class="n">subs_i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">get_subs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-            <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prop</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span><span class="n">subs_i</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">And</span><span class="p">(</span><span class="n">res</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="BMCInduction.get_bmc"><a class="viewcode-back" href="../backend.html#backend.BMCInduction.get_bmc">[docs]</a>    <span class="k">def</span> <span class="nf">get_bmc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Returns the BMC encoding at step k&quot;&quot;&quot;</span>
-        <span class="n">init_0</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">get_subs</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-        <span class="n">prop_k</span> <span class="o">=</span> <span class="n">prop</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">get_subs</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">And</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">get_unrolling</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="n">init_0</span><span class="p">,</span> <span class="n">Not</span><span class="p">(</span><span class="n">prop_k</span><span class="p">))</span></div>
-
-<div class="viewcode-block" id="BMCInduction.get_k_induction"><a class="viewcode-back" href="../backend.html#backend.BMCInduction.get_k_induction">[docs]</a>    <span class="k">def</span> <span class="nf">get_k_induction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Returns the K-Induction encoding at step K&quot;&quot;&quot;</span>
-        <span class="n">subs_k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">get_subs</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-        <span class="n">prop_k</span> <span class="o">=</span> <span class="n">prop</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span><span class="n">subs_k</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">And</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">get_unrolling</span><span class="p">(</span><span class="n">k</span><span class="p">),</span>
-                   <span class="bp">self</span><span class="o">.</span><span class="n">get_k_hypothesis</span><span class="p">(</span><span class="n">prop</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span>
-                   <span class="bp">self</span><span class="o">.</span><span class="n">get_simple_path</span><span class="p">(</span><span class="n">k</span><span class="p">),</span>
-                   <span class="n">Not</span><span class="p">(</span><span class="n">prop_k</span><span class="p">))</span></div>
-
-<div class="viewcode-block" id="BMCInduction.check_property"><a class="viewcode-back" href="../backend.html#backend.BMCInduction.check_property">[docs]</a>    <span class="k">def</span> <span class="nf">check_property</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prop</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Interleaves BMC and K-Ind to verify the property.&quot;&quot;&quot;</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Checking property </span><span class="si">%s</span><span class="s2">...&quot;</span> <span class="o">%</span> <span class="n">prop</span><span class="p">)</span>
-        <span class="kn">from</span> <span class="nn">ply.cpp</span> <span class="kn">import</span> <span class="n">xrange</span>
-        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-            <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_bmc</span><span class="p">(</span><span class="n">prop</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   [BMC]    Checking bound </span><span class="si">%d</span><span class="s2">...&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">is_sat</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--&gt; Bug found at step </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
-                <span class="k">return</span>
-
-            <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_k_induction</span><span class="p">(</span><span class="n">prop</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;   [K-IND]  Checking bound </span><span class="si">%d</span><span class="s2">...&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">is_unsat</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--&gt; The system is safe!&quot;</span><span class="p">)</span>
-                <span class="k">return</span></div></div>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">get_k_induction</span><span class="p">(</span><span class="n">I</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;   [K-IND]  Checking bound </span><span class="si">{</span><span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_unsat</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--&gt; The system is safe!&quot;</span><span class="p">)</span>
+            <span class="k">return</span></div>
 
 
 <span class="c1"># Interpolating Model Checking</span>
@@ -422,8 +328,8 @@
 <span class="sd">    the resulting interpolant satisfies the criteria for :math:`C` to be a valid</span>
 <span class="sd">    lifting of s according to the requirements towards the function lift.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">A</span> <span class="o">=</span> <span class="n">s</span> <span class="o">@</span> <span class="mi">0</span>
-    <span class="n">B</span> <span class="o">=</span> <span class="p">(</span><span class="n">Inv</span> <span class="o">@</span> <span class="mi">0</span> <span class="o">&amp;</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="p">(</span><span class="n">Inv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&amp;</span>
          <span class="n">Q</span><span class="p">[:</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&amp;</span>
          <span class="n">T</span><span class="p">[:</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
          <span class="p">)</span><span class="o">.</span><span class="n">Implies</span><span class="p">(</span><span class="n">Not</span><span class="p">(</span><span class="n">Q</span> <span class="o">@</span> <span class="n">k</span><span class="p">))</span>

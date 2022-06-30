@@ -138,41 +138,10 @@
             
   <section id="module-backend">
 <span id="backend-module"></span><h1>backend module<a class="headerlink" href="#module-backend" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="backend.BMCInduction">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">BMCInduction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">system</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#BMCInduction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.BMCInduction" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="backend.BMCInduction.check_property">
-<span class="sig-name descname"><span class="pre">check_property</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prop</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#BMCInduction.check_property"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.BMCInduction.check_property" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="backend.BMC_IND">
+<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">BMC_IND</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">I</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#BMC_IND"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.BMC_IND" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interleaves BMC and K-Ind to verify the property.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="backend.BMCInduction.get_bmc">
-<span class="sig-name descname"><span class="pre">get_bmc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#BMCInduction.get_bmc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.BMCInduction.get_bmc" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the BMC encoding at step k</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="backend.BMCInduction.get_k_hypothesis">
-<span class="sig-name descname"><span class="pre">get_k_hypothesis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#BMCInduction.get_k_hypothesis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.BMCInduction.get_k_hypothesis" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hypothesis for k-induction: each state up to k-1 fulfills the property</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="backend.BMCInduction.get_k_induction">
-<span class="sig-name descname"><span class="pre">get_k_induction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#BMCInduction.get_k_induction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.BMCInduction.get_k_induction" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the K-Induction encoding at step K</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="backend.BMCInduction.get_simple_path">
-<span class="sig-name descname"><span class="pre">get_simple_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#BMCInduction.get_simple_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.BMCInduction.get_simple_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>Simple path constraint for k-induction:
-each time encodes a different state</p>
-</dd></dl>
-
 </dd></dl>
 
 <dl class="py function">
@@ -308,44 +277,6 @@ k-inductive.</p></li>
 
 </dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="backend.TransitionSystem">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">TransitionSystem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">init</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trans</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#TransitionSystem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.TransitionSystem" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Trivial representation of a FOTS (First Order Transition System).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>init</strong> (<em>pysmt.fnode.FNode</em>) – </p></li>
-<li><p><strong>trans</strong> (<em>pysmt.fnode.FNode</em>) – </p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="backend.TransitionSystem.get_subs">
-<span class="sig-name descname"><span class="pre">get_subs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#TransitionSystem.get_subs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.TransitionSystem.get_subs" title="Permalink to this definition">¶</a></dt>
-<dd><p>See <a class="reference internal" href="#backend.get_subs" title="backend.get_subs"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_subs()</span></code></a></p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="backend.TransitionSystem.get_unrolling">
-<span class="sig-name descname"><span class="pre">get_unrolling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#TransitionSystem.get_unrolling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.TransitionSystem.get_unrolling" title="Permalink to this definition">¶</a></dt>
-<dd><p>See <a class="reference internal" href="#backend.get_unrolling" title="backend.get_unrolling"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_unrolling()</span></code></a></p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="backend.at_time">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">at_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#at_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.at_time" title="Permalink to this definition">¶</a></dt>
-<dd><p>Builds an SMT variable representing v at time t</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>v</strong> (<em>pysmt.fnode.FNode</em>) – </p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="backend.get_assignment_as_formula">
 <span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">get_assignment_as_formula</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">F</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#get_assignment_as_formula"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.get_assignment_as_formula" title="Permalink to this definition">¶</a></dt>
@@ -401,23 +332,23 @@ k-inductive.</p></li>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="backend.get_index">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">get_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#get_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.get_index" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>s</strong> (<em>pysmt.fnode.FNode</em>) – </p>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="backend.get_bmc">
+<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">get_bmc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">I</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#get_bmc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.get_bmc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the BMC encoding at step k</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="backend.get_name">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">get_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#get_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.get_name" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>s</strong> (<em>pysmt.fnode.FNode</em>) – </p>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="backend.get_k_induction">
+<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">get_k_induction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">I</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#get_k_induction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.get_k_induction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the K-Induction encoding at step K.
+The forumla is k-inductive if it’s unsat.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="backend.get_simple_path">
+<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">get_simple_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">I</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#get_simple_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.get_simple_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple path constraint for k-induction:
+each time encodes a different state</p>
 </dd></dl>
 
 <dl class="py function">
@@ -444,66 +375,9 @@ with the idea that making <span class="math notranslate nohighlight">\(n=0\)</sp
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="backend.get_subs">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">get_subs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#get_subs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.get_subs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Builds a map from <span class="math notranslate nohighlight">\(x\)</span> to <span class="math notranslate nohighlight">\(x_i\)</span> and from <span class="math notranslate nohighlight">\(x'\)</span> to <span class="math notranslate nohighlight">\(x_{i+1}\)</span>,
-for all <span class="math notranslate nohighlight">\(x\)</span> in <span class="math notranslate nohighlight">\(P\)</span>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>P</strong> (<em>Union</em><em>[</em><em>Container</em><em>[</em><em>pysmt.fnode.FNode</em><em>]</em><em>, </em><em>pysmt.fnode.FNode</em><em>]</em>) – </p></li>
-<li><p><strong>i</strong> (<em>int</em>) – </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="backend.get_unrolling">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">get_unrolling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">j</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#get_unrolling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.get_unrolling" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unrolling of the property from <span class="math notranslate nohighlight">\(j\)</span> to <span class="math notranslate nohighlight">\(k\)</span>:</p>
-<p>I.e. <span class="math notranslate nohighlight">\(P^j ∧ P^{j+1} ∧ ⋯ ∧ P^{k-1} ∧ P^k\)</span></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>P</strong> (<em>pysmt.fnode.FNode</em>) – </p></li>
-<li><p><strong>k</strong> (<em>int</em>) – </p></li>
-<li><p><strong>j</strong> (<em>int</em>) – </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="backend.is_next">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">is_next</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#is_next"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.is_next" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>v</strong> (<em>pysmt.fnode.FNode</em>) – </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="backend.next_var">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">next_var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#next_var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.next_var" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the ‘next’ of the given variable</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>v</strong> (<em>pysmt.fnode.FNode</em>) – </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="backend.str_model">
-<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">str_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#str_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.str_model" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>m</strong> (<em>pysmt.solvers.solver.Model</em>) – </p>
-</dd>
-</dl>
-</dd></dl>
+<dt class="sig sig-object py" id="backend.get_variables">
+<span class="sig-prename descclassname"><span class="pre">backend.</span></span><span class="sig-name descname"><span class="pre">get_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">ps</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/backend.html#get_variables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#backend.get_variables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </section>
 
